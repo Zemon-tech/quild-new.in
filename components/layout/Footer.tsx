@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 export default function Footer() {
   return (
     <footer className="bg-[var(--void)] text-white">
-      <div className="mx-auto w-full max-w-[1280px] px-8 py-16">
-        <div className="grid grid-cols-12 gap-0">
+      <div className="mx-auto w-full max-w-[1280px] px-8 py-16 md:px-8">
+        <div className="grid grid-cols-12 gap-0 md:grid-cols-12">
           <div className="col-span-12 border-b border-white/10 pb-12 md:col-span-3 md:border-b-0 md:pb-0">
             <div className="font-display text-[1.2rem] font-semibold tracking-[0.12em] text-white">
               QUILD
@@ -20,13 +20,13 @@ export default function Footer() {
               <div className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/45">
                 NEWSLETTER
               </div>
-              <div className="mt-3 flex">
+              <div className="mt-3 flex flex-col gap-3 md:flex-row md:gap-0">
                 <Input
-                  className="h-11 rounded-none border-white/20 bg-transparent text-white placeholder:text-white/35 focus-visible:ring-[var(--sage)]"
+                  className="h-11 w-full rounded-none border-white/20 bg-transparent text-white placeholder:text-white/35 focus-visible:ring-[var(--sage)]"
                   placeholder="you@domain.com"
                   type="email"
                 />
-                <Button className="h-11 rounded-none border border-white/20 bg-white px-5 text-[var(--void)] hover:bg-white">
+                <Button className="h-11 w-full rounded-none border border-white/20 bg-white px-5 text-[var(--void)] hover:bg-white md:w-auto">
                   JOIN
                 </Button>
               </div>
@@ -71,7 +71,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 border-t border-[var(--void-border)] pt-6">
-          <div className="flex flex-col gap-3 text-sm text-white/55 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-3 p-6 text-center text-sm text-white/55 md:flex-row md:items-center md:justify-between md:p-0 md:text-left">
             <div>© 2026 Quild. All rights reserved.</div>
             <div className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/45">
               MADE BY BUILDERS, FOR BUILDERS.

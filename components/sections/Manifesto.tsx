@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useGSAP } from "@/hooks/useGSAP";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { manifestoPanels } from "@/lib/data/manifesto";
 
 interface ManifestoPanelProps {
@@ -11,9 +12,10 @@ interface ManifestoPanelProps {
   headline: string;
   body: string;
   isActive: boolean;
+  isMobile: boolean;
 }
 
-function ManifestoPanel({ n, image, gradient, headline, body, isActive }: ManifestoPanelProps) {
+function ManifestoPanel({ n, image, gradient, headline, body, isActive, isMobile }: ManifestoPanelProps) {
   return (
     <div
       className="absolute inset-0 transition-opacity duration-500"
@@ -25,7 +27,17 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{
+          backgroundImage: `url(${image})`,
+          ...(isMobile
+            ? {
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                width: "100%",
+                height: "100%",
+              }
+            : null),
+        }}
       />
 
       {/* Gradient wash */}
@@ -38,10 +50,10 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
       <div
         style={{
           position: "absolute",
-          top: "8rem",
-          left: "6rem",
+          top: isMobile ? "5.5rem" : "8rem",
+          left: isMobile ? "1.5rem" : "6rem",
           fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
-          fontSize: "0.7rem",
+          fontSize: isMobile ? "0.62rem" : "0.7rem",
           color: "rgba(255, 255, 255, 0.55)",
           letterSpacing: "0.15em",
           textTransform: "uppercase",
@@ -54,10 +66,10 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
       <div
         style={{
           position: "absolute",
-          top: "50%",
-          left: "6rem",
-          transform: "translateY(-50%)",
-          maxWidth: "65%",
+          top: isMobile ? "45%" : "50%",
+          left: isMobile ? "1.5rem" : "6rem",
+          transform: isMobile ? "translateY(-50%)" : "translateY(-50%)",
+          maxWidth: isMobile ? "85%" : "65%",
         }}
       >
         <h2
@@ -65,8 +77,8 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
             fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
             fontStyle: "italic",
             fontWeight: 600,
-            fontSize: "clamp(3.5rem, 6vw, 7rem)",
-            lineHeight: 0.92,
+            fontSize: isMobile ? "clamp(2.5rem, 9vw, 3.5rem)" : "clamp(3.5rem, 6vw, 7rem)",
+            lineHeight: isMobile ? 0.95 : 0.92,
             color: "#FFFFFF",
             letterSpacing: "-0.02em",
             whiteSpace: "pre-line",
@@ -81,16 +93,17 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
       <div
         style={{
           position: "absolute",
-          bottom: "8rem",
-          right: "6rem",
-          maxWidth: "380px",
-          textAlign: "right",
+          bottom: isMobile ? "5rem" : "8rem",
+          left: isMobile ? "1.5rem" : undefined,
+          right: isMobile ? "1.5rem" : "6rem",
+          maxWidth: isMobile ? "100%" : "380px",
+          textAlign: isMobile ? "left" : "right",
         }}
       >
         <p
           style={{
             fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
-            fontSize: "1rem",
+            fontSize: isMobile ? "0.9rem" : "1rem",
             color: "rgba(255, 255, 255, 0.8)",
             lineHeight: 1.75,
           }}
@@ -103,7 +116,7 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
             href="/apply"
             style={{
               display: "inline-block",
-              marginTop: "1.5rem",
+              marginTop: isMobile ? "1rem" : "1.5rem",
               fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
               fontSize: "0.7rem",
               letterSpacing: "0.12em",
@@ -113,6 +126,7 @@ function ManifestoPanel({ n, image, gradient, headline, body, isActive }: Manife
               paddingBottom: "2px",
               textDecoration: "none",
               transition: "border-color 0.25s ease, color 0.25s ease",
+              textAlign: isMobile ? "left" : undefined,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderBottomColor = "rgba(255,255,255,1)";
@@ -133,6 +147,7 @@ export default function Manifesto() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [activePanel, setActivePanel] = useState(0);
   const progressRef = useRef<(HTMLDivElement | null)[]>([]);
+  const isMobile = useIsMobile();
 
   useGSAP(
     ({ gsap }) => {
@@ -186,6 +201,14 @@ export default function Manifesto() {
       ref={containerRef}
       id="manifesto"
       className="relative h-screen bg-[var(--bg)] overflow-hidden"
+      style={
+        isMobile
+          ? {
+              width: "100vw",
+              marginLeft: "calc(-50vw + 50%)",
+            }
+          : undefined
+      }
     >
       {/* Grain overlay */}
       <div
@@ -196,32 +219,64 @@ export default function Manifesto() {
         }}
       />
 
-      {/* Progress indicator — right side */}
-      <div className="absolute right-8 top-1/2 -translate-y-1/2 z-20">
+      {/* Progress indicator */}
+      <div
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-20"
+        style={
+          isMobile
+            ? {
+                right: "auto",
+                left: "50%",
+                transform: "translateX(-50%)",
+                top: "auto",
+                bottom: "1.5rem",
+              }
+            : undefined
+        }
+      >
         <div
           className="flex flex-col gap-3"
           style={{
             fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
             fontSize: "0.85rem",
+            ...(isMobile
+              ? {
+                  flexDirection: "row",
+                  gap: "8px",
+                }
+              : null),
           }}
         >
-          {manifestoPanels.map((panel, i) => (
-            <div
-              key={panel.n}
-              ref={(el) => {
-                progressRef.current[i] = el;
-              }}
-              style={{
-                color:
-                  i === activePanel
-                    ? "#FFFFFF"
-                    : "rgba(255,255,255,0.25)",
-                transition: "color 0.3s ease",
-              }}
-            >
-              {String(i + 1).padStart(2, "0")}
-            </div>
-          ))}
+          {manifestoPanels.map((panel, i) => {
+            const isActiveDot = i === activePanel;
+            return (
+              <div
+                key={panel.n}
+                ref={(el) => {
+                  progressRef.current[i] = el;
+                }}
+                style={{
+                  color:
+                    i === activePanel
+                      ? "#FFFFFF"
+                      : "rgba(255,255,255,0.25)",
+                  transition: "color 0.3s ease",
+                  ...(isMobile
+                    ? {
+                        width: isActiveDot ? "18px" : "6px",
+                        height: "6px",
+                        borderRadius: isActiveDot ? "3px" : "50%",
+                        background: isActiveDot
+                          ? "rgba(255,255,255,0.95)"
+                          : "rgba(255,255,255,0.35)",
+                      }
+                    : null),
+                }}
+              >
+                {isMobile ? null : String(i + 1).padStart(2, "0")}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -236,6 +291,7 @@ export default function Manifesto() {
             headline={panel.headline}
             body={panel.body}
             isActive={activePanel === panel.n - 1}
+            isMobile={isMobile}
           />
         ))}
       </div>

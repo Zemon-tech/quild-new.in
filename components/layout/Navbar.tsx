@@ -76,9 +76,9 @@ export default function Navbar() {
         start: "top top",
         end: "bottom top",
         onEnter: () => setNavTheme("dark"),
-        onLeave: () => setNavTheme("light"),
+        onLeave: () => setNavTheme("dark"),
         onEnterBack: () => setNavTheme("dark"),
-        onLeaveBack: () => setNavTheme("light"),
+        onLeaveBack: () => setNavTheme("dark"),
       });
     })();
 
@@ -103,8 +103,8 @@ export default function Navbar() {
         { opacity: 1, duration: 0.4 }
       ).fromTo(
         links,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.1 },
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.08 },
         "-=0.15"
       );
 
@@ -225,24 +225,22 @@ export default function Navbar() {
           <button
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-none border md:hidden"
+            className="flex md:hidden"
             style={{
-              border:
-                navTheme === "dark"
-                  ? "1px solid rgba(255,255,255,0.6)"
-                  : "1px solid var(--border)",
-              color: navStyles[navTheme].links,
+              fontFamily:
+                "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+              fontSize: "0.7rem",
+              letterSpacing: "0.15em",
+              border: "1px solid currentColor",
+              padding: "0.4rem 0.75rem",
+              background: "transparent",
+              cursor: "pointer",
+              color: "inherit",
               transition: "color 0.4s ease, border-color 0.4s ease",
             }}
             onClick={() => setMobileOpen((v) => !v)}
           >
-            <span
-              className="font-mono text-xs tracking-[0.15em]"
-              style={{
-                color: navStyles[navTheme].links,
-                transition: "color 0.4s ease, border-color 0.4s ease",
-              }}
-            >
+            <span style={{ color: navStyles[navTheme].links }}>
               {mobileOpen ? "CLOSE" : "MENU"}
             </span>
           </button>
@@ -250,9 +248,46 @@ export default function Navbar() {
       </div>
 
       {mobileOpen ? (
-        <div ref={overlayRef} className="fixed inset-0 z-[110] bg-[var(--void)] opacity-0">
-          <div className="mx-auto flex h-full w-full max-w-[1280px] flex-col px-8 py-6">
-            <div className="flex items-center justify-between">
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 z-[200] opacity-0"
+          style={{
+            background: "var(--void)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "3rem 2rem",
+          }}
+        >
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: "absolute",
+              top: "1.5rem",
+              right: "1.5rem",
+              fontFamily:
+                "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+              fontSize: "0.7rem",
+              letterSpacing: "0.15em",
+              color: "rgba(255,255,255,0.6)",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            CLOSE
+          </button>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
+            }}
+          >
+            <div style={{ position: "absolute", top: "1.5rem", left: "1.5rem" }}>
               <Link
                 href="/"
                 className="font-display text-[1.2rem] font-semibold tracking-[0.12em] text-white"
@@ -260,20 +295,20 @@ export default function Navbar() {
               >
                 QUILD
               </Link>
-              <button
-                type="button"
-                aria-label="Close menu"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-white/20"
-                onClick={() => setMobileOpen(false)}
-              >
-                <span className="font-mono text-xs tracking-[0.15em] text-white">CLOSE</span>
-              </button>
             </div>
 
-            <div className="mt-16 flex flex-col gap-6">
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               <Link
                 data-mobile-link
-                className="font-display text-4xl font-semibold leading-[1] text-white"
+                className="text-white"
+                style={{
+                  fontFamily: "var(--font-cormorant), serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "clamp(2.5rem, 8vw, 3.5rem)",
+                  textDecoration: "none",
+                  lineHeight: 1,
+                }}
                 href="/about"
                 onClick={() => setMobileOpen(false)}
               >
@@ -281,7 +316,15 @@ export default function Navbar() {
               </Link>
               <Link
                 data-mobile-link
-                className="font-display text-4xl font-semibold leading-[1] text-white"
+                className="text-white"
+                style={{
+                  fontFamily: "var(--font-cormorant), serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "clamp(2.5rem, 8vw, 3.5rem)",
+                  textDecoration: "none",
+                  lineHeight: 1,
+                }}
                 href="/programs"
                 onClick={() => setMobileOpen(false)}
               >
@@ -289,7 +332,15 @@ export default function Navbar() {
               </Link>
               <Link
                 data-mobile-link
-                className="font-display text-4xl font-semibold leading-[1] text-white"
+                className="text-white"
+                style={{
+                  fontFamily: "var(--font-cormorant), serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "clamp(2.5rem, 8vw, 3.5rem)",
+                  textDecoration: "none",
+                  lineHeight: 1,
+                }}
                 href="/community"
                 onClick={() => setMobileOpen(false)}
               >
@@ -297,7 +348,15 @@ export default function Navbar() {
               </Link>
               <Link
                 data-mobile-link
-                className="font-display text-4xl font-semibold leading-[1] text-white"
+                className="text-white"
+                style={{
+                  fontFamily: "var(--font-cormorant), serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "clamp(2.5rem, 8vw, 3.5rem)",
+                  textDecoration: "none",
+                  lineHeight: 1,
+                }}
                 href="/events"
                 onClick={() => setMobileOpen(false)}
               >
@@ -305,7 +364,15 @@ export default function Navbar() {
               </Link>
               <Link
                 data-mobile-link
-                className="font-display text-4xl font-semibold leading-[1] text-white"
+                className="text-white"
+                style={{
+                  fontFamily: "var(--font-cormorant), serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "clamp(2.5rem, 8vw, 3.5rem)",
+                  textDecoration: "none",
+                  lineHeight: 1,
+                }}
                 href="/blog"
                 onClick={() => setMobileOpen(false)}
               >
@@ -313,16 +380,27 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div className="mt-auto pt-10">
-              <Button
-                asChild
-                className="w-full rounded-none bg-[var(--sage)] text-white hover:bg-[var(--sage)]"
-              >
-                <Link href="/apply" onClick={() => setMobileOpen(false)}>
-                  APPLY NOW →
-                </Link>
-              </Button>
-            </div>
+            <Link
+              data-mobile-link
+              href="/apply"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                marginTop: "3rem",
+                fontFamily:
+                  "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                fontSize: "0.7rem",
+                letterSpacing: "0.15em",
+                color: "var(--sage)",
+                border: "1px solid var(--sage)",
+                padding: "1rem 1.5rem",
+                display: "inline-block",
+                width: "fit-content",
+                textDecoration: "none",
+                textTransform: "uppercase",
+              }}
+            >
+              APPLY NOW →
+            </Link>
           </div>
         </div>
       ) : null}

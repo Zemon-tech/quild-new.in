@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@/hooks/useGSAP";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const items = [
   {
@@ -35,6 +36,7 @@ export default function WhatYouGet() {
   const headerRef = useRef<HTMLDivElement | null>(null);
   const featuredRef = useRef<HTMLDivElement | null>(null);
   const smallRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     smallRefs.current = smallRefs.current.slice(0, 4);
@@ -124,6 +126,16 @@ export default function WhatYouGet() {
         <div
           ref={headerRef}
           className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+          style={
+            isMobile
+              ? {
+                  flexDirection: "column",
+                  gap: "1.25rem",
+                  marginBottom: "2rem",
+                  alignItems: "flex-start",
+                }
+              : undefined
+          }
         >
           <div>
             <div
@@ -160,6 +172,13 @@ export default function WhatYouGet() {
               fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
               color: "var(--muted)",
               lineHeight: 1.6,
+              ...(isMobile
+                ? {
+                    textAlign: "left",
+                    alignSelf: "flex-start",
+                    fontSize: "0.9rem",
+                  }
+                : null),
             }}
           >
             Five things we offer. All of them real. None of them padded to look more impressive than they are.
@@ -169,6 +188,8 @@ export default function WhatYouGet() {
         <div
           className="mt-12 grid grid-cols-1 md:grid-cols-2"
           style={{ border: "1px solid var(--border)", background: "transparent" }}
+          role="presentation"
+          aria-hidden
         >
           <div
             ref={featuredRef}
@@ -180,6 +201,16 @@ export default function WhatYouGet() {
               borderRight: "1px solid var(--border)",
               background: "transparent",
               transition: "background-color 0.25s ease, border-left 0.25s ease",
+              ...(isMobile
+                ? {
+                    gridRow: "auto",
+                    gridColumn: "1",
+                    minHeight: "340px",
+                    borderRight: "none",
+                    borderBottom: "1px solid var(--border)",
+                    padding: "2rem 1.5rem",
+                  }
+                : null),
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "var(--surface)";
@@ -202,6 +233,13 @@ export default function WhatYouGet() {
                 lineHeight: 1,
                 pointerEvents: "none",
                 userSelect: "none",
+                ...(isMobile
+                  ? {
+                      fontSize: "8rem",
+                      bottom: "0",
+                      right: "1rem",
+                    }
+                  : null),
               }}
             >
               01
@@ -255,6 +293,7 @@ export default function WhatYouGet() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                ...(isMobile ? { padding: "1.25rem 1.5rem" } : null),
               }}
             >
               <div
@@ -282,10 +321,18 @@ export default function WhatYouGet() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+              gridTemplateRows: "auto",
+            }}
+          >
             {items.slice(1).map((item, idx) => {
-              const borderRight = idx % 2 === 0 ? "1px solid var(--border)" : "none";
-              const borderBottom = idx < 2 ? "1px solid var(--border)" : "none";
+              const borderRight =
+                isMobile ? "none" : idx % 2 === 0 ? "1px solid var(--border)" : "none";
+              const borderBottom =
+                isMobile ? "1px solid var(--border)" : idx < 2 ? "1px solid var(--border)" : "none";
 
               return (
                 <div
@@ -294,8 +341,8 @@ export default function WhatYouGet() {
                     smallRefs.current[idx] = el;
                   }}
                   style={{
-                    minHeight: "240px",
-                    padding: "2rem",
+                    minHeight: isMobile ? "180px" : "240px",
+                    padding: isMobile ? "1.5rem" : "2rem",
                     borderRight,
                     borderBottom,
                     background: "transparent",

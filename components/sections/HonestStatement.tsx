@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@/hooks/useGSAP";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // SVG Icons for collage cards
 const GridIcon = () => (
@@ -59,6 +60,7 @@ export default function HonestStatement() {
   const card3Ref = useRef<HTMLDivElement | null>(null);
   const card4Ref = useRef<HTMLDivElement | null>(null);
   const card5Ref = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
 
   useGSAP(
     ({ gsap }) => {
@@ -219,9 +221,31 @@ export default function HonestStatement() {
 
       {/* Main two-column content */}
       <div className="mx-auto w-full max-w-[1280px] px-8 pb-16">
-        <div className="grid grid-cols-12 gap-8">
+        <div
+          className="grid grid-cols-12 gap-8"
+          style={
+            isMobile
+              ? {
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "3rem",
+                }
+              : undefined
+          }
+        >
           {/* Left Column - 5/12 Text */}
-          <div ref={leftColRef} className="col-span-12 md:col-span-5 pr-16">
+          <div
+            ref={leftColRef}
+            className="col-span-12 md:col-span-5 pr-16"
+            style={
+              isMobile
+                ? {
+                    width: "100%",
+                    paddingRight: 0,
+                  }
+                : undefined
+            }
+          >
             <div data-animate className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--muted)]">
               WHERE WE STAND
             </div>
@@ -239,7 +263,19 @@ export default function HonestStatement() {
 
             <div data-animate className="mt-10 h-px w-full bg-[var(--border)]" />
 
-            <div data-animate className="mt-10 grid grid-cols-12 gap-6">
+            <div
+              data-animate
+              className="mt-10 grid grid-cols-12 gap-6"
+              style={
+                isMobile
+                  ? {
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "1rem",
+                    }
+                  : undefined
+              }
+            >
               <div className="col-span-12 md:col-span-6">
                 <p className="font-display text-[1.3rem] leading-[1.4] text-[var(--ink)]">
                   &ldquo;We started with software development.&rdquo;
@@ -257,6 +293,15 @@ export default function HonestStatement() {
           <div className="col-span-12 md:col-span-7">
             <div
               className="relative h-[440px]"
+              style={
+                isMobile
+                  ? {
+                      height: "320px",
+                      position: "relative",
+                      overflow: "hidden",
+                    }
+                  : undefined
+              }
             >
               {/* Card 1 — TeamFlow (largest, anchors the collage) */}
               <div
@@ -264,11 +309,11 @@ export default function HonestStatement() {
                 className="flex items-center justify-center"
                 style={{
                   ...collageCardStyle,
-                  width: "260px",
-                  height: "200px",
-                  top: "20px",
-                  left: "20px",
-                  transform: "rotate(-2.5deg)",
+                  width: isMobile ? "160px" : "260px",
+                  height: isMobile ? "120px" : "200px",
+                  top: isMobile ? "20px" : "20px",
+                  left: isMobile ? "10px" : "20px",
+                  transform: isMobile ? "rotate(-2deg)" : "rotate(-2.5deg)",
                   background: "linear-gradient(135deg, #8FA893 0%, #4A5C4E 100%)",
                 }}
               >
@@ -281,11 +326,11 @@ export default function HonestStatement() {
                 className="flex items-center justify-center"
                 style={{
                   ...collageCardStyle,
-                  width: "180px",
-                  height: "240px",
-                  top: "60px",
-                  left: "220px",
-                  transform: "rotate(1.8deg)",
+                  width: isMobile ? "120px" : "180px",
+                  height: isMobile ? "150px" : "240px",
+                  top: isMobile ? "40px" : "60px",
+                  left: isMobile ? "160px" : "220px",
+                  transform: isMobile ? "rotate(1.5deg)" : "rotate(1.8deg)",
                   background: "linear-gradient(160deg, #E8E4DC 0%, #C4BFB2 100%)",
                 }}
               >
@@ -298,11 +343,11 @@ export default function HonestStatement() {
                 className="flex items-center justify-center"
                 style={{
                   ...collageCardStyle,
-                  width: "200px",
-                  height: "200px",
-                  top: "10px",
-                  left: "360px",
-                  transform: "rotate(-1.2deg)",
+                  width: isMobile ? "130px" : "200px",
+                  height: isMobile ? "130px" : "200px",
+                  top: isMobile ? "15px" : "10px",
+                  left: isMobile ? "270px" : "360px",
+                  transform: isMobile ? "rotate(-1deg)" : "rotate(-1.2deg)",
                   background: "linear-gradient(135deg, #1C2820 0%, #2E3D32 100%)",
                 }}
               >
@@ -314,11 +359,11 @@ export default function HonestStatement() {
                 ref={card4Ref}
                 style={{
                   ...collageCardStyle,
-                  width: "150px",
-                  height: "170px",
-                  top: "240px",
-                  left: "60px",
-                  transform: "rotate(3deg)",
+                  width: isMobile ? "100px" : "150px",
+                  height: isMobile ? "110px" : "170px",
+                  top: isMobile ? "170px" : "240px",
+                  left: isMobile ? "30px" : "60px",
+                  transform: isMobile ? "rotate(2.5deg)" : "rotate(3deg)",
                   background: "linear-gradient(135deg, #D4D0C8 0%, #EFEFEB 100%)",
                 }}
               >
@@ -337,11 +382,11 @@ export default function HonestStatement() {
                 className="flex items-center justify-center"
                 style={{
                   ...collageCardStyle,
-                  width: "130px",
-                  height: "130px",
-                  top: "260px",
-                  left: "340px",
-                  transform: "rotate(-3.5deg)",
+                  width: isMobile ? "90px" : "130px",
+                  height: isMobile ? "90px" : "130px",
+                  top: isMobile ? "175px" : "260px",
+                  left: isMobile ? "220px" : "340px",
+                  transform: isMobile ? "rotate(-3deg)" : "rotate(-3.5deg)",
                   background: "var(--sage)",
                 }}
               >
@@ -352,9 +397,10 @@ export default function HonestStatement() {
               <div
                 className="absolute z-[3] font-display italic text-[0.85rem] text-[var(--muted)]"
                 style={{
-                  bottom: "20px",
-                  right: "0px",
+                  bottom: isMobile ? "8px" : "20px",
+                  right: isMobile ? "8px" : "0px",
                   transform: "rotate(-1deg)",
+                  fontSize: isMobile ? "0.72rem" : undefined,
                 }}
               >
                 things we shipped while building Quild →
@@ -380,6 +426,14 @@ export default function HonestStatement() {
             <span
               key={i}
               className="font-mono text-[0.72rem] uppercase tracking-[0.1em] text-[var(--ink)] pr-12"
+              style={
+                isMobile
+                  ? {
+                      fontSize: "0.62rem",
+                      letterSpacing: "0.08em",
+                    }
+                  : undefined
+              }
             >
               {item}
               <span className="text-[var(--sage)] mx-6">×</span>
