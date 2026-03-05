@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -205,14 +206,31 @@ export default function Navbar() {
           <div className="col-span-6 md:col-span-3">
             <Link
               href="/"
-              className="font-display text-[1.2rem] font-semibold tracking-[0.12em]"
+              className="font-display text-[1.2rem] font-semibold tracking-[0.05em]"
               style={{
                 color: mobileOpen ? "#FFFFFF" : theme.logo,
                 transition: "color 0.4s ease",
                 textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
               }}
             >
-              QUILD
+              <Image
+                src="/logo.svg"
+                alt="Quild logo"
+                width={28}
+                height={28}
+                style={{
+                  filter:
+                    mobileOpen || navTheme === "dark"
+                      ? "brightness(0) invert(1)"
+                      : "brightness(0)",
+                  transition: "filter 0.4s ease",
+                }}
+                priority
+              />
+              Quild
             </Link>
           </div>
 
