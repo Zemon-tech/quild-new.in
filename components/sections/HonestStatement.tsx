@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { Separator } from "@/components/ui/separator";
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -261,7 +262,7 @@ export default function HonestStatement() {
               <span className="font-medium">So we built the room we wished existed.</span>
             </p>
 
-            <div data-animate className="mt-10 h-px w-full bg-[var(--border)]" />
+            <Separator data-animate className="mt-10" />
 
             <div
               data-animate

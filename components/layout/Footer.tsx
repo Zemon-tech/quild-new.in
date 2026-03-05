@@ -1,9 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function Footer() {
+  const isMobile = useIsMobile();
+
   return (
     <footer className="bg-[var(--void)] text-white">
       <div className="mx-auto w-full max-w-[1280px] px-8 py-16 md:px-8">
@@ -20,13 +26,32 @@ export default function Footer() {
               <div className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/45">
                 NEWSLETTER
               </div>
-              <div className="mt-3 flex flex-col gap-3 md:flex-row md:gap-0">
+              <div className="mt-3 flex flex-col md:flex-row md:gap-0">
                 <Input
-                  className="h-11 w-full rounded-none border-white/20 bg-transparent text-white placeholder:text-white/35 focus-visible:ring-[var(--sage)]"
+                  className={`h-11 rounded-none placeholder:text-white/35 focus-visible:ring-[var(--sage)] ${isMobile ? "" : "w-full border-white/20 bg-transparent text-white"}`}
                   placeholder="you@domain.com"
                   type="email"
+                  style={isMobile ? {
+                    width: '100%',
+                    marginBottom: '0.75rem',
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: '#FFFFFF'
+                  } : undefined}
                 />
-                <Button className="h-11 w-full rounded-none border border-white/20 bg-white px-5 text-[var(--void)] hover:bg-white md:w-auto">
+                <Button
+                  className={`h-11 rounded-none hover:bg-white md:w-auto hover:text-[var(--void)] ${isMobile ? "" : "w-full px-5 bg-white text-[var(--void)] border border-white/20"}`}
+                  style={isMobile ? {
+                    background: 'transparent',
+                    border: '1px solid rgba(255,255,255,0.4)',
+                    color: '#FFFFFF',
+                    width: '100%',
+                    padding: '0.9rem',
+                    fontFamily: 'var(--font-jetbrains-mono)',
+                    fontSize: '0.7rem',
+                    letterSpacing: '0.15em'
+                  } : undefined}
+                >
                   JOIN
                 </Button>
               </div>
@@ -61,11 +86,22 @@ export default function Footer() {
             <div className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/45">
               SOCIAL
             </div>
-            <div className="mt-5 flex flex-col gap-3 text-sm text-white/75">
-              <a href="#">X</a>
-              <a href="#">LinkedIn</a>
-              <a href="#">GitHub</a>
-              <a href="mailto:hello@quild.community">hello@quild.community</a>
+            <div className="mt-5 flex items-center gap-4 text-sm text-white/75">
+              <a href="#" aria-label="X (Twitter)">
+                <Image src="https://cdn.brandfetch.io/idS5WhqBbM/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1768324498338" alt="X" width={20} height={20} className="h-5 w-5" />
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <Image src="https://cdn.brandfetch.io/idJFz6sAsl/theme/dark/id745SkyD0.svg?c=1bxid64Mup7aczewSAYMX&t=1740371004756" alt="LinkedIn" width={20} height={20} className="h-5 w-5" />
+              </a>
+              <a href="#" aria-label="GitHub">
+                <Image src="https://cdn.brandfetch.io/idZAyF9rlg/theme/light/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826" alt="GitHub" width={20} height={20} className="h-5 w-5" />
+              </a>
+              <a href="mailto:hello@quild.community" aria-label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                  <path d="M4 4h16v16H4z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
