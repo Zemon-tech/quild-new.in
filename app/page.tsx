@@ -1,6 +1,5 @@
 import CohortTimeline from "@/components/sections/CohortTimeline";
 import FAQ from "@/components/sections/FAQ";
-import FooterCTA from "@/components/sections/FooterCTA";
 import Hero from "@/components/sections/Hero";
 import HonestStatement from "@/components/sections/HonestStatement";
 import Manifesto from "@/components/sections/Manifesto";
@@ -15,7 +14,6 @@ export default function Home() {
       <WhatYouGet />
       <CohortTimeline />
       <FAQ />
-      <FooterCTA />
     </>
   );
 }

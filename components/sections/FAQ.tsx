@@ -9,7 +9,7 @@ export default function FAQ() {
   const isMobile = useIsMobile();
 
   return (
-    <section className="bg-[var(--bg)] py-[7rem]">
+    <section className="bg-[var(--bg)] py-[7rem] pb-[10rem]">
       <div
         className="mx-auto grid w-full max-w-[1280px] grid-cols-12 gap-8 px-8"
         style={isMobile ? { gridTemplateColumns: "1fr" } : undefined}

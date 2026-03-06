@@ -6,17 +6,67 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Footer() {
   const isMobile = useIsMobile();
 
   return (
-    <footer className="bg-[var(--void)] text-white">
-      <div className="mx-auto w-full max-w-[1280px] px-8 py-16 md:px-8">
+    <footer className="relative bg-[var(--void)] text-white overflow-hidden min-h-screen flex">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <Image
+          src="/footer.png"
+          alt="Footer background"
+          fill
+          className="object-cover opacity-90 mix-blend-overlay"
+          priority
+        />
+        {/* Subtle grain/gradient overlay to ensure text contrast */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-[var(--void)] via-transparent to-transparent opacity-80"
+        />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full px-8 py-16 md:px-8 flex flex-col justify-between">
+        {/* Footer CTA Section Moved In */}
+        <div className="mb-20 flex flex-col items-start justify-between gap-8 border-b border-white/10 pb-16 md:flex-row md:items-center">
+          <ScrollReveal>
+            <h2 className="font-display text-[clamp(2.5rem,5vw,5rem)] font-semibold leading-[0.92] tracking-[-0.02em]">
+              Ready to build?
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <Button
+              asChild
+              className="h-auto rounded-none border border-[var(--sage)] bg-[var(--sage)] px-10 py-4 text-white hover:bg-[var(--sage)]"
+            >
+              <Link href="/apply">APPLY NOW →</Link>
+            </Button>
+          </ScrollReveal>
+        </div>
+
         <div className="grid grid-cols-12 gap-0 md:grid-cols-12">
           <div className="col-span-12 border-b border-white/10 pb-12 md:col-span-3 md:border-b-0 md:pb-0">
-            <div className="font-display text-[1.2rem] font-semibold tracking-[0.12em] text-white">
-              QUILD
+            <div className="flex items-center gap-2">
+              <Image
+                src="/logo.svg"
+                alt="Quild logo"
+                width={24}
+                height={24}
+                className="h-6 w-6"
+                style={{ filter: "brightness(0) invert(1)" }}
+                priority
+              />
+              <div className="font-display text-[1.2rem] font-semibold tracking-[0.12em] text-white">
+                QUILD
+              </div>
             </div>
             <p className="mt-3 max-w-sm text-sm leading-7 text-white/70">
               Build the builder within you.

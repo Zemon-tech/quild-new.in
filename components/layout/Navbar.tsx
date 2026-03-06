@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -32,7 +32,7 @@ export default function Navbar() {
   useEffect(() => {
     // Default to light (black elements) for all pages/sections
     // except for the landing page which always starts with Hero
-    const initialTheme = pathname === "/" ? "dark" : "light";
+    const initialTheme = pathname === "/" || pathname === "/blog" ? "dark" : "light";
     setNavTheme(initialTheme);
 
     let killed = false;
@@ -56,6 +56,20 @@ export default function Navbar() {
         }));
       }
 
+      // Blog hero theme (dark until scrolled past)
+      const blogHero = document.getElementById("blog-hero");
+      if (blogHero) {
+        createdTriggers.push(ScrollTrigger.create({
+          trigger: "#blog-hero",
+          start: "top top",
+          end: "bottom top",
+          onEnter: () => setNavTheme("dark"),
+          onLeave: () => setNavTheme("light"),
+          onEnterBack: () => setNavTheme("dark"),
+          onLeaveBack: () => setNavTheme("dark"),
+        }));
+      }
+
       // Handle Manifesto section theme if present on the page
       const manifesto = document.getElementById("manifesto");
       if (manifesto) {
@@ -76,8 +90,6 @@ export default function Navbar() {
       createdTriggers.forEach((t) => t.kill());
     };
   }, [pathname]);
-
-
 
   // ── Mobile menu open animation ────────────────────────────────────────────
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
