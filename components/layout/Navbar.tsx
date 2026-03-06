@@ -7,9 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useGSAP } from "@/hooks/useGSAP";
-
-// Pages where the first section has a dark/image background → start with white text
-const DARK_HERO_PAGES = ["/", "/about"];
+import { manifestoPanels } from "@/lib/data/manifesto";
 
 const navStyles = {
   light: {
@@ -25,25 +23,16 @@ const navStyles = {
 } as const;
 
 export default function Navbar() {
-  const navRef = useRef<HTMLElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [navTheme, setNavTheme] = useState<"light" | "dark">("light");
   const pathname = usePathname();
 
-  // ── Scroll detection ──────────────────────────────────────────────────────
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   // ── Nav theme based on page sections ─────────────────────────────────────
   useEffect(() => {
-    // Set initial theme — dark for pages that start with an image hero
-    const initialTheme = DARK_HERO_PAGES.includes(pathname) ? "dark" : "light";
+    // Default to light (black elements) for all pages/sections
+    // except for the landing page which always starts with Hero
+    const initialTheme = pathname === "/" ? "dark" : "light";
     setNavTheme(initialTheme);
 
     let killed = false;
@@ -53,87 +42,30 @@ export default function Navbar() {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       if (killed) return;
 
-      if (pathname === "/") {
-        // ── Homepage ──
-        // Hero: image background → white text
+      // Handle Hero section theme
+      const hero = document.getElementById("hero");
+      if (hero) {
         createdTriggers.push(ScrollTrigger.create({
           trigger: "#hero",
           start: "top top",
           end: "bottom top",
           onEnter: () => setNavTheme("dark"),
-          onLeave: () => setNavTheme("light"),      // entering HonestStatement (light bg)
-          onEnterBack: () => setNavTheme("dark"),
-          onLeaveBack: () => setNavTheme("dark"),   // scrolling above hero — still dark
-        }));
-
-        // HonestStatement: var(--bg) light → dark text
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#honest-statement",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("light"),
           onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("light"),
-          onLeaveBack: () => setNavTheme("light"),
-        }));
-
-        // Manifesto: full-screen images → white text
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#manifesto",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("dark"),
-          onLeave: () => setNavTheme("light"),      // entering WhatYouGet (light bg)
           onEnterBack: () => setNavTheme("dark"),
-          onLeaveBack: () => setNavTheme("light"),  // back into HonestStatement
+          onLeaveBack: () => setNavTheme("dark"), // when scrolled above hero, stay dark
         }));
       }
 
-      if (pathname === "/about") {
-        // ── About page ──
-        // AboutHero: image background → white text (already set as initial)
-
-        // AboutProblem: var(--bg) light
+      // Handle Manifesto section theme if present on the page
+      const manifesto = document.getElementById("manifesto");
+      if (manifesto) {
         createdTriggers.push(ScrollTrigger.create({
-          trigger: "#about-problem",
+          trigger: "#manifesto",
           start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("light"),
-          onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("light"),
-          onLeaveBack: () => setNavTheme("dark"),   // back into hero image
-        }));
-
-        // AboutBelief: dark image → white text
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#about-belief",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("dark"),
-          onLeave: () => setNavTheme("light"),      // into WhereWeAre (light bg)
+          end: `+=${manifestoPanels.length * 100}%`,
+          onEnter: () => setNavTheme("dark"), // White elements
+          onLeave: () => setNavTheme("light"), // Black elements
           onEnterBack: () => setNavTheme("dark"),
-          onLeaveBack: () => setNavTheme("light"),  // back into Problem
-        }));
-
-        // AboutWhereWeAre: var(--bg) light
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#about-where-we-are",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("light"),
-          onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("light"),
-          onLeaveBack: () => setNavTheme("dark"),   // back into Belief image
-        }));
-
-        // AboutTheCode: var(--surface) light
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#about-the-code",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("light"),
-          onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("light"),
           onLeaveBack: () => setNavTheme("light"),
         }));
       }
@@ -141,10 +73,11 @@ export default function Navbar() {
 
     return () => {
       killed = true;
-      // Kill all triggers created in this effect
       createdTriggers.forEach((t) => t.kill());
     };
   }, [pathname]);
+
+
 
   // ── Mobile menu open animation ────────────────────────────────────────────
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -183,7 +116,6 @@ export default function Navbar() {
   return (
     <>
       <header
-        ref={navRef}
         style={{
           position: "fixed",
           top: 0,
@@ -192,7 +124,6 @@ export default function Navbar() {
           background: "transparent",
           backdropFilter: "none",
           borderBottom: "none",
-          transition: "border-color 0.4s ease",
           padding: "0 2rem",
           height: "60px",
           display: "flex",

@@ -89,16 +89,21 @@ export default function AboutHero() {
   );
 
   return (
-    <section className="relative w-full overflow-hidden" style={{ height: "100svh" }}>
-      {/* Background image */}
-      <div className="absolute inset-0">
+    <section
+      id="about-hero"
+      className="relative w-full overflow-hidden border-b border-white/10"
+      style={{ minHeight: "100svh" }}
+    >
+      {/* ── Full-bleed background image ── */}
+      <div className="absolute inset-0 z-0">
         <Image
           src="/about.png"
           alt="About hero"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-center"
         />
+        {/* Noise grain */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -108,77 +113,156 @@ export default function AboutHero() {
         />
       </div>
 
-      {/* Chapter label */}
+      {/* ── Inner grid wrapper ── */}
       <div
-        style={{
-          position: "absolute",
-          top: isMobile ? "5rem" : "8rem",
-          left: isMobile ? "1.5rem" : "6rem",
-          fontFamily: "var(--font-jetbrains-mono)",
-          fontSize: "0.7rem",
-          color: "rgba(255,255,255,0.5)",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-        }}
+        className="relative z-10 mx-auto grid h-full min-h-[100svh] w-full max-w-[1280px] grid-cols-12 px-8"
+        style={
+          isMobile
+            ? {
+              width: "100vw",
+              maxWidth: "100vw",
+              paddingLeft: 0,
+              paddingRight: 0,
+              marginLeft: 0,
+              marginRight: 0,
+            }
+            : undefined
+        }
       >
-        ABOUT QUILD
+        {/* ── Left content column (8/12 desktop, full mobile) ── */}
+        <div
+          className="col-span-12 flex flex-col justify-center pt-[120px] pb-10 md:col-span-8"
+          style={
+            isMobile
+              ? {
+                width: "100%",
+                padding: "0 1.5rem",
+                paddingTop: "7rem",
+                paddingBottom: "3rem",
+              }
+              : undefined
+          }
+        >
+          {/* Eyebrow */}
+          <div
+            style={{
+              fontFamily: "var(--font-jetbrains-mono)",
+              fontSize: "0.7rem",
+              color: "rgba(255,255,255,0.5)",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              marginBottom: "2rem",
+            }}
+          >
+            ABOUT QUILD
+          </div>
+
+          {/* Headline */}
+          <h1
+            ref={heroHeadlineRef}
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontStyle: "italic",
+              fontWeight: 600,
+              fontSize: isMobile
+                ? "clamp(2.5rem, 9vw, 3.5rem)"
+                : "clamp(3.5rem, 6vw, 7rem)",
+              lineHeight: isMobile ? 0.95 : 0.92,
+              color: "#FFFFFF",
+              letterSpacing: "-0.02em",
+              textShadow: "0 2px 40px rgba(0,0,0,0.2)",
+            }}
+          >
+            <span style={{ display: "block", overflow: "hidden" }}>
+              <span data-hero-line style={{ display: "block" }}>
+                We exist for the builder
+              </span>
+            </span>
+            <span style={{ display: "block", overflow: "hidden" }}>
+              <span data-hero-line style={{ display: "block" }}>
+                in everyone.
+              </span>
+            </span>
+          </h1>
+
+          {/* Supporting paragraph */}
+          <p
+            ref={heroSubtextRef}
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: isMobile ? "0.95rem" : "1.1rem",
+              color: "rgba(255,255,255,0.75)",
+              lineHeight: 1.75,
+              maxWidth: isMobile ? "100%" : "520px",
+              marginTop: "1.5rem",
+            }}
+          >
+            Quild is a selective community for students, founders, and engineers building
+            with AI. We started in Delhi. We&apos;re expanding everywhere.
+          </p>
+        </div>
+
+        {/* ── Right decorative column (4/12 desktop only) ── */}
+        <div
+          className="col-span-12 hidden flex-col items-end justify-end pb-10 md:col-span-4 md:flex"
+          style={isMobile ? { display: "none" } : undefined}
+        >
+          {/* Rotated vertical label */}
+          <div
+            className="origin-top-right -rotate-90 whitespace-nowrap mt-30"
+            style={{
+              fontFamily: "var(--font-jetbrains-mono)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.4)",
+            }}
+          >
+            COMMUNITY → FOUNDERS → ENGINEERS → AND BEYOND
+          </div>
+
+          {/* Bracketed chapter tag at bottom-right */}
+          <div className="mt-auto">
+            <span
+              style={{
+                fontFamily: "var(--font-jetbrains-mono)",
+                fontSize: "0.65rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "white",
+                border: "1px solid var(--sage)",
+                padding: "0.25rem 0.5rem",
+                display: "inline-block",
+              }}
+            >
+              [ CHAPTER 01 — OUR STORY ]
+            </span>
+          </div>
+        </div>
+
+        {/* ── Bottom ticker bar ── */}
+        <div className="col-span-12 mt-auto border-t border-white/20 py-6">
+          <div
+            style={{
+              fontFamily: "var(--font-jetbrains-mono)",
+              fontSize: isMobile ? "0.6rem" : "0.7rem",
+              letterSpacing: isMobile ? "0.08em" : "0.12em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.55)",
+              whiteSpace: isMobile ? "nowrap" : undefined,
+              overflow: isMobile ? "hidden" : undefined,
+            }}
+          >
+            SMALL BY CHOICE&nbsp;&nbsp;/&nbsp;&nbsp;SERIOUS BY DEFAULT&nbsp;&nbsp;/&nbsp;&nbsp;BUILDING WITH AI&nbsp;&nbsp;/&nbsp;&nbsp;STARTING WITH DELHI
+          </div>
+        </div>
       </div>
 
-      {/* Headline + subtext */}
+      {/* ── Scroll indicator ── */}
       <div
         style={{
           position: "absolute",
-          top: isMobile ? "8rem" : "10rem",
-          left: isMobile ? "1.5rem" : "6rem",
-          maxWidth: isMobile ? "90%" : "65%",
-        }}
-      >
-        <h1
-          ref={heroHeadlineRef}
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontStyle: "italic",
-            fontWeight: 600,
-            fontSize: isMobile ? "clamp(2.5rem, 9vw, 3.5rem)" : "clamp(3.5rem, 6vw, 7rem)",
-            lineHeight: isMobile ? 0.95 : 0.92,
-            color: "#FFFFFF",
-            letterSpacing: "-0.02em",
-            textShadow: "0 2px 40px rgba(0,0,0,0.2)",
-          }}
-        >
-          <span style={{ display: "block", overflow: "hidden" }}>
-            <span data-hero-line style={{ display: "block" }}>
-              We exist for the builder
-            </span>
-          </span>
-          <span style={{ display: "block", overflow: "hidden" }}>
-            <span data-hero-line style={{ display: "block" }}>
-              in everyone.
-            </span>
-          </span>
-        </h1>
-
-        <p
-          ref={heroSubtextRef}
-          style={{
-            fontFamily: "var(--font-dm-sans)",
-            fontSize: "1.05rem",
-            color: "rgba(255,255,255,0.75)",
-            lineHeight: 1.75,
-            maxWidth: isMobile ? "100%" : "420px",
-            marginTop: "1.5rem",
-          }}
-        >
-          Quild is a selective community for students, founders, and engineers building
-          with AI. We started in Delhi. We&apos;re expanding everywhere.
-        </p>
-      </div>
-
-      {/* Scroll indicator */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "2rem",
+          bottom: "5rem",
           left: "50%",
           transform: "translateX(-50%)",
           fontFamily: "var(--font-jetbrains-mono)",
@@ -190,6 +274,7 @@ export default function AboutHero() {
           flexDirection: "column",
           alignItems: "center",
           gap: "0.5rem",
+          zIndex: 20,
         }}
       >
         SCROLL

@@ -57,9 +57,9 @@ export default function FAQ() {
                     style={
                       isMobile
                         ? {
-                            fontSize: "0.95rem",
-                            paddingRight: "2rem",
-                          }
+                          fontSize: "0.95rem",
+                          paddingRight: "2rem",
+                        }
                         : undefined
                     }
                   >
@@ -69,9 +69,9 @@ export default function FAQ() {
                         style={
                           isMobile
                             ? {
-                                fontSize: "0.62rem",
-                                minWidth: "1.5rem",
-                              }
+                              fontSize: "0.62rem",
+                              minWidth: "1.5rem",
+                            }
                             : undefined
                         }
                       >

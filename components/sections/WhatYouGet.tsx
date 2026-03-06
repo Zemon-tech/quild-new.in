@@ -129,11 +129,11 @@ export default function WhatYouGet() {
           style={
             isMobile
               ? {
-                  flexDirection: "column",
-                  gap: "1.25rem",
-                  marginBottom: "2rem",
-                  alignItems: "flex-start",
-                }
+                flexDirection: "column",
+                gap: "1.25rem",
+                marginBottom: "2rem",
+                alignItems: "flex-start",
+              }
               : undefined
           }
         >
@@ -174,10 +174,10 @@ export default function WhatYouGet() {
               lineHeight: 1.6,
               ...(isMobile
                 ? {
-                    textAlign: "left",
-                    alignSelf: "flex-start",
-                    fontSize: "0.9rem",
-                  }
+                  textAlign: "left",
+                  alignSelf: "flex-start",
+                  fontSize: "0.9rem",
+                }
                 : null),
             }}
           >
@@ -203,13 +203,13 @@ export default function WhatYouGet() {
               transition: "background-color 0.25s ease, border-left 0.25s ease",
               ...(isMobile
                 ? {
-                    gridRow: "auto",
-                    gridColumn: "1",
-                    minHeight: "340px",
-                    borderRight: "none",
-                    borderBottom: "1px solid var(--border)",
-                    padding: "2rem 1.5rem",
-                  }
+                  gridRow: "auto",
+                  gridColumn: "1",
+                  minHeight: "340px",
+                  borderRight: "none",
+                  borderBottom: "1px solid var(--border)",
+                  padding: "2rem 1.5rem",
+                }
                 : null),
             }}
             onMouseEnter={(e) => {
@@ -235,10 +235,10 @@ export default function WhatYouGet() {
                 userSelect: "none",
                 ...(isMobile
                   ? {
-                      fontSize: "8rem",
-                      bottom: "0",
-                      right: "1rem",
-                    }
+                    fontSize: "8rem",
+                    bottom: "0",
+                    right: "1rem",
+                  }
                   : null),
               }}
             >

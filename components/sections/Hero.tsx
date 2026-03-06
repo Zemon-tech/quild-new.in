@@ -57,15 +57,16 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       className="relative min-h-[100svh] border-b border-[var(--border)]"
       style={
         isMobile
           ? {
-              height: "100svh",
-              width: "100vw",
-              padding: 0,
-              margin: 0,
-            }
+            height: "100svh",
+            width: "100vw",
+            padding: 0,
+            margin: 0,
+          }
           : undefined
       }
     >
@@ -79,11 +80,11 @@ export default function Hero() {
           style={
             isMobile
               ? {
-                  objectFit: "cover",
-                  objectPosition: "center center",
-                  width: "100%",
-                  height: "100%",
-                }
+                objectFit: "cover",
+                objectPosition: "center center",
+                width: "100%",
+                height: "100%",
+              }
               : { objectPosition: "right center" }
           }
           priority
@@ -98,13 +99,13 @@ export default function Hero() {
         style={
           isMobile
             ? {
-                width: "100vw",
-                maxWidth: "100vw",
-                paddingLeft: 0,
-                paddingRight: 0,
-                marginLeft: 0,
-                marginRight: 0,
-              }
+              width: "100vw",
+              maxWidth: "100vw",
+              paddingLeft: 0,
+              paddingRight: 0,
+              marginLeft: 0,
+              marginRight: 0,
+            }
             : undefined
         }
       >
@@ -114,10 +115,10 @@ export default function Hero() {
           style={
             isMobile
               ? {
-                  width: "100%",
-                  padding: "0 1.5rem",
-                  paddingTop: "7rem",
-                }
+                width: "100%",
+                padding: "0 1.5rem",
+                paddingTop: "7rem",
+              }
               : undefined
           }
         >
@@ -127,9 +128,9 @@ export default function Hero() {
             style={
               isMobile
                 ? {
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.1em",
-                  }
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.1em",
+                }
                 : undefined
             }
           >
@@ -142,15 +143,15 @@ export default function Hero() {
               style={
                 isMobile
                   ? {
-                      fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
-                      textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
-                      fontSize: "clamp(2.8rem, 10vw, 4rem)",
-                      lineHeight: 0.95,
-                    }
+                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                    textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                    fontSize: "clamp(2.8rem, 10vw, 4rem)",
+                    lineHeight: 0.95,
+                  }
                   : {
-                      fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
-                      textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
-                    }
+                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                    textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                  }
               }
             >
               {lines.map((line) => (
@@ -172,12 +173,12 @@ export default function Hero() {
             style={
               isMobile
                 ? {
-                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
-                    fontSize: "0.95rem",
-                    lineHeight: 1.7,
-                    maxWidth: "100%",
-                    marginTop: "1.25rem",
-                  }
+                  fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                  fontSize: "0.95rem",
+                  lineHeight: 1.7,
+                  maxWidth: "100%",
+                  marginTop: "1.25rem",
+                }
                 : { fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }
             }
           >
@@ -194,11 +195,11 @@ export default function Hero() {
             style={
               isMobile
                 ? {
-                    flexDirection: "column",
-                    gap: "0.75rem",
-                    marginTop: "2rem",
-                    width: "100%",
-                  }
+                  flexDirection: "column",
+                  gap: "0.75rem",
+                  marginTop: "2rem",
+                  width: "100%",
+                }
                 : undefined
             }
           >
@@ -208,10 +209,10 @@ export default function Hero() {
               style={
                 isMobile
                   ? {
-                      width: "100%",
-                      textAlign: "center",
-                      padding: "1rem",
-                    }
+                    width: "100%",
+                    textAlign: "center",
+                    padding: "1rem",
+                  }
                   : undefined
               }
             >
@@ -224,10 +225,10 @@ export default function Hero() {
               style={
                 isMobile
                   ? {
-                      width: "100%",
-                      textAlign: "center",
-                      padding: "1rem",
-                    }
+                    width: "100%",
+                    textAlign: "center",
+                    padding: "1rem",
+                  }
                   : undefined
               }
             >
@@ -264,11 +265,11 @@ export default function Hero() {
             style={
               isMobile
                 ? {
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.08em",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                  }
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.08em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                }
                 : undefined
             }
           >

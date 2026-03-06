@@ -71,18 +71,18 @@ export default function CohortTimeline() {
                   style={
                     isMobile
                       ? {
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "0.4rem",
-                          paddingTop: "1.25rem",
-                          paddingBottom: "1.25rem",
-                          paddingRight: "1.5rem",
-                          paddingLeft: isActive ? "calc(1.5rem - 3px)" : "1.5rem",
-                          borderBottom: "1px solid var(--border)",
-                          opacity: isPast ? 0.35 : 1,
-                          borderLeft: isActive ? "3px solid var(--sage)" : undefined,
-                          background: isActive ? "var(--sage-light)" : undefined,
-                        }
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.4rem",
+                        paddingTop: "1.25rem",
+                        paddingBottom: "1.25rem",
+                        paddingRight: "1.5rem",
+                        paddingLeft: isActive ? "calc(1.5rem - 3px)" : "1.5rem",
+                        borderBottom: "1px solid var(--border)",
+                        opacity: isPast ? 0.35 : 1,
+                        borderLeft: isActive ? "3px solid var(--sage)" : undefined,
+                        background: isActive ? "var(--sage-light)" : undefined,
+                      }
                       : { opacity: isPast ? 0.35 : 1 }
                   }
                 >
