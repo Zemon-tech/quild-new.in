@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Separator } from "@/components/ui/separator";
 
 import { useGSAP } from "@/hooks/useGSAP";
@@ -31,38 +30,53 @@ export default function AboutVision() {
     ({ gsap }) => {
       const left = visionLeftRef.current;
       const blocks = visionBlockRefs.current.filter(Boolean);
-      const triggers: Array<{ kill: () => void }> = [];
+
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
       if (left) {
-        const st = ScrollTrigger.create({
-          trigger: left,
-          start: "top 75%",
-          onEnter: () => {
-            gsap.fromTo(left, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out" });
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.fromTo(
+            left,
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: left,
+                start: "top 75%",
+              },
+            }
+          )
+        );
       }
 
       if (blocks.length > 0) {
-        const st = ScrollTrigger.create({
-          trigger: blocks[0],
-          start: "top 75%",
-          onEnter: () => {
-            gsap.fromTo(
-              blocks,
-              { y: 30, opacity: 0 },
-              { y: 0, opacity: 1, stagger: 0.12, duration: 0.9, ease: "power2.out" }
-            );
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.fromTo(
+            blocks,
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.12,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: blocks[0],
+                start: "top 75%",
+              },
+            }
+          )
+        );
       }
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     },
     []

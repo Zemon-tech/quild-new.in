@@ -12,7 +12,7 @@ export default function Footer() {
   const isMobile = useIsMobile();
 
   return (
-    <footer className="relative bg-[var(--void)] text-white overflow-hidden min-h-screen flex">
+    <footer id="footer" className="relative bg-[var(--void)] text-white overflow-hidden min-h-screen flex">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <Image
@@ -34,7 +34,7 @@ export default function Footer() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full px-8 py-16 md:px-8 flex flex-col justify-between">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-8 py-16 flex flex-col justify-between">
         {/* Footer CTA Section Moved In */}
         <div className="mb-20 flex flex-col items-start justify-between gap-8 border-b border-white/10 pb-16 md:flex-row md:items-center">
           <ScrollReveal>

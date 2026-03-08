@@ -31,6 +31,7 @@ function mapPost(p: ReturnType<typeof getPostsByTag>[number]): BlogPostCardProps
     readTime: p.readTimeMinutes ?? Number(p.readTime.match(/\d+/)?.[0] ?? 4),
     tag: (p.tag ?? p.category ?? "Essay").toUpperCase(),
     coverImage: p.coverImage,
+    authorPhoto: p.authorPhoto,
   };
 }
 

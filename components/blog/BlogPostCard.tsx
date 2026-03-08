@@ -11,6 +11,7 @@ export interface BlogPostCardProps {
   excerpt: string;
   author: string;
   authorInitials: string;
+  authorPhoto?: string;
   date: string;
   readTime: number;
   tag: string;
@@ -151,24 +152,39 @@ export default function BlogPostCard({ size = "normal", ...post }: BlogPostCardP
                 marginTop: isLarge ? "0" : "0.4rem",
               }}
             >
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  borderRadius: "50%",
-                  background: "var(--sage)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontFamily: "var(--font-cormorant), serif",
-                  fontSize: "0.65rem",
-                  fontWeight: 700,
-                  color: "#fff",
-                  flexShrink: 0,
-                }}
-              >
-                {post.authorInitials}
-              </div>
+              {post.authorPhoto ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={post.authorPhoto}
+                  alt={post.author}
+                  style={{
+                    width: "22px",
+                    height: "22px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    flexShrink: 0,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: "22px",
+                    height: "22px",
+                    borderRadius: "50%",
+                    background: "var(--sage)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "var(--font-cormorant), serif",
+                    fontSize: "0.65rem",
+                    fontWeight: 700,
+                    color: "#fff",
+                    flexShrink: 0,
+                  }}
+                >
+                  {post.authorInitials}
+                </div>
+              )}
 
               <span
                 style={{

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -13,26 +12,33 @@ export default function AboutClosingQuote() {
   useGSAP(
     ({ gsap }) => {
       const quote = quoteRef.current;
-      const triggers: Array<{ kill: () => void }> = [];
+
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
       if (quote) {
-        const st = ScrollTrigger.create({
-          trigger: quote,
-          start: "top 75%",
-          onEnter: () => {
-            gsap.fromTo(
-              quote,
-              { y: 30, opacity: 0 },
-              { y: 0, opacity: 1, duration: 1.2, ease: "power2.out" }
-            );
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.fromTo(
+            quote,
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: quote,
+                start: "top 75%",
+              },
+            }
+          )
+        );
       }
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     },
     []

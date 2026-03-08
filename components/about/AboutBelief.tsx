@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useGSAP } from "@/hooks/useGSAP";
@@ -21,58 +20,117 @@ export default function AboutBelief() {
 
   useGSAP(({ gsap }) => {
     const section = sectionRef.current;
-    const triggers: Array<{ kill: () => void }> = [];
+    const bg = bgRef.current;
+    const label = labelRef.current;
+    const line1 = line1Ref.current;
+    const line2 = line2Ref.current;
+    const body = bodyRef.current;
+    const closing = closingRef.current;
 
-    // Ken Burns on image
-    if (bgRef.current) {
-      const st = ScrollTrigger.create({
-        trigger: section ?? bgRef.current,
-        start: "top bottom",
-        once: true,
-        onEnter: () => {
-          gsap.fromTo(bgRef.current, { scale: 1.05 }, {
-            scale: 1, duration: 2, ease: "power1.out",
-          });
-        },
-      });
-      triggers.push(st);
+    const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
+
+    if (bg) {
+      created.push(
+        gsap.fromTo(
+          bg,
+          { scale: 1.05 },
+          {
+            scale: 1,
+            duration: 2,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: section ?? bg,
+              start: "top bottom",
+            },
+          }
+        )
+      );
     }
 
-    if (section) {
-      // Label
-      const st1 = ScrollTrigger.create({
-        trigger: section, start: "top 72%", once: true,
-        onEnter: () => gsap.from(labelRef.current, { opacity: 0, y: 8, duration: 0.6 }),
-      });
-
-      // Headline line 1
-      const st2 = ScrollTrigger.create({
-        trigger: section, start: "top 68%", once: true,
-        onEnter: () => gsap.from(line1Ref.current, {
-          y: 50, opacity: 0, duration: 1.1, ease: "power3.out",
-        }),
-      });
-
-      // Headline line 2
-      const st3 = ScrollTrigger.create({
-        trigger: section, start: "top 68%", once: true,
-        onEnter: () => gsap.from(line2Ref.current, {
-          y: 50, opacity: 0, duration: 1.1, delay: 0.18, ease: "power3.out",
-        }),
-      });
-
-      // Body + closing
-      const st4 = ScrollTrigger.create({
-        trigger: section, start: "top 62%", once: true,
-        onEnter: () => gsap.from([bodyRef.current, closingRef.current].filter(Boolean), {
-          y: 24, opacity: 0, stagger: 0.12, duration: 0.9, ease: "power2.out",
-        }),
-      });
-
-      triggers.push(st1, st2, st3, st4);
+    if (label) {
+      created.push(
+        gsap.fromTo(
+          label,
+          { opacity: 0, y: 8 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: section ?? label,
+              start: "top 72%",
+            },
+          }
+        )
+      );
     }
 
-    return () => triggers.forEach((t) => t.kill());
+    if (line1) {
+      created.push(
+        gsap.fromTo(
+          line1,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section ?? line1,
+              start: "top 68%",
+            },
+          }
+        )
+      );
+    }
+
+    if (line2) {
+      created.push(
+        gsap.fromTo(
+          line2,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.1,
+            delay: 0.18,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section ?? line2,
+              start: "top 68%",
+            },
+          }
+        )
+      );
+    }
+
+    const bodyPieces = [body, closing].filter(Boolean);
+    if (bodyPieces.length > 0) {
+      created.push(
+        gsap.fromTo(
+          bodyPieces,
+          { y: 24, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.12,
+            duration: 0.9,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: section ?? bodyPieces[0]!,
+              start: "top 62%",
+            },
+          }
+        )
+      );
+    }
+
+    return () => {
+      created.forEach((t) => {
+        t.scrollTrigger?.kill();
+        t.kill();
+      });
+    };
   }, []);
 
   return (

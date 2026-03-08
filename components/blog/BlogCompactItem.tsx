@@ -7,9 +7,10 @@ type BlogCompactItemProps = {
   title: string;
   author: string;
   coverImage?: string;
+  authorPhoto?: string;
 };
 
-export default function BlogCompactItem({ slug, title, author, coverImage }: BlogCompactItemProps) {
+export default function BlogCompactItem({ slug, title, author, coverImage, authorPhoto }: BlogCompactItemProps) {
   return (
     <Link
       href={`/blog/${slug}`}
@@ -24,7 +25,7 @@ export default function BlogCompactItem({ slug, title, author, coverImage }: Blo
       }}
     >
       <Thumb coverImage={coverImage} title={title} />
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <h4
           style={{
             fontFamily: "var(--font-cormorant), serif",
@@ -33,23 +34,38 @@ export default function BlogCompactItem({ slug, title, author, coverImage }: Blo
             fontSize: "1rem",
             lineHeight: 1.15,
             color: "var(--ink)",
-            margin: "0 0 0.1rem",
+            margin: "0 0 0.25rem",
             letterSpacing: "-0.01em",
           }}
         >
           {title}
         </h4>
-        <span
-          style={{
-            fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-            fontSize: "0.56rem",
-            color: "var(--muted)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-          }}
-        >
-          {author}
-        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+          {authorPhoto ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={authorPhoto}
+              alt={author}
+              style={{
+                width: "14px",
+                height: "14px",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          ) : null}
+          <span
+            style={{
+              fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
+              fontSize: "0.56rem",
+              color: "var(--muted)",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+            }}
+          >
+            {author}
+          </span>
+        </div>
       </div>
     </Link>
   );

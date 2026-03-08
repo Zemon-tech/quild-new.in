@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -93,26 +92,34 @@ export default function AboutFounders() {
   useGSAP(
     ({ gsap }) => {
       const cards = founderCardRefs.current.filter(Boolean);
-      const triggers: Array<{ kill: () => void }> = [];
+
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
       if (cards.length > 0) {
-        const st = ScrollTrigger.create({
-          trigger: cards[0],
-          start: "top 75%",
-          onEnter: () => {
-            gsap.fromTo(
-              cards,
-              { y: 50, opacity: 0 },
-              { y: 0, opacity: 1, stagger: 0.15, duration: 0.9, ease: "power2.out" }
-            );
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.fromTo(
+            cards,
+            { y: 50, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.15,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: cards[0],
+                start: "top 75%",
+              },
+            }
+          )
+        );
       }
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     },
     []

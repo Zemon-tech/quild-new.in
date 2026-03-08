@@ -1,17 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useGSAP } from "@/hooks/useGSAP";
 
+function splitIntoLines(text: string) {
+  return text.split("\n").map((l) => l.trim()).filter(Boolean);
+}
+
 export default function AboutHero() {
   const isMobile = useIsMobile();
 
-  const heroHeadlineRef = useRef<HTMLHeadingElement | null>(null);
-  const heroSubtextRef = useRef<HTMLParagraphElement | null>(null);
-  const scrollLineRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const lines = useMemo(
+    () => splitIntoLines("We exist for the builder\nin everyone."),
+    []
+  );
 
   // Notify navbar to use dark theme (white text)
   useEffect(() => {
@@ -38,54 +44,35 @@ export default function AboutHero() {
 
   useGSAP(
     ({ gsap }) => {
-      const headline = heroHeadlineRef.current;
-      const subtext = heroSubtextRef.current;
-      const scrollLine = scrollLineRef.current;
+      const root = rootRef.current;
+      if (!root) return;
 
-      const timelines: Array<{ kill: () => void }> = [];
+      const q = gsap.utils.selector(root);
 
-      // Scroll indicator bounce
-      if (scrollLine) {
-        const t = gsap.to(scrollLine, {
-          y: 8,
-          repeat: -1,
-          yoyo: true,
-          duration: 0.8,
-          ease: "power1.inOut",
-        });
-        timelines.push(t);
-      }
+      gsap.set(q("[data-reveal-line]"), {
+        yPercent: 100,
+        clipPath: "inset(0 0 100% 0)",
+      });
 
-      // Headline clip reveal
-      if (headline) {
-        const lineWraps = Array.from(headline.querySelectorAll("[data-hero-line]"));
-        if (lineWraps.length > 0) {
-          gsap.set(lineWraps, { clipPath: "inset(0 0 100% 0)" });
-          const t = gsap.to(lineWraps, {
-            clipPath: "inset(0 0 0% 0)",
-            duration: 1,
-            stagger: 0.12,
-            ease: "power3.out",
-          });
-          timelines.push(t);
-        }
-      }
+      const tl = gsap.timeline();
 
-      // Subtext fade up
-      if (subtext) {
-        const t = gsap.fromTo(
-          subtext,
-          { y: 14, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.9, delay: 0.2, ease: "power2.out" }
-        );
-        timelines.push(t);
-      }
+      tl.to(q("[data-reveal-line]"), {
+        yPercent: 0,
+        clipPath: "inset(0 0 0% 0)",
+        stagger: 0.1,
+        duration: 0.9,
+      }).fromTo(
+        q("[data-load]"),
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.1 },
+        "-=0.4"
+      );
 
       return () => {
-        timelines.forEach((t) => t.kill());
+        tl.kill();
       };
     },
-    [isMobile]
+    []
   );
 
   return (
@@ -115,6 +102,7 @@ export default function AboutHero() {
 
       {/* ── Inner grid wrapper ── */}
       <div
+        ref={rootRef}
         className="relative z-10 mx-auto grid h-full min-h-[100svh] w-full max-w-[1280px] grid-cols-12 px-8"
         style={
           isMobile
@@ -145,57 +133,63 @@ export default function AboutHero() {
         >
           {/* Eyebrow */}
           <div
-            style={{
-              fontFamily: "var(--font-jetbrains-mono)",
-              fontSize: "0.7rem",
-              color: "rgba(255,255,255,0.5)",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              marginBottom: "2rem",
-            }}
+            data-load
+            className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/75"
+            style={
+              isMobile
+                ? {
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.1em",
+                }
+                : undefined
+            }
           >
             ABOUT QUILD
           </div>
 
           {/* Headline */}
-          <h1
-            ref={heroHeadlineRef}
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
-              fontWeight: 600,
-              fontSize: isMobile
-                ? "clamp(2.5rem, 9vw, 3.5rem)"
-                : "clamp(3.5rem, 6vw, 7rem)",
-              lineHeight: isMobile ? 0.95 : 0.92,
-              color: "#FFFFFF",
-              letterSpacing: "-0.02em",
-              textShadow: "0 2px 40px rgba(0,0,0,0.2)",
-            }}
-          >
-            <span style={{ display: "block", overflow: "hidden" }}>
-              <span data-hero-line style={{ display: "block" }}>
-                We exist for the builder
-              </span>
-            </span>
-            <span style={{ display: "block", overflow: "hidden" }}>
-              <span data-hero-line style={{ display: "block" }}>
-                in everyone.
-              </span>
-            </span>
-          </h1>
+          <div className="mt-8 overflow-hidden">
+            <h1
+              className="text-[clamp(3.8rem,7.5vw,8rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-white"
+              style={
+                isMobile
+                  ? {
+                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                    textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                    fontSize: "clamp(2.8rem, 10vw, 4rem)",
+                    lineHeight: 0.95,
+                  }
+                  : {
+                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                    textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                  }
+              }
+            >
+              {lines.map((line) => (
+                <span key={line} className="block overflow-hidden">
+                  <span data-reveal-line className="block will-change-transform">
+                    {line}
+                  </span>
+                </span>
+              ))}
+            </h1>
+          </div>
 
           {/* Supporting paragraph */}
           <p
-            ref={heroSubtextRef}
-            style={{
-              fontFamily: "var(--font-dm-sans)",
-              fontSize: isMobile ? "0.95rem" : "1.1rem",
-              color: "rgba(255,255,255,0.75)",
-              lineHeight: 1.75,
-              maxWidth: isMobile ? "100%" : "520px",
-              marginTop: "1.5rem",
-            }}
+            data-load
+            className="mt-8 max-w-[520px] text-[1.1rem] leading-[1.75] text-white/80"
+            style={
+              isMobile
+                ? {
+                  fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                  fontSize: "0.95rem",
+                  lineHeight: 1.7,
+                  maxWidth: "100%",
+                  marginTop: "1.25rem",
+                }
+                : { fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }
+            }
           >
             Quild is a selective community for students, founders, and engineers building
             with AI. We started in Delhi. We&apos;re expanding everywhere.
@@ -243,15 +237,17 @@ export default function AboutHero() {
         {/* ── Bottom ticker bar ── */}
         <div className="col-span-12 mt-auto border-t border-white/20 py-6">
           <div
-            style={{
-              fontFamily: "var(--font-jetbrains-mono)",
-              fontSize: isMobile ? "0.6rem" : "0.7rem",
-              letterSpacing: isMobile ? "0.08em" : "0.12em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.55)",
-              whiteSpace: isMobile ? "nowrap" : undefined,
-              overflow: isMobile ? "hidden" : undefined,
-            }}
+            className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/65"
+            style={
+              isMobile
+                ? {
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.08em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                }
+                : undefined
+            }
           >
             SMALL BY CHOICE&nbsp;&nbsp;/&nbsp;&nbsp;SERIOUS BY DEFAULT&nbsp;&nbsp;/&nbsp;&nbsp;BUILDING WITH AI&nbsp;&nbsp;/&nbsp;&nbsp;STARTING WITH DELHI
           </div>
@@ -279,7 +275,6 @@ export default function AboutHero() {
       >
         SCROLL
         <div
-          ref={scrollLineRef}
           style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.3)" }}
         />
       </div>

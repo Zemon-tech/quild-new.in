@@ -26,13 +26,15 @@ export default function Navbar() {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [navTheme, setNavTheme] = useState<"light" | "dark">("light");
+  const [isHidden, setIsHidden] = useState(false);
   const pathname = usePathname();
 
   // ── Nav theme based on page sections ─────────────────────────────────────
   useEffect(() => {
     // Default to light (black elements) for all pages/sections
-    // except for the landing page which always starts with Hero
-    const initialTheme = pathname === "/" || pathname === "/blog" ? "dark" : "light";
+    // except for the landing page, about, blog, and careers which always start with Hero
+    const darkHeroPages = ["/", "/about", "/blog", "/careers"];
+    const initialTheme = darkHeroPages.includes(pathname) ? "dark" : "light";
     setNavTheme(initialTheme);
 
     let killed = false;
@@ -81,6 +83,30 @@ export default function Navbar() {
           onLeave: () => setNavTheme("light"), // Black elements
           onEnterBack: () => setNavTheme("dark"),
           onLeaveBack: () => setNavTheme("light"),
+        }));
+      }
+
+      // Hide navbar when footer is reached
+      const footer = document.getElementById("footer");
+      if (footer) {
+        createdTriggers.push(ScrollTrigger.create({
+          trigger: "#footer",
+          start: "top bottom", // when the top of the footer hits the bottom of the viewport
+          onEnter: () => setIsHidden(true),
+          onLeaveBack: () => setIsHidden(false),
+        }));
+      }
+
+      // Careers page specific scroll theme
+      if (pathname === "/careers") {
+        createdTriggers.push(ScrollTrigger.create({
+          trigger: "#positions",
+          start: "top top",
+          end: "bottom top",
+          onEnter: () => setNavTheme("light"),
+          onLeave: () => setNavTheme("light"),
+          onEnterBack: () => setNavTheme("light"),
+          onLeaveBack: () => setNavTheme("dark"),
         }));
       }
     })();
@@ -135,12 +161,18 @@ export default function Navbar() {
           zIndex: 100,
           background: "transparent",
           backdropFilter: "none",
+          borderTop: "none",
           borderBottom: "none",
+          outline: "none",
+          boxShadow: "none",
           padding: "0 2rem",
           height: "60px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          opacity: isHidden ? 0 : 1,
+          pointerEvents: isHidden ? "none" : "auto",
+          transition: "opacity 0.4s ease, color 0.4s ease",
         }}
       >
         <div className="mx-auto grid h-full w-full max-w-[1280px] grid-cols-12 items-center px-8">

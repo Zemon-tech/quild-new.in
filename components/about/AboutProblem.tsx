@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useGSAP } from "@/hooks/useGSAP";
@@ -21,60 +20,69 @@ export default function AboutProblem() {
       const right = problemRightRef.current;
       const stat = problemStatRowRef.current;
 
-      const triggers: Array<{ kill: () => void }> = [];
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
       if (left) {
         const quote = left.querySelector("blockquote");
         if (quote) {
           gsap.set(quote, { clipPath: "inset(0 0 100% 0)" });
-          const st = ScrollTrigger.create({
-            trigger: section ?? left,
-            start: "top 70%",
-            onEnter: () => {
-              gsap.to(quote, { clipPath: "inset(0 0 0% 0)", duration: 1, ease: "power3.out" });
-            },
-            once: true,
-          });
-          triggers.push(st);
+          created.push(
+            gsap.to(quote, {
+              clipPath: "inset(0 0 0% 0)",
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: section ?? left,
+                start: "top 70%",
+              },
+            })
+          );
         }
       }
 
       if (right) {
         const paragraphs = Array.from(right.querySelectorAll("[data-problem-paragraph]"));
         if (paragraphs.length > 0) {
-          const st = ScrollTrigger.create({
-            trigger: section ?? right,
-            start: "top 65%",
-            onEnter: () => {
-              gsap.from(paragraphs, {
-                y: 30,
-                opacity: 0,
+          created.push(
+            gsap.fromTo(
+              paragraphs,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
                 stagger: 0.15,
                 duration: 0.8,
                 ease: "power2.out",
-              });
-            },
-            once: true,
-          });
-          triggers.push(st);
+                scrollTrigger: {
+                  trigger: section ?? right,
+                  start: "top 65%",
+                },
+              }
+            )
+          );
         }
       }
 
       if (stat) {
         gsap.set(stat, { clipPath: "inset(0 100% 0 0)" });
-        const st = ScrollTrigger.create({
-          trigger: stat,
-          start: "top 90%",
-          onEnter: () => {
-            gsap.to(stat, { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: "power2.out" });
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.to(stat, {
+            clipPath: "inset(0 0% 0 0)",
+            duration: 0.9,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: stat,
+              start: "top 90%",
+            },
+          })
+        );
       }
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     },
     [isMobile]

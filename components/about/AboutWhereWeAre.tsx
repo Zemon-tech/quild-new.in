@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -15,22 +14,27 @@ export default function AboutWhereWeAre() {
   useGSAP(
     ({ gsap }) => {
       const cols = whereStatsRefs.current.filter(Boolean);
-      const triggers: Array<{ kill: () => void }> = [];
+
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
       if (cols.length > 0) {
-        const st = ScrollTrigger.create({
-          trigger: cols[0],
-          start: "top 75%",
-          onEnter: () => {
-            gsap.fromTo(
-              cols,
-              { y: 40, opacity: 0 },
-              { y: 0, opacity: 1, stagger: 0.12, duration: 0.9, ease: "power2.out" }
-            );
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.fromTo(
+            cols,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.12,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: cols[0],
+                start: "top 75%",
+              },
+            }
+          )
+        );
       }
 
       // Count up numbers
@@ -39,46 +43,45 @@ export default function AboutWhereWeAre() {
 
       if (num0) {
         const obj = { v: 0 };
-        const st = ScrollTrigger.create({
-          trigger: num0,
-          start: "top 75%",
-          onEnter: () => {
-            gsap.to(obj, {
-              v: 2,
-              duration: 1.2,
-              ease: "power2.out",
-              onUpdate: () => {
-                num0.textContent = String(Math.round(obj.v));
-              },
-            });
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.to(obj, {
+            v: 2,
+            duration: 1.2,
+            ease: "power2.out",
+            onUpdate: () => {
+              num0.textContent = String(Math.round(obj.v));
+            },
+            scrollTrigger: {
+              trigger: num0,
+              start: "top 75%",
+            },
+          })
+        );
       }
 
       if (num1) {
         const obj = { v: 0 };
-        const st = ScrollTrigger.create({
-          trigger: num1,
-          start: "top 75%",
-          onEnter: () => {
-            gsap.to(obj, {
-              v: 1,
-              duration: 1.1,
-              ease: "power2.out",
-              onUpdate: () => {
-                num1.textContent = String(Math.round(obj.v)).padStart(2, "0");
-              },
-            });
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.to(obj, {
+            v: 1,
+            duration: 1.1,
+            ease: "power2.out",
+            onUpdate: () => {
+              num1.textContent = String(Math.round(obj.v)).padStart(2, "0");
+            },
+            scrollTrigger: {
+              trigger: num1,
+              start: "top 75%",
+            },
+          })
+        );
       }
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     },
     []
@@ -131,9 +134,10 @@ export default function AboutWhereWeAre() {
               style={{
                 borderLeft: isMobile ? "none" : (i === 0 ? undefined : "1px solid var(--border)"),
                 borderBottom: isMobile ? "1px solid var(--border)" : undefined,
-                padding: isMobile ? "1.5rem 0" : undefined,
-                paddingLeft: isMobile ? undefined : (i === 0 ? undefined : "2rem"),
-                paddingRight: isMobile ? undefined : (i === 2 ? undefined : "2rem"),
+                paddingTop: isMobile ? "1.5rem" : undefined,
+                paddingBottom: isMobile ? "1.5rem" : undefined,
+                paddingLeft: isMobile ? "0" : (i === 0 ? undefined : "2rem"),
+                paddingRight: isMobile ? "0" : (i === 2 ? undefined : "2rem"),
               }}
             >
               <div

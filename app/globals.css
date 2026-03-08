@@ -127,11 +127,7 @@
 }
 
 @layer base {
-  :root {
-    @apply border-border outline-ring/50;
-  }
   body {
-    @apply bg-background text-foreground;
     font-family: var(--font-dm-sans), system-ui, sans-serif;
     letter-spacing: 0.02em;
   }
@@ -190,5 +186,122 @@ body {
 
   .nav-link:hover {
     opacity: 1;
+  }
+}
+
+/* ── Article body typography ── */
+.article-body {
+  font-family: var(--font-dm-sans);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.article-body p {
+  margin-bottom: 1.5rem;
+}
+
+.article-body > p:first-of-type {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.article-body h2 {
+  font-family: var(--font-cormorant);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 2.5rem 0 0.875rem;
+}
+
+.article-body h3 {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 2rem 0 0.75rem;
+}
+
+.article-body blockquote {
+  border-left: 2px solid var(--sage);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.article-body strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.article-body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+}
+
+.article-body ul,
+.article-body ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-body li {
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 768px) {
+  .article-layout {
+    flex-direction: column !important;
+    padding: 2rem 1.5rem !important;
+    gap: 2rem !important;
+  }
+
+  .article-sidebar {
+    position: static !important;
+    width: 100% !important;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .article-cover > div {
+    height: 35vh !important;
+  }
+
+  .article-cover-caption {
+    padding: 0.5rem 1.5rem 0 !important;
+  }
+
+  .article-author-sidebar {
+    gap: 0.75rem !important;
+  }
+
+  .article-author-top {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .article-author-avatar {
+    width: 40px !important;
+    height: 40px !important;
   }
 }

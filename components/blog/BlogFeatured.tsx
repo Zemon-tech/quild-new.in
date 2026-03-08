@@ -27,6 +27,7 @@ function mapPost(p: ReturnType<typeof getFeaturedPosts>[number]): BlogPostCardPr
     readTime: p.readTimeMinutes ?? 4,
     tag: (p.tag ?? p.category ?? "Essay").toUpperCase(),
     coverImage: p.coverImage,
+    authorPhoto: p.authorPhoto,
   };
 }
 
@@ -191,6 +192,7 @@ export default function BlogFeatured() {
                 title={p.title}
                 author={p.author}
                 coverImage={p.coverImage}
+                authorPhoto={p.authorPhoto}
               />
             ))}
           </div>

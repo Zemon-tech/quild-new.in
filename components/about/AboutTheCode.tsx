@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -47,26 +46,34 @@ export default function AboutTheCode() {
   useGSAP(
     ({ gsap }) => {
       const rows = codeRowRefs.current.filter(Boolean);
-      const triggers: Array<{ kill: () => void }> = [];
+
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
       if (rows.length > 0) {
-        const st = ScrollTrigger.create({
-          trigger: rows[0],
-          start: "top 75%",
-          onEnter: () => {
-            gsap.fromTo(
-              rows,
-              { x: -40, opacity: 0 },
-              { x: 0, opacity: 1, stagger: 0.1, duration: 0.9, ease: "power2.out" }
-            );
-          },
-          once: true,
-        });
-        triggers.push(st);
+        created.push(
+          gsap.fromTo(
+            rows,
+            { x: -40, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              stagger: 0.1,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: rows[0],
+                start: "top 75%",
+              },
+            }
+          )
+        );
       }
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
       };
     },
     []
