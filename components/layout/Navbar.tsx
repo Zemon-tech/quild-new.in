@@ -88,7 +88,7 @@ export default function Navbar() {
           borderTop: "none",
           outline: "none",
           boxShadow: "none",
-          padding: "0 2rem",
+          padding: "0 1rem",
           height: "60px",
           display: "flex",
           alignItems: "center",
@@ -99,7 +99,7 @@ export default function Navbar() {
           pointerEvents: hideOnFooter ? "none" : "auto",
         }}
       >
-        <div className="mx-auto grid h-full w-full max-w-[1280px] grid-cols-12 items-center px-8">
+        <div className="mx-auto grid h-full w-full max-w-[1280px] grid-cols-12 items-center px-4 md:px-8">
 
           {/* Logo */}
           <div className="col-span-6 md:col-span-3">

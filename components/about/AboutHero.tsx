@@ -253,30 +253,7 @@ export default function AboutHero() {
         </div>
       </div>
 
-      {/* ── Scroll indicator ── */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "5rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontFamily: "var(--font-jetbrains-mono)",
-          fontSize: "0.62rem",
-          color: "rgba(255,255,255,0.4)",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-          zIndex: 20,
-        }}
-      >
-        SCROLL
-        <div
-          style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.3)" }}
-        />
-      </div>
+      
     </section>
   );
 }
