@@ -77,7 +77,7 @@ export default function CareersOpenPositions() {
                     y: 0,
                     opacity: 1,
                     stagger: 0.08,
-                    duration: 0.8,
+                    duration: 0.7,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: listRef.current,
@@ -109,7 +109,7 @@ export default function CareersOpenPositions() {
         <section id="positions" style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
             {/* Header */}
             <div style={{
-                padding: isMobile ? '3rem 1.5rem 2rem' : '5rem 6rem 3rem',
+                padding: isMobile ? '3rem 1.5rem 2rem' : 'clamp(80px, 10vw, 140px) 6rem 3rem',
                 borderBottom: '1px solid var(--border)',
                 display: 'flex',
                 alignItems: 'flex-end',
@@ -151,7 +151,21 @@ export default function CareersOpenPositions() {
             </div>
 
             {/* Body: filter tabs + listings */}
-            <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+            <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', position: isMobile ? 'static' : 'relative' }}>
+                {!isMobile && (
+                    <div
+                        aria-hidden
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            bottom: 0,
+                            left: '240px',
+                            width: '1px',
+                            background: 'var(--border)',
+                            pointerEvents: 'none',
+                        }}
+                    />
+                )}
                 {/* LEFT/TOP — department filter */}
                 <div style={isMobile ? {
                     padding: '1rem 1.5rem',
@@ -164,7 +178,7 @@ export default function CareersOpenPositions() {
                 } : {
                     width: '240px',
                     flexShrink: 0,
-                    borderRight: '1px solid var(--border)',
+                    borderRight: 'none',
                     padding: '3rem 2rem',
                     position: 'sticky',
                     top: '60px',

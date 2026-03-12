@@ -5,42 +5,6 @@ import { Separator } from "@/components/ui/separator";
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-// SVG Icons for collage cards
-const GridIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="4" y="4" width="10" height="10" rx="1" fill="rgba(255,255,255,0.3)"/>
-    <rect x="18" y="4" width="10" height="10" rx="1" fill="rgba(255,255,255,0.3)"/>
-    <rect x="4" y="18" width="10" height="10" rx="1" fill="rgba(255,255,255,0.3)"/>
-    <rect x="18" y="18" width="10" height="10" rx="1" fill="rgba(255,255,255,0.3)"/>
-  </svg>
-);
-
-const LinesIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="6" y="8" width="20" height="2" rx="1" fill="rgba(255,255,255,0.4)"/>
-    <rect x="6" y="13" width="16" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
-    <rect x="6" y="18" width="18" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
-    <rect x="6" y="23" width="12" height="2" rx="1" fill="rgba(255,255,255,0.2)"/>
-  </svg>
-);
-
-const NetworkIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="16" cy="10" r="3" fill="rgba(255,255,255,0.5)"/>
-    <circle cx="10" cy="20" r="3" fill="rgba(255,255,255,0.3)"/>
-    <circle cx="22" cy="20" r="3" fill="rgba(255,255,255,0.3)"/>
-    <line x1="16" y1="13" x2="10" y2="17" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5"/>
-    <line x1="16" y1="13" x2="22" y2="17" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5"/>
-    <line x1="10" y1="23" x2="22" y2="23" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
-  </svg>
-);
-
-const BracesIcon = () => (
-  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <text x="32" y="42" textAnchor="middle" fontFamily="monospace" fontSize="36" fill="rgba(255,255,255,0.3)">{ }</text>
-  </svg>
-);
-
 // Marquee items
 const marqueeItems = [
   "TeamFlow — built by Quild builders",
@@ -53,27 +17,84 @@ const marqueeItems = [
   "Join the builders",
 ];
 
+ const COLLAGE_CARDS = [
+   {
+     bg: "var(--sage)",
+     width: "220px",
+     height: "260px",
+     top: "20px",
+     left: "30px",
+     rotate: "-8deg",
+     icon: "grid",
+     zIndex: 2,
+   },
+   {
+     bg: "var(--surface)",
+     width: "160px",
+     height: "200px",
+     top: "60px",
+     left: "210px",
+     rotate: "12deg",
+     icon: "lines",
+     zIndex: 3,
+   },
+   {
+     bg: "var(--void)",
+     width: "200px",
+     height: "240px",
+     top: "10px",
+     left: "360px",
+     rotate: "-14deg",
+     icon: "person",
+     zIndex: 1,
+   },
+   {
+     bg: "var(--sage)",
+     width: "130px",
+     height: "130px",
+     top: "330px",
+     left: "60px",
+     rotate: "16deg",
+     icon: null,
+     zIndex: 4,
+   },
+   {
+     bg: "var(--surface)",
+     width: "180px",
+     height: "200px",
+     top: "280px",
+     left: "220px",
+     rotate: "-6deg",
+     icon: "lines",
+     zIndex: 2,
+   },
+   {
+     bg: "#3D4A35",
+     width: "150px",
+     height: "170px",
+     top: "300px",
+     left: "420px",
+     rotate: "18deg",
+     icon: null,
+     zIndex: 3,
+   },
+ ] as const;
+
 export default function HonestStatement() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const leftColRef = useRef<HTMLDivElement | null>(null);
-  const card1Ref = useRef<HTMLDivElement | null>(null);
-  const card2Ref = useRef<HTMLDivElement | null>(null);
-  const card3Ref = useRef<HTMLDivElement | null>(null);
-  const card4Ref = useRef<HTMLDivElement | null>(null);
-  const card5Ref = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const mobileCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const captionRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
 
   useGSAP(
     ({ gsap }) => {
       const section = sectionRef.current;
       const leftCol = leftColRef.current;
-      const card1 = card1Ref.current;
-      const card2 = card2Ref.current;
-      const card3 = card3Ref.current;
-      const card4 = card4Ref.current;
-      const card5 = card5Ref.current;
+      const caption = captionRef.current;
 
-      if (!section || !leftCol || !card1 || !card2 || !card3 || !card4 || !card5) return;
+      if (!section || !leftCol) return;
 
       const leftElements = leftCol.querySelectorAll("[data-animate]");
 
@@ -93,107 +114,50 @@ export default function HonestStatement() {
         }
       );
 
-      // Cards stagger in
-      const cardTweens = [
-        gsap.fromTo(
-          card1,
-          { y: 60, opacity: 0, rotation: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            rotation: -2.5,
-            duration: 1,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
-            },
-          }
-        ),
-        gsap.fromTo(
-          card2,
-          { y: 60, opacity: 0, rotation: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            rotation: 1.8,
-            duration: 1,
-            delay: 0.1,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
-            },
-          }
-        ),
-        gsap.fromTo(
-          card3,
-          { y: 60, opacity: 0, rotation: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            rotation: -1.2,
-            duration: 1,
-            delay: 0.2,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
-            },
-          }
-        ),
-        gsap.fromTo(
-          card4,
-          { y: 60, opacity: 0, rotation: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            rotation: 3,
-            duration: 1,
-            delay: 0.3,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
-            },
-          }
-        ),
-        gsap.fromTo(
-          card5,
-          { y: 60, opacity: 0, rotation: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            rotation: -3.5,
-            duration: 1,
-            delay: 0.4,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
-            },
-          }
-        ),
-      ];
+      const cards = (isMobile ? mobileCardRefs.current : cardRefs.current).filter(
+        (c): c is HTMLDivElement => Boolean(c)
+      );
 
-      // Hover interactions
-      const cards = [card1, card2, card3, card4, card5];
-      const originalRotations = [-2.5, 1.8, -1.2, 3, -3.5];
+      const scrollStart = isMobile ? "top 75%" : "top 70%";
+      const stagger = isMobile ? 0.07 : 0.08;
+      const duration = isMobile ? 0.65 : 0.7;
 
-      cards.forEach((card, index) => {
-        const originalRotation = originalRotations[index];
-
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, { y: -8, rotation: 0, duration: 0.3, ease: "power2.out" });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, { y: 0, rotation: originalRotation, duration: 0.4, ease: "power2.out" });
-        });
+      const cardTween = gsap.from(cards, {
+        scale: 0.85,
+        opacity: 0,
+        rotate: (_i: number, target: Element) =>
+          parseFloat((target as HTMLElement).dataset.rotate ?? "0") + 8,
+        stagger,
+        duration,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: scrollStart,
+          once: true,
+        },
       });
+
+      const captionTween = caption
+        ? gsap.from(caption, {
+            opacity: 0,
+            y: 10,
+            duration: 0.5,
+            delay: 0.6,
+            scrollTrigger: {
+              trigger: section,
+              start: scrollStart,
+              once: true,
+            },
+          })
+        : null;
 
       return () => {
         leftTween.scrollTrigger?.kill();
         leftTween.kill();
-        cardTweens.forEach((t) => {
-          t.scrollTrigger?.kill();
-          t.kill();
-        });
+        cardTween.scrollTrigger?.kill();
+        cardTween.kill();
+        captionTween?.scrollTrigger?.kill();
+        captionTween?.kill();
       };
     },
     []
@@ -292,116 +256,287 @@ export default function HonestStatement() {
 
           {/* Right Column - 7/12 Collage */}
           <div className="col-span-12 md:col-span-7">
-            <div
-              className="relative h-[440px]"
-              style={
-                isMobile
-                  ? {
-                      height: "320px",
-                      position: "relative",
-                      overflow: "hidden",
-                    }
-                  : undefined
-              }
-            >
-              {/* Card 1 — TeamFlow (largest, anchors the collage) */}
-              <div
-                ref={card1Ref}
-                className="flex items-center justify-center"
-                style={{
-                  ...collageCardStyle,
-                  width: isMobile ? "160px" : "260px",
-                  height: isMobile ? "120px" : "200px",
-                  top: isMobile ? "20px" : "20px",
-                  left: isMobile ? "10px" : "20px",
-                  transform: isMobile ? "rotate(-2deg)" : "rotate(-2.5deg)",
-                  background: "linear-gradient(135deg, #8FA893 0%, #4A5C4E 100%)",
-                }}
-              >
-                <GridIcon />
-              </div>
-
-              {/* Card 2 — Compose editor (tall, portrait) */}
-              <div
-                ref={card2Ref}
-                className="flex items-center justify-center"
-                style={{
-                  ...collageCardStyle,
-                  width: isMobile ? "120px" : "180px",
-                  height: isMobile ? "150px" : "240px",
-                  top: isMobile ? "40px" : "60px",
-                  left: isMobile ? "160px" : "220px",
-                  transform: isMobile ? "rotate(1.5deg)" : "rotate(1.8deg)",
-                  background: "linear-gradient(160deg, #E8E4DC 0%, #C4BFB2 100%)",
-                }}
-              >
-                <LinesIcon />
-              </div>
-
-              {/* Card 3 — Perplx AI (dark, square) */}
-              <div
-                ref={card3Ref}
-                className="flex items-center justify-center"
-                style={{
-                  ...collageCardStyle,
-                  width: isMobile ? "130px" : "200px",
-                  height: isMobile ? "130px" : "200px",
-                  top: isMobile ? "15px" : "10px",
-                  left: isMobile ? "270px" : "360px",
-                  transform: isMobile ? "rotate(-1deg)" : "rotate(-1.2deg)",
-                  background: "linear-gradient(135deg, #1C2820 0%, #2E3D32 100%)",
-                }}
-              >
-                <NetworkIcon />
-              </div>
-
-              {/* Card 4 — abstract texture card (no project label, pure visual) */}
-              <div
-                ref={card4Ref}
-                style={{
-                  ...collageCardStyle,
-                  width: isMobile ? "100px" : "150px",
-                  height: isMobile ? "110px" : "170px",
-                  top: isMobile ? "170px" : "240px",
-                  left: isMobile ? "30px" : "60px",
-                  transform: isMobile ? "rotate(2.5deg)" : "rotate(3deg)",
-                  background: "linear-gradient(135deg, #D4D0C8 0%, #EFEFEB 100%)",
-                }}
-              >
+            <div style={{ position: "relative", flex: 1 }}>
+              {isMobile ? (
                 <div
-                  className="w-full h-full opacity-50"
                   style={{
-                    backgroundImage: `radial-gradient(circle, var(--border) 1px, transparent 1px)`,
-                    backgroundSize: "8px 8px",
+                    position: "relative",
+                    width: "100%",
+                    padding: "1rem 0 0",
+                    overflowX: "hidden",
                   }}
-                />
-              </div>
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "0",
+                      marginBottom: "-30px",
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                  >
+                    <div
+                      ref={(el) => {
+                        mobileCardRefs.current[0] = el;
+                      }}
+                      data-rotate={"-8"}
+                      style={{
+                        width: "48%",
+                        aspectRatio: "3/4",
+                        background: "var(--sage)",
+                        transform: "rotate(-8deg)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginRight: "-16px",
+                        zIndex: 1,
+                        boxShadow: collageCardStyle.boxShadow,
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr 1fr",
+                          gap: "6px",
+                          opacity: 0.35,
+                        }}
+                      >
+                        {[0, 1, 2, 3].map((j) => (
+                          <div
+                            key={j}
+                            style={{
+                              width: "12px",
+                              height: "12px",
+                              background: "#FFFFFF",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
 
-              {/* Card 5 — small accent card (sage solid) */}
-              <div
-                ref={card5Ref}
-                className="flex items-center justify-center"
-                style={{
-                  ...collageCardStyle,
-                  width: isMobile ? "90px" : "130px",
-                  height: isMobile ? "90px" : "130px",
-                  top: isMobile ? "175px" : "260px",
-                  left: isMobile ? "220px" : "340px",
-                  transform: isMobile ? "rotate(-3deg)" : "rotate(-3.5deg)",
-                  background: "var(--sage)",
-                }}
-              >
-                <BracesIcon />
-              </div>
+                    <div
+                      ref={(el) => {
+                        mobileCardRefs.current[1] = el;
+                      }}
+                      data-rotate={"12"}
+                      style={{
+                        width: "42%",
+                        aspectRatio: "3/4",
+                        background: "var(--void)",
+                        transform: "rotate(12deg)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        zIndex: 2,
+                        marginTop: "20px",
+                        boxShadow: collageCardStyle.boxShadow,
+                      }}
+                    >
+                      <div style={{ opacity: 0.25 }}>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                          <circle cx="12" cy="7" r="4" fill="white" />
+                          <path
+                            d="M4 20c0-4 3.6-7 8-7s8 3 8 7"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            fill="none"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Handwritten annotation */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      position: "relative",
+                      zIndex: 2,
+                      paddingLeft: "10%",
+                    }}
+                  >
+                    <div
+                      ref={(el) => {
+                        mobileCardRefs.current[2] = el;
+                      }}
+                      data-rotate={"-5"}
+                      style={{
+                        width: "55%",
+                        aspectRatio: "4/3",
+                        background: "var(--surface)",
+                        border: "1px solid var(--border)",
+                        transform: "rotate(-5deg)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: collageCardStyle.boxShadow,
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "5px",
+                          opacity: 0.3,
+                        }}
+                      >
+                        {[0, 1, 2].map((j) => (
+                          <div
+                            key={j}
+                            style={{
+                              width: "32px",
+                              height: "2px",
+                              background: "var(--ink)",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "0 8%",
+                      marginTop: "-20px",
+                      position: "relative",
+                      zIndex: 3,
+                    }}
+                  >
+                    <div
+                      ref={(el) => {
+                        mobileCardRefs.current[3] = el;
+                      }}
+                      data-rotate={"18"}
+                      style={{
+                        width: "30%",
+                        aspectRatio: "1/1",
+                        background: "var(--sage)",
+                        transform: "rotate(18deg)",
+                        boxShadow: collageCardStyle.boxShadow,
+                      }}
+                    />
+
+                    <div
+                      ref={(el) => {
+                        mobileCardRefs.current[4] = el;
+                      }}
+                      data-rotate={"-16"}
+                      style={{
+                        width: "28%",
+                        aspectRatio: "1/1",
+                        background: "#3D4A35",
+                        transform: "rotate(-16deg)",
+                        marginTop: "15px",
+                        boxShadow: collageCardStyle.boxShadow,
+                      }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    height: "520px",
+                    width: "100%",
+                    position: "relative",
+                  }}
+                >
+                  {COLLAGE_CARDS.map((card, i) => (
+                    <div
+                      key={i}
+                      ref={(el) => {
+                        cardRefs.current[i] = el;
+                      }}
+                      data-rotate={card.rotate}
+                      style={{
+                        ...collageCardStyle,
+                        top: card.top,
+                        left: card.left,
+                        width: card.width,
+                        height: card.height,
+                        background: card.bg,
+                        transform: `rotate(${card.rotate})`,
+                        zIndex: card.zIndex,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        border: card.bg === "var(--surface)" ? "1px solid var(--border)" : "none",
+                      }}
+                    >
+                      {card.icon === "grid" && (
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: "6px",
+                            opacity: 0.35,
+                          }}
+                        >
+                          {[0, 1, 2, 3].map((j) => (
+                            <div
+                              key={j}
+                              style={{
+                                width: "12px",
+                                height: "12px",
+                                background: "#FFFFFF",
+                              }}
+                            />
+                          ))}
+                        </div>
+                      )}
+
+                      {card.icon === "lines" && (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "5px",
+                            opacity: 0.3,
+                          }}
+                        >
+                          {[0, 1, 2].map((j) => (
+                            <div
+                              key={j}
+                              style={{
+                                width: "32px",
+                                height: "2px",
+                                background: "var(--ink)",
+                              }}
+                            />
+                          ))}
+                        </div>
+                      )}
+
+                      {card.icon === "person" && (
+                        <div style={{ opacity: 0.25 }}>
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="7" r="4" fill="white" />
+                            <path
+                              d="M4 20c0-4 3.6-7 8-7s8 3 8 7"
+                              stroke="white"
+                              strokeWidth="1.5"
+                              fill="none"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div
-                className="absolute z-[3] font-display italic text-[0.85rem] text-[var(--muted)]"
+                ref={captionRef}
                 style={{
-                  bottom: isMobile ? "8px" : "20px",
-                  right: isMobile ? "8px" : "0px",
-                  transform: "rotate(-1deg)",
-                  fontSize: isMobile ? "0.72rem" : undefined,
+                  textAlign: "center",
+                  marginTop: isMobile ? "2.5rem" : "2rem",
+                  fontFamily: "var(--font-cormorant)",
+                  fontStyle: "italic",
+                  fontSize: isMobile ? "0.88rem" : "0.95rem",
+                  color: "var(--muted)",
+                  letterSpacing: "0.02em",
                 }}
               >
                 things we shipped while building Quild →

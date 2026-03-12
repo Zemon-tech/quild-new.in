@@ -8,7 +8,7 @@ const STATS = [
     { number: '12', label: 'Weeks Program' },
     { number: '50+', label: 'Fellows' },
     { number: '100%', label: 'Hands-on' },
-    { number: 'Fast', label: 'Iteration' },
+    { number: '<7d', label: 'Iteration' },
 ];
 
 export default function CareersProgram() {
@@ -24,12 +24,12 @@ export default function CareersProgram() {
                 {
                     y: 0,
                     opacity: 1,
-                    stagger: 0.12,
-                    duration: 0.8,
+                    stagger: 0.08,
+                    duration: 0.7,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: contentItemsRef.current,
-                        start: "top 80%",
+                        start: "top 75%",
                     }
                 }
             );
@@ -50,14 +50,14 @@ export default function CareersProgram() {
                 if (numEl) {
                     gsap.to(obj, {
                         value: targetValue,
-                        duration: 1.5,
+                        duration: 1.2,
                         ease: "power2.out",
                         onUpdate: () => {
                             numEl.textContent = Math.round(obj.value) + suffix;
                         },
                         scrollTrigger: {
                             trigger: el,
-                            start: "top 85%",
+                            start: "top 80%",
                         }
                     });
                 }
@@ -68,11 +68,11 @@ export default function CareersProgram() {
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.8,
+                        duration: 0.7,
                         ease: "power2.out",
                         scrollTrigger: {
                             trigger: el,
-                            start: "top 85%",
+                            start: "top 80%",
                         }
                     }
                 );
@@ -85,14 +85,14 @@ export default function CareersProgram() {
         <section
             id="fellowship"
             style={{
-                background: 'var(--void)',
-                borderTop: '1px solid rgba(255,255,255,0.08)',
+                background: 'var(--bg)',
+                borderTop: '1px solid var(--border)',
             }}
         >
             {/* Section header */}
             <div style={{
-                padding: isMobile ? '3rem 1.5rem 2rem' : '5rem 6rem 3rem',
-                borderBottom: '1px solid rgba(255,255,255,0.1)',
+                padding: isMobile ? '3rem 1.5rem 2rem' : 'clamp(80px, 10vw, 140px) 6rem 3rem',
+                borderBottom: '1px solid var(--border)',
                 display: 'flex',
                 alignItems: 'flex-end',
                 justifyContent: 'space-between',
@@ -101,7 +101,7 @@ export default function CareersProgram() {
                     <div style={{
                         fontFamily: 'var(--font-jetbrains-mono)',
                         fontSize: '0.65rem',
-                        color: 'rgba(255,255,255,0.35)',
+                        color: 'var(--muted)',
                         letterSpacing: '0.18em',
                         textTransform: 'uppercase',
                         marginBottom: '0.5rem',
@@ -114,7 +114,7 @@ export default function CareersProgram() {
                         fontWeight: 600,
                         fontSize: 'clamp(2rem, 3.5vw, 4rem)',
                         lineHeight: 0.95,
-                        color: '#FFFFFF',
+                        color: 'var(--ink)',
                         letterSpacing: '-0.02em',
                         margin: 0,
                     }}>
@@ -131,8 +131,8 @@ export default function CareersProgram() {
                 {/* LEFT/TOP — copy */}
                 <div style={{
                     padding: isMobile ? '3rem 1.5rem' : '4rem 6rem',
-                    borderRight: !isMobile ? '1px solid rgba(255,255,255,0.1)' : 'none',
-                    borderBottom: isMobile ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                    borderRight: !isMobile ? '1px solid var(--border)' : 'none',
+                    borderBottom: isMobile ? '1px solid var(--border)' : 'none',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -157,13 +157,13 @@ export default function CareersProgram() {
                                 style={{
                                     paddingBottom: '2.5rem',
                                     marginBottom: i < 2 ? '2.5rem' : 0,
-                                    borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                                    borderBottom: i < 2 ? '1px solid var(--border)' : 'none',
                                 }}
                             >
                                 <div style={{
                                     fontFamily: 'var(--font-jetbrains-mono)',
                                     fontSize: '0.6rem',
-                                    color: 'var(--sage)',
+                                    color: 'var(--muted)',
                                     letterSpacing: '0.15em',
                                     marginBottom: '0.75rem',
                                 }}>
@@ -174,7 +174,7 @@ export default function CareersProgram() {
                                     fontStyle: 'italic',
                                     fontWeight: 600,
                                     fontSize: '1.5rem',
-                                    color: '#FFFFFF',
+                                    color: 'var(--ink)',
                                     lineHeight: 1.1,
                                     marginBottom: '0.6rem',
                                     margin: '0 0 0.6rem',
@@ -184,7 +184,7 @@ export default function CareersProgram() {
                                 <p style={{
                                     fontFamily: 'var(--font-dm-sans)',
                                     fontSize: '0.92rem',
-                                    color: 'rgba(255,255,255,0.55)',
+                                    color: 'var(--muted)',
                                     lineHeight: 1.75,
                                     margin: 0,
                                 }}>
@@ -207,8 +207,8 @@ export default function CareersProgram() {
                             ref={(el) => { statsRefs.current[i] = el; }}
                             style={{
                                 padding: isMobile ? '3rem 1.5rem' : '4rem 3rem',
-                                borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                                borderBottom: i < 2 || isMobile ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                                borderRight: i % 2 === 0 ? '1px solid var(--border)' : 'none',
+                                borderBottom: i < 2 || isMobile ? '1px solid var(--border)' : 'none',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'flex-end',
@@ -222,7 +222,7 @@ export default function CareersProgram() {
                                     fontStyle: 'normal',
                                     fontSize: 'clamp(3rem, 5vw, 5.5rem)',
                                     lineHeight: 0.9,
-                                    color: '#FFFFFF',
+                                    color: 'var(--ink)',
                                     letterSpacing: '-0.03em',
                                     marginBottom: '0.75rem',
                                 }}
@@ -232,7 +232,7 @@ export default function CareersProgram() {
                             <div style={{
                                 fontFamily: 'var(--font-jetbrains-mono)',
                                 fontSize: '0.6rem',
-                                color: 'rgba(255,255,255,0.4)',
+                                color: 'var(--muted)',
                                 letterSpacing: '0.15em',
                                 textTransform: 'uppercase',
                             }}>

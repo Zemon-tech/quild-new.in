@@ -15,34 +15,23 @@ const VALUES = [
 
 export default function CareersValues() {
     const isMobile = useIsMobile();
-    const tickerRef = useRef<HTMLDivElement | null>(null);
     const gridRef = useRef<HTMLDivElement | null>(null);
 
     useGSAP(({ gsap }) => {
-        // Ticker animation
-        if (tickerRef.current) {
-            gsap.to(tickerRef.current, {
-                x: '-50%',
-                duration: 20,
-                repeat: -1,
-                ease: 'none'
-            });
-        }
-
         // Grid cells stagger reveal
         if (gridRef.current) {
             const cells = gridRef.current.children;
             gsap.fromTo(cells,
-                { y: 40, opacity: 0 },
+                { y: 30, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
                     stagger: 0.08,
-                    duration: 0.8,
+                    duration: 0.7,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: gridRef.current,
-                        start: "top 78%",
+                        start: "top 75%",
                     }
                 }
             );
@@ -51,44 +40,8 @@ export default function CareersValues() {
 
     return (
         <section style={{ background: 'var(--bg)' }}>
-            {/* PART A: Values ticker */}
-            <div style={{
-                borderTop: '1px solid var(--border)',
-                borderBottom: '1px solid var(--border)',
-                background: 'var(--surface)',
-                overflow: 'hidden',
-                padding: '1rem 0',
-                whiteSpace: 'nowrap',
-            }}>
-                <div
-                    ref={tickerRef}
-                    style={{ display: 'inline-flex', gap: '0' }}
-                >
-                    {[...VALUES, ...VALUES, ...VALUES].map((v, i) => (
-                        <span key={i} style={{
-                            fontFamily: 'var(--font-cormorant)',
-                            fontStyle: 'italic',
-                            fontWeight: 600,
-                            fontSize: 'clamp(1rem, 1.5vw, 1.4rem)',
-                            color: 'var(--ink)',
-                            paddingRight: '3rem',
-                        }}>
-                            {v}
-                            <span style={{
-                                color: 'var(--sage)',
-                                paddingLeft: '3rem',
-                                fontStyle: 'normal',
-                                fontSize: '0.8em',
-                            }}>
-                                &middot;
-                            </span>
-                        </span>
-                    ))}
-                </div>
-            </div>
-
-            {/* PART B: Values grid */}
-            <div style={{ padding: '6rem 0' }}>
+            {/* Values grid */}
+            <div style={{ padding: isMobile ? '4rem 0' : 'clamp(80px, 10vw, 140px) 0' }}>
                 {/* Header */}
                 <div style={{
                     padding: isMobile ? '0 1.5rem 2rem' : '0 6rem 3rem',

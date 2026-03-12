@@ -1,275 +1,282 @@
 "use client";
 
-import { useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useRef } from "react";
+
+import GridLines from "@/components/ui/GridLines";
+import { Button } from "@/components/ui/button";
 import { useGSAP } from "@/hooks/useGSAP";
-import GrainOverlay from "@/components/ui/GrainOverlay";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+function splitIntoLines(text: string) {
+  return text.split("\n").map((l) => l.trim()).filter(Boolean);
+}
 
 export default function CareersHero() {
-    const rootRef = useRef<HTMLElement | null>(null);
-    const headlineRef = useRef<HTMLHeadingElement | null>(null);
-    const subtextRef = useRef<HTMLParagraphElement | null>(null);
-    const ctaRef = useRef<HTMLDivElement | null>(null);
-    const labelRef = useRef<HTMLDivElement | null>(null);
-    const ghostTextRef = useRef<HTMLDivElement | null>(null);
-    const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
+  const lines = useMemo(
+    () => splitIntoLines("Build the Future\nof Learning."),
+    []
+  );
 
-    useGSAP(({ gsap }) => {
-        if (!headlineRef.current) return;
+  useGSAP(
+    ({ gsap }) => {
+      const root = rootRef.current;
+      if (!root) return;
 
-        // Headline split reveal simulation
-        const headlineLines = headlineRef.current.innerHTML.split("<br>").map(line => {
-            return `<span style="display: block; overflow: hidden;"><span class="headline-line" style="display: block;">${line}</span></span>`;
-        }).join("");
-        headlineRef.current.innerHTML = headlineLines;
+      const q = gsap.utils.selector(root);
 
-        const lines = headlineRef.current.querySelectorAll(".headline-line");
+      gsap.set(q("[data-reveal-line]"), {
+        yPercent: 100,
+        clipPath: "inset(0 0 100% 0)",
+      });
 
-        gsap.set(labelRef.current, { opacity: 0 });
-        gsap.set(lines, { yPercent: 100, clipPath: "inset(0 0 100% 0)" });
-        gsap.set(subtextRef.current, { y: 20, opacity: 0 });
-        gsap.set(ctaRef.current?.children || [], { x: -20, opacity: 0 });
-        gsap.set(ghostTextRef.current, { y: 20, opacity: 0 });
+      const tl = gsap.timeline();
 
-        const tl = gsap.timeline();
+      tl.to(q("[data-reveal-line]"), {
+        yPercent: 0,
+        clipPath: "inset(0 0 0% 0)",
+        stagger: 0.1,
+        duration: 0.9,
+      })
+        .fromTo(
+          q("[data-load]"),
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.1 },
+          "-=0.4"
+        );
 
-        tl.to(labelRef.current, { opacity: 1, duration: 0.5 })
-            .to(lines, {
-                yPercent: 0,
-                clipPath: "inset(0 0 0% 0)",
-                stagger: 0.12,
-                duration: 0.9,
-                ease: "power3.out"
-            }, "-=0.2")
-            .to(subtextRef.current, {
-                y: 0,
-                opacity: 1,
-                duration: 0.6,
-                ease: "power2.out"
-            }, "-=0.4")
-            .to(ctaRef.current?.children || [], {
-                x: 0,
-                opacity: 1,
-                stagger: 0.1,
-                duration: 0.5,
-                ease: "power2.out"
-            }, "-=0.2")
-            .to(ghostTextRef.current, {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power2.out"
-            }, "-=0.8");
+      return () => {
+        tl.kill();
+      };
+    },
+    []
+  );
 
-        // Scroll indicator bounce
-        gsap.to(scrollIndicatorRef.current, {
-            y: 6,
-            duration: 0.9,
-            repeat: -1,
-            yoyo: true,
-            ease: "power2.inOut"
-        });
-
-        // Parallax for ghost text
-        gsap.to(ghostTextRef.current, {
-            y: -60,
-            ease: "none",
-            scrollTrigger: {
-                trigger: rootRef.current,
-                start: "top top",
-                end: "bottom top",
-                scrub: true
+  return (
+    <section
+      id="careers-hero"
+      className="relative min-h-[100svh] border-b border-white/10"
+      style={
+        isMobile
+          ? {
+              height: "100svh",
+              width: "100vw",
+              padding: 0,
+              margin: 0,
             }
-        });
-
-        return () => {
-            tl.kill();
-        };
-    }, []);
-
-    return (
-        <section
-            ref={rootRef}
-            className="careers-hero"
-            style={{
-                position: 'relative',
-                height: '100svh',
-                background: 'var(--void)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                padding: '0 6rem 6rem',
-                overflow: 'hidden',
-            }}
-        >
-            {/* Background decorative text */}
-            <div
-                ref={ghostTextRef}
-                className="ghost-text"
-                style={{
-                    position: 'absolute',
-                    top: '50%',
-                    right: '-2rem',
-                    transform: 'translateY(-50%)',
-                    fontFamily: 'var(--font-cormorant)',
-                    fontStyle: 'italic',
-                    fontWeight: 700,
-                    fontSize: 'clamp(8rem, 18vw, 22rem)',
-                    lineHeight: 0.85,
-                    color: 'rgba(255,255,255,0.03)',
-                    letterSpacing: '-0.04em',
-                    userSelect: 'none',
-                    pointerEvents: 'none',
-                    zIndex: 0,
-                }}
-            >
-                BUILD.
-            </div>
-
-            <GrainOverlay />
-
-            {/* Top label */}
-            <div
-                ref={labelRef}
-                className="hero-label"
-                style={{
-                    position: 'absolute',
-                    top: '7rem',
-                    left: '6rem',
-                    fontFamily: 'var(--font-jetbrains-mono)',
-                    fontSize: '0.65rem',
-                    color: 'rgba(255,255,255,0.4)',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                    zIndex: 2,
-                }}
-            >
-                QUILD  &middot;  CAREERS
-            </div>
-
-            {/* Main content */}
-            <div style={{ position: 'relative', zIndex: 2, maxWidth: '780px' }}>
-                <h1
-                    ref={headlineRef}
-                    className="hero-headline"
-                    style={{
-                        fontFamily: 'var(--font-cormorant)',
-                        fontStyle: 'italic',
-                        fontWeight: 600,
-                        fontSize: 'clamp(3rem, 6.5vw, 8rem)',
-                        lineHeight: 0.9,
-                        color: '#FFFFFF',
-                        letterSpacing: '-0.02em',
-                        marginBottom: '2rem',
-                    }}
-                >
-                    Build the Future<br />of Learning.
-                </h1>
-
-                <p
-                    ref={subtextRef}
-                    style={{
-                        fontFamily: 'var(--font-dm-sans)',
-                        fontSize: '1.1rem',
-                        color: 'rgba(255,255,255,0.6)',
-                        lineHeight: 1.75,
-                        maxWidth: '520px',
-                        marginBottom: '3rem',
-                    }}
-                >
-                    Empowering the next generation of founders to build the future
-                    of technology through hands-on collaboration. We're a small team
-                    doing serious work. Come build with us.
-                </p>
-
-                <div ref={ctaRef} className="hero-cta" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <a
-                        href="#positions"
-                        style={{
-                            fontFamily: 'var(--font-jetbrains-mono)',
-                            fontSize: '0.68rem',
-                            letterSpacing: '0.15em',
-                            textTransform: 'uppercase',
-                            color: 'var(--void)',
-                            background: '#FFFFFF',
-                            border: 'none',
-                            padding: '0.875rem 2rem',
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                        }}
-                    >
-                        SEE OPEN ROLES &rarr;
-                    </a>
-
-                    <a
-                        href="#fellowship"
-                        style={{
-                            fontFamily: 'var(--font-jetbrains-mono)',
-                            fontSize: '0.68rem',
-                            letterSpacing: '0.15em',
-                            textTransform: 'uppercase',
-                            color: 'rgba(255,255,255,0.7)',
-                            border: '1px solid rgba(255,255,255,0.25)',
-                            padding: '0.875rem 2rem',
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                        }}
-                    >
-                        THE FELLOWSHIP
-                    </a>
-                </div>
-            </div>
-
-            {/* Scroll indicator */}
-            <div
-                ref={scrollIndicatorRef}
-                className="scroll-indicator"
-                style={{
-                    position: 'absolute',
-                    bottom: '2rem',
-                    right: '6rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: 'var(--font-jetbrains-mono)',
-                    fontSize: '0.58rem',
-                    color: 'rgba(255,255,255,0.25)',
-                    letterSpacing: '0.15em',
-                    zIndex: 2,
-                }}
-            >
-                SCROLL
-                <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.22)' }} />
-            </div>
-
-            <style jsx>{`
-        @media (max-width: 768px) {
-          .careers-hero {
-            padding: 0 1.5rem 4rem !important;
+          : undefined
+      }
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/careers.png"
+          alt="Careers hero background"
+          fill
+          className="object-cover object-center"
+          style={
+            isMobile
+              ? {
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                  width: "100%",
+                  height: "100%",
+                }
+              : { objectPosition: "center center" }
           }
-          .ghost-text {
-            display: none !important;
-          }
-          .hero-headline {
-            font-size: clamp(2.5rem, 8vw, 4rem) !important;
-          }
-          .hero-label {
-            left: 1.5rem !important;
-            top: 6rem !important;
-          }
-          .hero-cta {
-            flex-direction: column !important;
-            width: 100% !important;
-          }
-          .hero-cta > a {
-            width: 100% !important;
-            text-align: center !important;
-          }
-          .scroll-indicator {
-            right: 1.5rem !important;
-          }
+          priority
+        />
+      </div>
+
+      <GridLines />
+
+      <div
+        ref={rootRef}
+        className="relative z-10 mx-auto grid h-full min-h-[100svh] w-full max-w-[1280px] grid-cols-12 px-8"
+        style={
+          isMobile
+            ? {
+                width: "100vw",
+                maxWidth: "100vw",
+                paddingLeft: 0,
+                paddingRight: 0,
+                marginLeft: 0,
+                marginRight: 0,
+              }
+            : undefined
         }
-      `}</style>
-        </section>
-    );
+      >
+        {/* Left Column - 8/12 */}
+        <div
+          className="col-span-12 flex flex-col justify-center pt-[120px] pb-10 md:col-span-8"
+          style={
+            isMobile
+              ? {
+                  width: "100%",
+                  padding: "0 1.5rem",
+                  paddingTop: "7rem",
+                }
+              : undefined
+          }
+        >
+          <div
+            data-load
+            className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/75"
+            style={
+              isMobile
+                ? {
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.1em",
+                  }
+                : undefined
+            }
+          >
+            QUILD · CAREERS
+          </div>
+
+          <div className="mt-8 overflow-hidden">
+            <h1
+              className="text-[clamp(3.8rem,7.5vw,8rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-white"
+              style={
+                isMobile
+                  ? {
+                      fontFamily: "var(--font-cormorant), serif",
+                      fontStyle: "italic",
+                      textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                      fontSize: "clamp(2.8rem, 10vw, 4rem)",
+                      lineHeight: 0.95,
+                    }
+                  : {
+                      fontFamily: "var(--font-cormorant), serif",
+                      fontStyle: "italic",
+                      textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                    }
+              }
+            >
+              {lines.map((line) => (
+                <span key={line} className="block overflow-hidden">
+                  <span
+                    data-reveal-line
+                    className="block will-change-transform"
+                  >
+                    {line}
+                  </span>
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          <p
+            data-load
+            className="mt-8 max-w-[520px] text-[1.1rem] leading-[1.75] text-white/80"
+            style={
+              isMobile
+                ? {
+                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                    fontSize: "0.95rem",
+                    lineHeight: 1.7,
+                    maxWidth: "100%",
+                    marginTop: "1.25rem",
+                  }
+                : { fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }
+            }
+          >
+            Empowering the next generation of founders to build the future
+            of technology through hands-on collaboration. We&apos;re a small
+            team doing serious work. Come build with us.
+          </p>
+
+          <div
+            data-load
+            className="mt-10 flex flex-wrap gap-4"
+            style={
+              isMobile
+                ? {
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                    marginTop: "2rem",
+                    width: "100%",
+                  }
+                : undefined
+            }
+          >
+            <Button
+              asChild
+              className="h-auto rounded-none bg-white px-8 py-[0.85rem] text-black hover:bg-white"
+              style={
+                isMobile
+                  ? {
+                      width: "100%",
+                      textAlign: "center",
+                      padding: "1rem",
+                    }
+                  : undefined
+              }
+            >
+              <Link href="#positions">SEE OPEN ROLES →</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-auto rounded-none border border-white/60 bg-transparent px-8 py-[0.85rem] text-white hover:bg-transparent"
+              style={
+                isMobile
+                  ? {
+                      width: "100%",
+                      textAlign: "center",
+                      padding: "1rem",
+                    }
+                  : undefined
+              }
+            >
+              <Link href="#fellowship">THE FELLOWSHIP →</Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* Right Column - 4/12 */}
+        <div
+          className="col-span-12 hidden flex-col items-end justify-end pb-10 md:col-span-4 md:flex"
+          style={isMobile ? { display: "none" } : undefined}
+        >
+          {/* Rotated vertical label */}
+          <div className="origin-top-right -rotate-90 whitespace-nowrap font-mono text-[0.65rem] uppercase tracking-[0.12em] text-white/50 mt-30">
+            ENGINEERING · BRAND · RESEARCH · AND BEYOND
+          </div>
+
+          {/* Bracketed note at bottom right */}
+          <div className="mt-auto">
+            <Link
+              href="#positions"
+              className="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-white border border-[var(--sage)] px-2 py-1"
+            >
+              [ OPEN POSITIONS — 7 ROLES ]
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom stats ticker */}
+        <div className="col-span-12 mt-auto border-t border-white/20 py-6">
+          <div
+            className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/65"
+            style={
+              isMobile
+                ? {
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.08em",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                  }
+                : undefined
+            }
+          >
+            HYPER-GROWTH · PERSONAL BRAND · FUTURE-PROOF SKILLS · CREATIVE AUTONOMY
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

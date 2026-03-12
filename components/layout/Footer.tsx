@@ -47,7 +47,7 @@ export default function Footer() {
               asChild
               className="h-auto rounded-none border border-[var(--sage)] bg-[var(--sage)] px-10 py-4 text-white hover:bg-[var(--sage)]"
             >
-              <Link href="/apply">APPLY NOW →</Link>
+              <Link href="/apply">JOIN NOW →</Link>
             </Button>
           </ScrollReveal>
         </div>
@@ -118,6 +118,7 @@ export default function Footer() {
               <Link href="/community">Community</Link>
               <Link href="/events">Events</Link>
               <Link href="/blog">Blog</Link>
+              <Link href="/careers">Careers</Link>
             </div>
           </div>
 

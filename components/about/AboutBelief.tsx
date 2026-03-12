@@ -149,6 +149,7 @@ export default function AboutBelief() {
         ref={bgRef}
         src="/about-belief.png"
         alt=""
+        draggable={false}
         onError={(e) => {
           e.currentTarget.style.display = "none";
         }}
@@ -161,7 +162,10 @@ export default function AboutBelief() {
           objectPosition: "center",
           zIndex: 0,
           transform: "scale(1.05)",
-        }}
+          pointerEvents: "none",
+          userSelect: "none",
+          WebkitUserDrag: "none",
+        } as React.CSSProperties}
       />
 
       {/* Fallback background */}
@@ -173,6 +177,7 @@ export default function AboutBelief() {
           background: fallbackBg,
         }}
       />
+
       {/* ── Label — top left ── */}
       <div
         ref={labelRef}
@@ -192,13 +197,12 @@ export default function AboutBelief() {
       </div>
 
       {/* ── Headline block — vertically centered, left-anchored ── */}
-      {/* Two lines, each allowed to span naturally. No nowrap. */}
       <div
         style={{
           position: "absolute",
           top: isMobile ? "50%" : "40%",
           left: isMobile ? "1.5rem" : "5rem",
-          right: isMobile ? "1.5rem" : "40%", // right 40% is image territory on desktop
+          right: isMobile ? "1.5rem" : "40%",
           transform: isMobile ? "translateY(-55%)" : "translateY(-50%)",
           zIndex: 4,
         }}

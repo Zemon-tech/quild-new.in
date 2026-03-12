@@ -20,6 +20,8 @@ export default function LenisProvider({children}: LenisProviderProps) {
       infinite: false,
     });
 
+    let killed = false;
+
     lenisRef.current = lenis;
 
     const raf = (time: number) => {
@@ -57,9 +59,20 @@ export default function LenisProvider({children}: LenisProviderProps) {
       window.addEventListener("touchmove", preventBounce, {passive: false});
     }
 
+    (async () => {
+      const {ScrollTrigger} = await import("gsap/ScrollTrigger");
+      if (killed) return;
+      (lenis as unknown as {on?: (event: string, cb: () => void) => void}).on?.(
+        "scroll",
+        () => ScrollTrigger.update()
+      );
+      ScrollTrigger.refresh();
+    })();
+
     rafIdRef.current = requestAnimationFrame(raf);
 
     return () => {
+      killed = true;
       if (isIOS) {
         window.removeEventListener("touchmove", preventBounce);
         document.documentElement.style.overflow = restoreHtmlOverflow ?? "";

@@ -7,9 +7,9 @@ export default function CareersCTA() {
 
     return (
         <section style={{
-            background: 'var(--void)',
-            padding: isMobile ? '5rem 1.5rem' : '8rem 6rem',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
+            background: 'var(--bg)',
+            padding: isMobile ? 'clamp(60px, 8vw, 100px) 1.5rem' : 'clamp(80px, 10vw, 140px) 6rem',
+            borderTop: '1px solid var(--border)',
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             alignItems: isMobile ? 'flex-start' : 'center',
@@ -24,7 +24,7 @@ export default function CareersCTA() {
                     fontWeight: 600,
                     fontSize: 'clamp(2rem, 4vw, 5rem)',
                     lineHeight: 0.95,
-                    color: '#FFFFFF',
+                    color: 'var(--ink)',
                     letterSpacing: '-0.02em',
                     margin: '0 0 1.5rem',
                 }}>
@@ -33,7 +33,7 @@ export default function CareersCTA() {
                 <p style={{
                     fontFamily: 'var(--font-dm-sans)',
                     fontSize: '1rem',
-                    color: 'rgba(255,255,255,0.55)',
+                    color: 'var(--muted)',
                     lineHeight: 1.75,
                     margin: 0,
                     maxWidth: '440px',
@@ -56,28 +56,30 @@ export default function CareersCTA() {
                     fontSize: '0.7rem',
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
-                    color: 'var(--void)',
-                    background: 'var(--sage)',
+                    color: 'var(--bg)',
+                    background: 'var(--ink)',
+                    border: '1px solid var(--ink)',
                     padding: '1.1rem 2.5rem',
                     textDecoration: 'none',
                     textAlign: 'center',
                     display: 'block',
-                    transition: 'opacity 0.2s',
+                    transition: 'all 0.2s ease',
                 }}>
-                    JOIN THE FELLOWSHIP &rarr;
+                    JOIN THE FELLOWSHIP →
                 </a>
                 <a href="#positions" style={{
                     fontFamily: 'var(--font-jetbrains-mono)',
                     fontSize: '0.7rem',
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.6)',
-                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: 'var(--ink)',
+                    border: '1px solid var(--border)',
+                    background: 'transparent',
                     padding: '1.1rem 2.5rem',
                     textDecoration: 'none',
                     textAlign: 'center',
                     display: 'block',
-                    transition: 'all 0.2s',
+                    transition: 'all 0.2s ease',
                 }}>
                     VIEW OPEN ROLES
                 </a>

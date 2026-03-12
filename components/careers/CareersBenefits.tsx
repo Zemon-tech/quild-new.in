@@ -43,8 +43,8 @@ export default function CareersBenefits() {
                 {
                     y: 0,
                     opacity: 1,
-                    stagger: 0.07,
-                    duration: 0.8,
+                    stagger: 0.08,
+                    duration: 0.7,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: gridRef.current,
@@ -56,10 +56,10 @@ export default function CareersBenefits() {
     }, []);
 
     return (
-        <section style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)' }}>
+        <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
             {/* Header */}
             <div style={{
-                padding: isMobile ? '3rem 1.5rem 2rem' : '5rem 6rem 3rem',
+                padding: isMobile ? '3rem 1.5rem 2rem' : 'clamp(80px, 10vw, 140px) 6rem 3rem',
                 borderBottom: '1px solid var(--border)',
             }}>
                 <div style={{
@@ -82,7 +82,7 @@ export default function CareersBenefits() {
                     letterSpacing: '-0.02em',
                     margin: 0,
                 }}>
-                    What you get.
+                    What you get
                 </h2>
             </div>
 
@@ -98,7 +98,7 @@ export default function CareersBenefits() {
                     <div
                         key={i}
                         style={{
-                            padding: '3rem',
+                            padding: isMobile ? '2rem 1.5rem' : '3rem',
                             borderRight: !isMobile && (i % 3) < 2 ? '1px solid var(--border)' : 'none',
                             borderBottom: isMobile || i < 3 ? '1px solid var(--border)' : 'none',
                             borderTop: 'none',

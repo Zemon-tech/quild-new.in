@@ -2,120 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useGSAP } from "@/hooks/useGSAP";
-import { manifestoPanels } from "@/lib/data/manifesto";
-
-const navStyles = {
-  light: {
-    logo: "var(--ink)",
-    links: "var(--ink)",
-    cta: { border: "1px solid var(--ink)", color: "var(--ink)" },
-  },
-  dark: {
-    logo: "#FFFFFF",
-    links: "#FFFFFF",
-    cta: { border: "1px solid rgba(255,255,255,0.6)", color: "#FFFFFF" },
-  },
-} as const;
 
 export default function Navbar() {
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [navTheme, setNavTheme] = useState<"light" | "dark">("light");
-  const [isHidden, setIsHidden] = useState(false);
-  const pathname = usePathname();
-
-  // ── Nav theme based on page sections ─────────────────────────────────────
-  useEffect(() => {
-    // Default to light (black elements) for all pages/sections
-    // except for the landing page, about, blog, and careers which always start with Hero
-    const darkHeroPages = ["/", "/about", "/blog", "/careers"];
-    const initialTheme = darkHeroPages.includes(pathname) ? "dark" : "light";
-    setNavTheme(initialTheme);
-
-    let killed = false;
-    const createdTriggers: Array<{ kill: () => void }> = [];
-
-    (async () => {
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      if (killed) return;
-
-      // Handle Hero section theme
-      const hero = document.getElementById("hero");
-      if (hero) {
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#hero",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("dark"),
-          onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("dark"),
-          onLeaveBack: () => setNavTheme("dark"), // when scrolled above hero, stay dark
-        }));
-      }
-
-      // Blog hero theme (dark until scrolled past)
-      const blogHero = document.getElementById("blog-hero");
-      if (blogHero) {
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#blog-hero",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("dark"),
-          onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("dark"),
-          onLeaveBack: () => setNavTheme("dark"),
-        }));
-      }
-
-      // Handle Manifesto section theme if present on the page
-      const manifesto = document.getElementById("manifesto");
-      if (manifesto) {
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#manifesto",
-          start: "top top",
-          end: `+=${manifestoPanels.length * 100}%`,
-          onEnter: () => setNavTheme("dark"), // White elements
-          onLeave: () => setNavTheme("light"), // Black elements
-          onEnterBack: () => setNavTheme("dark"),
-          onLeaveBack: () => setNavTheme("light"),
-        }));
-      }
-
-      // Hide navbar when footer is reached
-      const footer = document.getElementById("footer");
-      if (footer) {
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#footer",
-          start: "top bottom", // when the top of the footer hits the bottom of the viewport
-          onEnter: () => setIsHidden(true),
-          onLeaveBack: () => setIsHidden(false),
-        }));
-      }
-
-      // Careers page specific scroll theme
-      if (pathname === "/careers") {
-        createdTriggers.push(ScrollTrigger.create({
-          trigger: "#positions",
-          start: "top top",
-          end: "bottom top",
-          onEnter: () => setNavTheme("light"),
-          onLeave: () => setNavTheme("light"),
-          onEnterBack: () => setNavTheme("light"),
-          onLeaveBack: () => setNavTheme("dark"),
-        }));
-      }
-    })();
-
-    return () => {
-      killed = true;
-      createdTriggers.forEach((t) => t.kill());
-    };
-  }, [pathname]);
+  const [hideOnFooter, setHideOnFooter] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const navColor = mobileOpen ? "#FFFFFF" : (isAtTop ? "#FFFFFF" : "var(--ink)");
+  const ctaBorder = mobileOpen ? "1px solid rgba(255,255,255,0.7)" : (isAtTop ? "1px solid rgba(255,255,255,0.7)" : "1px solid var(--ink)");
 
   // ── Mobile menu open animation ────────────────────────────────────────────
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,7 +47,33 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const theme = navStyles[navTheme];
+  useEffect(() => {
+    const onScroll = () => {
+      setIsAtTop(window.scrollY <= 2);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const footer = document.getElementById("footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setHideOnFooter(Boolean(entry?.isIntersecting));
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (hideOnFooter) setMobileOpen(false);
+  }, [hideOnFooter]);
 
   return (
     <>
@@ -159,10 +83,9 @@ export default function Navbar() {
           top: 0,
           width: "100%",
           zIndex: 100,
-          background: "transparent",
           backdropFilter: "none",
+          backgroundColor: "transparent",
           borderTop: "none",
-          borderBottom: "none",
           outline: "none",
           boxShadow: "none",
           padding: "0 2rem",
@@ -170,9 +93,10 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          opacity: isHidden ? 0 : 1,
-          pointerEvents: isHidden ? "none" : "auto",
-          transition: "opacity 0.4s ease, color 0.4s ease",
+          transition: "background-color 0.2s ease, opacity 0.25s ease, transform 0.25s ease",
+          opacity: hideOnFooter ? 0 : 1,
+          transform: hideOnFooter ? "translateY(-12px)" : "translateY(0px)",
+          pointerEvents: hideOnFooter ? "none" : "auto",
         }}
       >
         <div className="mx-auto grid h-full w-full max-w-[1280px] grid-cols-12 items-center px-8">
@@ -183,8 +107,8 @@ export default function Navbar() {
               href="/"
               className="font-display text-[1.2rem] font-semibold tracking-[0.05em]"
               style={{
-                color: mobileOpen ? "#FFFFFF" : theme.logo,
-                transition: "color 0.4s ease",
+                color: navColor,
+                transition: "color 0.2s ease",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
@@ -198,10 +122,8 @@ export default function Navbar() {
                 height={28}
                 style={{
                   filter:
-                    mobileOpen || navTheme === "dark"
-                      ? "brightness(0) invert(1)"
-                      : "brightness(0)",
-                  transition: "filter 0.4s ease",
+                    navColor === "#FFFFFF" ? "brightness(0) invert(1)" : "brightness(0)",
+                  transition: "filter 0.2s ease",
                 }}
                 priority
               />
@@ -223,8 +145,8 @@ export default function Navbar() {
                 href={href}
                 className="nav-link"
                 style={{
-                  color: theme.links,
-                  transition: "color 0.4s ease",
+                  color: navColor,
+                  transition: "color 0.2s ease",
                   textDecoration: "none",
                 }}
               >
@@ -241,12 +163,12 @@ export default function Navbar() {
               variant="outline"
               className="hidden rounded-none font-medium md:inline-flex bg-transparent"
               style={{
-                border: theme.cta.border,
-                color: theme.cta.color,
-                transition: "color 0.4s ease, border-color 0.4s ease",
+                border: ctaBorder,
+                color: navColor,
+                transition: "color 0.2s ease, border-color 0.2s ease",
               }}
             >
-              <Link href="/apply">APPLY NOW →</Link>
+              <Link href="/apply">JOIN NOW →</Link>
             </Button>
 
             {/* Mobile menu toggle — single button, no duplicate close */}
@@ -259,12 +181,12 @@ export default function Navbar() {
                 fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
                 fontSize: "0.7rem",
                 letterSpacing: "0.15em",
-                border: `1px solid ${mobileOpen ? "rgba(255,255,255,0.5)" : "currentColor"}`,
+                border: `1px solid ${mobileOpen ? "rgba(255,255,255,0.5)" : (isAtTop ? "rgba(255,255,255,0.7)" : "currentColor")}`,
                 padding: "0.4rem 0.75rem",
                 background: "transparent",
                 cursor: "pointer",
-                color: mobileOpen ? "#FFFFFF" : theme.links,
-                transition: "color 0.4s ease, border-color 0.4s ease",
+                color: navColor,
+                transition: "color 0.2s ease, border-color 0.2s ease",
                 position: "relative",
                 zIndex: 201, // above overlay so it stays clickable
               }}
@@ -340,7 +262,7 @@ export default function Navbar() {
               textTransform: "uppercase",
             }}
           >
-            APPLY NOW →
+            JOIN NOW →
           </Link>
         </div>
       )}

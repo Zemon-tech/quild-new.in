@@ -161,7 +161,6 @@ export default function AboutHero() {
                   }
                   : {
                     fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
-                    textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
                   }
               }
             >
