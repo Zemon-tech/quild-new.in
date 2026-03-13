@@ -92,7 +92,7 @@ export default function AboutClosingQuote() {
             hyphens: isMobile ? "none" : undefined,
           }}
         >
-          {isMobile ? `"The best time to be a builder is right now. The second best time is tomorrow. There is no third option."` : `"The best time to be a builder is right now.\nThe second best time is tomorrow.\nThere is no third option."`}
+          {isMobile ? `"We know this is a big dream. We're making a big commitment."` : `"We know this is a big dream.\nWe're making a big commitment."`}
         </p>
       </div>
 

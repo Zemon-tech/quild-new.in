@@ -1,17 +1,22 @@
 "use client";
 
 import type { BlogPost } from "@/lib/data/blog-posts";
+import { useEffect, useState } from "react";
 
 export default function ArticleHeader({ post }: { post: BlogPost }) {
   const readTimeMinutes = post.readTimeMinutes ?? Number.parseInt(post.readTime, 10);
 
   const titleFontSize = "clamp(1.8rem, 6vw, 2.5rem)";
 
+  const [shareUrl, setShareUrl] = useState("");
+
+  useEffect(() => {
+    setShareUrl(window.location.href);
+  }, []);
+
   const onCopy = async () => {
     await navigator.clipboard.writeText(window.location.href);
   };
-
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   const iconButtonStyle: React.CSSProperties = {
     width: "30px",

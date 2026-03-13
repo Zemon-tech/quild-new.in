@@ -190,8 +190,9 @@ export default function AboutHero() {
                 : { fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }
             }
           >
-            Quild is a selective community for students, founders, and engineers building
-            with AI. We started in Delhi. We&apos;re expanding everywhere.
+            Quild is a non-profit builder community for students, engineers, and founders
+            across every discipline — not just software. A product of Zemon, House of Builders.
+            We started in Delhi. We&apos;re expanding everywhere.
           </p>
         </div>
 
@@ -211,7 +212,7 @@ export default function AboutHero() {
               color: "rgba(255,255,255,0.4)",
             }}
           >
-            COMMUNITY → FOUNDERS → ENGINEERS → AND BEYOND
+            NON-PROFIT · BUILDER COMMUNITY · ZEMON HOUSE OF BUILDERS · EVERY FIELD · DELHI & BEYOND
           </div>
 
           {/* Bracketed chapter tag at bottom-right */}

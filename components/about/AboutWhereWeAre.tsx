@@ -49,7 +49,7 @@ export default function AboutWhereWeAre() {
             duration: 1.2,
             ease: "power2.out",
             onUpdate: () => {
-              num0.textContent = String(Math.round(obj.v));
+              num0.textContent = `${Math.round(obj.v)}+`;
             },
             scrollTrigger: {
               trigger: num0,
@@ -176,7 +176,7 @@ export default function AboutWhereWeAre() {
                   color: "var(--muted)",
                 }}
               >
-                {i === 0 ? "FOUNDERS" : i === 1 ? "FIRST COHORT" : "THE GOAL"}
+                {i === 0 ? "FOUNDING TEAM" : i === 1 ? "FIRST COHORT" : "THE GOAL"}
               </div>
 
               <p
@@ -194,13 +194,13 @@ export default function AboutWhereWeAre() {
               >
                 {isMobile ? (
                   i === 0
-                    ? "Shivang and Satyajit. Building this from Delhi, one cohort at a time."
+                    ? "Led by Shivang and Satyajit. But never just two people — a whole team is working toward this."
                     : i === 1
                       ? "We started small on purpose. Quality of builders over quantity of signups. Always."
                       : "No ceiling. Every serious builder in the world, eventually."
                 ) : (
                   i === 0
-                    ? "Shivang and Satyajit. Building this from\nDelhi, one cohort at a time."
+                    ? "Led by Shivang and Satyajit. But never\njust two people — a whole team is\nworking toward this."
                     : i === 1
                       ? "We started small on purpose. Quality\nof builders over quantity of signups. Always."
                       : "No ceiling. Every serious builder\nin the world, eventually."
@@ -225,7 +225,7 @@ export default function AboutWhereWeAre() {
                 hyphens: isMobile ? "none" : undefined,
               }}
             >
-              {`"We have no investors.\nNo famous advisors.\nNo legacy to lean on."`}
+              {`"We have no investors.\nNo shortcuts.\nBut we have a team that believes in this\nmore than anything else."`}
             </p>
           </div>
           <div className="col-span-12 md:col-span-7">
@@ -243,12 +243,12 @@ export default function AboutWhereWeAre() {
             >
               {isMobile ? (
                 <>
-                  What we have is a clear belief, a small group of builders who showed up, and the kind of impatience that makes people start things before they're ready.
+                  What we have is a clear philosophy, a whole team working quietly and seriously, and the kind of impatience that makes people start things before they're ready.
                   <br /><br />
-                  We think that's enough to build something real.
+                  Zemon — the organisation behind Quild — exists to build things that matter. Quild is one of them. We think that's enough.
                 </>
               ) : (
-                `What we have is a clear belief, a small group of\nbuilders who showed up, and the kind of impatience\nthat makes people start things before they're ready.\n\nWe think that's enough to build something real.`
+                `What we have is a clear philosophy, a whole team working quietly and seriously,\nand the kind of impatience that makes people start things before they're ready.\n\nZemon — the organisation behind Quild — exists to build things that matter.\nQuild is one of them. We think that's enough.`
               )}
             </p>
           </div>

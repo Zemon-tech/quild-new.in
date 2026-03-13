@@ -4,6 +4,7 @@ import AboutBelief from "@/components/about/AboutBelief";
 import AboutWhereWeAre from "@/components/about/AboutWhereWeAre";
 import AboutFounders from "@/components/about/AboutFounders";
 import AboutTheCode from "@/components/about/AboutTheCode";
+import AboutPhilosophy from "@/components/about/AboutPhilosophy";
 import AboutVision from "@/components/about/AboutVision";
 import AboutClosingQuote from "@/components/about/AboutClosingQuote";
 import AboutCTA from "@/components/about/AboutCTA";
@@ -17,6 +18,7 @@ export default function AboutPage() {
       <AboutWhereWeAre />
       <AboutFounders />
       <AboutTheCode />
+      <AboutPhilosophy />
       <AboutVision />
       <AboutClosingQuote />
     </main>

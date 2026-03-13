@@ -3,11 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useGSAP } from "@/hooks/useGSAP";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideOnFooter, setHideOnFooter] = useState(false);
@@ -74,6 +76,8 @@ export default function Navbar() {
   useEffect(() => {
     if (hideOnFooter) setMobileOpen(false);
   }, [hideOnFooter]);
+
+  if (pathname === "/apply") return null;
 
   return (
     <>

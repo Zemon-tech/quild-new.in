@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,9 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Footer() {
   const isMobile = useIsMobile();
+  const pathname = usePathname();
+
+  if (pathname === "/apply") return null;
 
   return (
     <footer id="footer" className="relative bg-[var(--void)] text-white overflow-hidden min-h-screen flex">
@@ -34,7 +38,7 @@ export default function Footer() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-8 py-16 flex flex-col justify-between">
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-8 py-16 pb-4 flex flex-col justify-between">
         {/* Footer CTA Section Moved In */}
         <div className="mb-20 flex flex-col items-start justify-between gap-8 border-b border-white/10 pb-16 md:flex-row md:items-center">
           <ScrollReveal>

@@ -9,15 +9,15 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const visionBlocks = [
   {
     label: "WHERE WE ARE",
-    body: "Software development. Cohort programs. Delhi.\nA small, tight group of builders learning to use\nAI as a force multiplier, not a shortcut.",
+    body: "Software development. Cohort programs. Delhi.\nA non-profit. A product of Zemon — House of Builders.\nA small, tight team working on something much bigger than it looks.",
   },
   {
     label: "WHERE WE'RE GOING",
-    body: "Design. Product. AI/ML. Robotics. Mechanical engineering.\nAny field where a serious person wants to build something\nthat matters. If you're an engineer — in any discipline —\nQuild is being built for you.",
+    body: "Design. Product. AI/ML. Robotics. Mechanical engineering.\nEvery discipline where a serious person wants to build something that matters.\nPartnerships with professors, researchers, and practitioners in every field.\nIf you can engineer it — Quild is being built for you.",
   },
   {
     label: "THE LONG GAME",
-    body: "The largest community of builders, innovators, and\nengineers in the world. Not the noisiest — the best.\nAs AI gets more powerful, the humans who master it\nwill define the next century. We're building the room\nwhere those humans find each other.",
+    body: "The largest non-profit builder community in the world.\nNot the noisiest — the most serious.\n\nWe have a big dream. We know exactly how to get there.\nAnd we're making a commitment — not for a season,\nbut for as long as it takes to build this right.",
   },
 ] as const;
 

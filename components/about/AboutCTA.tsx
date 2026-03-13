@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import Footer from "@/components/layout/Footer";
-import { Button } from "@/components/ui/button";
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -46,39 +44,83 @@ export default function AboutCTA() {
       <section className="bg-[var(--void)] text-white" style={{ padding: isMobile ? "4rem 1.5rem" : "5rem 2rem" }}>
         <div
           ref={ctaInnerRef}
-          className="mx-auto flex w-full max-w-[1280px] flex-col items-start justify-between gap-10 md:flex-row md:items-end"
+          className="mx-auto flex w-full max-w-[1280px] flex-col items-start"
         >
           <h2
             style={{
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontWeight: 600,
-              fontSize: isMobile ? "clamp(2rem, 7vw, 3rem)" : "clamp(2.2rem, 4.8vw, 4.2rem)",
+              fontSize: "clamp(2.2rem, 4.5vw, 5.5rem)",
               lineHeight: 0.95,
+              color: "#FFFFFF",
               letterSpacing: "-0.02em",
-              whiteSpace: isMobile ? "normal" : "pre-line",
+              whiteSpace: "pre-line",
               overflowWrap: isMobile ? "break-word" : undefined,
               wordBreak: isMobile ? "normal" : undefined,
               hyphens: isMobile ? "none" : undefined,
+              margin: "0 0 2.5rem",
             }}
           >
-            {isMobile ? `If this sounds like the room you've been looking for —` : `If this sounds like\nthe room you've been\nlooking for —`}
+            {`We know this is a big dream.\nWe're making a big commitment.`}
           </h2>
 
-          <div className="flex w-full flex-col gap-4 md:w-auto">
-            <Button
-              asChild
-              className="h-auto w-full rounded-none border border-[var(--sage)] bg-[var(--sage)] px-10 py-4 text-white hover:bg-[var(--sage)] md:w-auto"
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+              gap: isMobile ? "2rem" : "4rem",
+              borderTop: "1px solid rgba(255,255,255,0.12)",
+              paddingTop: "3rem",
+              width: "100%",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "1.05rem",
+                color: "rgba(255,255,255,0.7)",
+                lineHeight: 1.85,
+                margin: 0,
+              }}
             >
-              <Link href="/apply">APPLY NOW →</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="h-auto w-full rounded-none border border-white/35 bg-transparent px-10 py-4 text-white hover:bg-transparent md:w-auto"
-            >
-              <a href="#about-top">READ OUR STORY →</a>
-            </Button>
+              If you align with this — if somewhere in your heart you think this should exist and can succeed — then we are asking you to join now.
+              <br />
+              <br />
+              Not when it&apos;s bigger. Not when it&apos;s safer. Now, when it still needs the people who believe in it before it&apos;s obvious.
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "0.92rem",
+                  color: "rgba(255,255,255,0.45)",
+                  lineHeight: 1.8,
+                  margin: "0 0 2rem",
+                }}
+              >
+                Quild is a non-profit. A product of Zemon. We&apos;re not here to make money from builders — we&apos;re here to build the room that serious builders in every discipline deserve.
+              </p>
+
+              <Link
+                href="/apply"
+                style={{
+                  fontFamily: "var(--font-jetbrains-mono)",
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--void)",
+                  background: "var(--sage)",
+                  padding: "1.1rem 2.5rem",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  alignSelf: "flex-start",
+                }}
+              >
+                JOIN NOW →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
