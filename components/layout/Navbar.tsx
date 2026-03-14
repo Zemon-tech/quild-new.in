@@ -140,6 +140,7 @@ export default function Navbar() {
             {[
               { href: "/about", label: "About" },
               { href: "/programs", label: "Programs" },
+              { href: "/initiatives", label: "Initiatives" },
               { href: "/community", label: "Community" },
               { href: "/events", label: "Events" },
               { href: "/blog", label: "Blog" },
@@ -222,6 +223,7 @@ export default function Navbar() {
             {[
               { href: "/about", label: "About" },
               { href: "/programs", label: "Programs" },
+              { href: "/initiatives", label: "Initiatives" },
               { href: "/community", label: "Community" },
               { href: "/events", label: "Events" },
               { href: "/blog", label: "Blog" },
