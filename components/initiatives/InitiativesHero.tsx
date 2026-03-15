@@ -1,183 +1,282 @@
-'use client'
-import { useRef } from 'react'
-import { useGSAP } from '@/hooks/useGSAP'
-import { useIsMobile } from '@/hooks/use-mobile'
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useRef } from "react";
+
+import GridLines from "@/components/ui/GridLines";
+import { Button } from "@/components/ui/button";
+import { useGSAP } from "@/hooks/useGSAP";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+function splitIntoLines(text: string) {
+  return text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+}
 
 export default function InitiativesHero() {
-  const isMobile = useIsMobile()
-  const sectionRef = useRef<HTMLElement>(null)
-  const labelRef   = useRef<HTMLDivElement>(null)
-  const line1Ref   = useRef<HTMLDivElement>(null)
-  const line2Ref   = useRef<HTMLDivElement>(null)
-  const line3Ref   = useRef<HTMLDivElement>(null)
-  const subRef     = useRef<HTMLParagraphElement>(null)
-  const statsRef   = useRef<HTMLDivElement>(null)
-  const scrollRef  = useRef<HTMLDivElement>(null)
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
+  const lines = useMemo(
+    () => splitIntoLines("Not one thing.\nNot one field.\nAll of it."),
+    []
+  );
 
-  useGSAP(({ gsap }) => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.from(labelRef.current,  { opacity: 0, duration: 0.5 })
-      .from([line1Ref.current, line2Ref.current, line3Ref.current], {
-        clipPath: 'inset(0 0 100% 0)',
-        y: 20,
-        stagger: 0.12,
+  useGSAP(
+    ({ gsap }) => {
+      const root = rootRef.current;
+      if (!root) return;
+
+      const q = gsap.utils.selector(root);
+
+      gsap.set(q("[data-reveal-line]"), {
+        yPercent: 100,
+        clipPath: "inset(0 0 100% 0)",
+      });
+
+      const tl = gsap.timeline();
+
+      tl.to(q("[data-reveal-line]"), {
+        yPercent: 0,
+        clipPath: "inset(0 0 0% 0)",
+        stagger: 0.1,
         duration: 0.9,
-      }, '-=0.2')
-      .from(subRef.current,   { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-      .from(statsRef.current, { opacity: 0, y: 15, duration: 0.5 }, '-=0.3')
+      }).fromTo(
+        q("[data-load]"),
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.1 },
+        "-=0.4"
+      );
 
-    // Scroll indicator bounce
-    gsap.to(scrollRef.current, {
-      y: 8, duration: 0.9, repeat: -1, yoyo: true, ease: 'power1.inOut',
-    })
-  }, [])
+      return () => {
+        tl.kill();
+      };
+    },
+    []
+  );
 
   return (
     <section
-      ref={sectionRef}
       id="initiatives-hero"
-      style={{
-        position: 'relative',
-        height: '100svh',
-        background: 'var(--void)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        padding: isMobile ? '0 1.5rem 4rem' : '0 6rem 6rem',
-        overflow: 'hidden',
-      }}
+      className="relative min-h-[100svh] border-b border-[var(--border)]"
+      style={
+        isMobile
+          ? {
+              height: "100svh",
+              width: "100vw",
+              padding: 0,
+              margin: 0,
+            }
+          : undefined
+      }
     >
       {/* Ghost word — background texture only */}
-      {!isMobile && (
-        <div style={{
-          position: 'absolute', top: '50%', right: '-1rem',
-          transform: 'translateY(-50%)',
-          fontFamily: 'var(--font-cormorant)',
-          fontStyle: 'italic', fontWeight: 700,
-          fontSize: 'clamp(8rem,16vw,20rem)',
-          lineHeight: 0.85,
-          color: 'rgba(255,255,255,0.025)',
-          letterSpacing: '-0.04em',
-          userSelect: 'none', pointerEvents: 'none', zIndex: 0,
-        }}>
-          BUILD.
-        </div>
-      )}
-
-      {/* Top label */}
-      <div ref={labelRef} style={{
-        position: 'absolute',
-        top: isMobile ? '5rem' : '7rem',
-        left: isMobile ? '1.5rem' : '6rem',
-        fontFamily: 'var(--font-jetbrains-mono)',
-        fontSize: '0.65rem',
-        color: 'rgba(255,255,255,0.35)',
-        letterSpacing: '0.2em',
-        textTransform: 'uppercase',
-        zIndex: 2,
-      }}>
-        QUILD · INITIATIVES
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/initiative.png"
+          alt="Initiatives background"
+          fill
+          className="object-cover object-right"
+          style={
+            isMobile
+              ? {
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                  width: "100%",
+                  height: "100%",
+                }
+              : { objectPosition: "right center" }
+          }
+          priority
+        />
       </div>
 
-      {/* Main content */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: '820px' }}>
+      <GridLines />
 
-        {/* Eyebrow */}
-        <div style={{
-          fontFamily: 'var(--font-jetbrains-mono)',
-          fontSize: '0.62rem',
-          color: 'rgba(255,255,255,0.3)',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          marginBottom: '1.5rem',
-        }}>
-          EVERYTHING WE'RE BUILDING
-        </div>
+      <div
+        ref={rootRef}
+        className="relative z-10 mx-auto grid h-full min-h-[100svh] w-full max-w-[1280px] grid-cols-12 px-8"
+        style={
+          isMobile
+            ? {
+                width: "100vw",
+                maxWidth: "100vw",
+                paddingLeft: 0,
+                paddingRight: 0,
+                marginLeft: 0,
+                marginRight: 0,
+              }
+            : undefined
+        }
+      >
+        {/* Left Column - 7/12 */}
+        <div
+          className="col-span-12 flex flex-col justify-center pt-[120px] pb-10 md:col-span-8"
+          style={
+            isMobile
+              ? {
+                  width: "100%",
+                  padding: "0 1.5rem",
+                  paddingTop: "7rem",
+                }
+              : undefined
+          }
+        >
 
-        {/* Headline — 3 lines each in own ref for stagger */}
-        <h1 style={{
-          fontFamily: 'var(--font-cormorant)',
-          fontStyle: 'italic', fontWeight: 600,
-          lineHeight: 0.9, letterSpacing: '-0.02em',
-          margin: '0 0 2rem',
-        }}>
-          {['Not one thing.', 'Not one field.', 'All of it.'].map((line, i) => (
-            <div
-              key={i}
-              ref={[line1Ref, line2Ref, line3Ref][i]}
-              style={{
-                display: 'block',
-                fontSize: 'clamp(3rem,6.5vw,8rem)',
-                color: i === 2 ? 'rgba(255,255,255,0.5)' : '#FFFFFF',
-              }}
+          {/* Eyebrow */}
+          <div
+            data-load
+            className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/55"
+            style={
+              isMobile
+                ? {
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.1em",
+                  }
+                : undefined
+            }
+          >
+            EVERYTHING WE&apos;RE BUILDING
+          </div>
+
+          <div className="mt-4 overflow-hidden">
+            <h1
+              className="text-[clamp(3.8rem,7.5vw,8rem)] font-semibold leading-[0.92] tracking-[-0.02em] text-white"
+              style={
+                isMobile
+                  ? {
+                      fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                      textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                      fontSize: "clamp(2.8rem, 10vw, 4rem)",
+                      lineHeight: 0.95,
+                    }
+                  : {
+                      fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                      textShadow: "0 4px 40px rgba(0, 0, 0, 0.25)",
+                    }
+              }
             >
-              {line}
-            </div>
-          ))}
-        </h1>
+              {lines.map((line) => (
+                <span key={line} className="block overflow-hidden">
+                  <span data-reveal-line className="block will-change-transform">
+                    {line}
+                  </span>
+                </span>
+              ))}
+            </h1>
+          </div>
 
-        {/* Subtext */}
-        <p ref={subRef} style={{
-          fontFamily: 'var(--font-dm-sans)',
-          fontSize: '1.05rem',
-          color: 'rgba(255,255,255,0.5)',
-          lineHeight: 1.8,
-          maxWidth: '480px',
-          margin: '0 0 3rem',
-        }}>
-          One institution. Programs, cohorts, communities, and systems —
-          built one proof at a time, for serious builders in every field.
-        </p>
+          {/* Subtext */}
+          <p
+            data-load
+            className="mt-8 max-w-[520px] text-[1.1rem] leading-[1.75] text-white/80"
+            style={
+              isMobile
+                ? {
+                    fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                    fontSize: "0.95rem",
+                    lineHeight: 1.7,
+                    maxWidth: "100%",
+                    marginTop: "1.25rem",
+                  }
+                : { fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }
+            }
+          >
+            One institution. Programs, cohorts, communities, and systems — built
+            one proof at a time, for serious builders in every field.
+          </p>
 
-        {/* Stats row */}
-        <div ref={statsRef} style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: isMobile ? '1.5rem' : '2.5rem',
-          flexWrap: 'wrap',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          paddingTop: '2rem',
-        }}>
-          {[
-            { n: '01',  l: 'COHORT SHIPPED' },
-            { n: '03+', l: 'ACTIVE NOW' },
-            { n: '∞',   l: 'PLANNED' },
-          ].map((s, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
-              <span style={{
-                fontFamily: 'var(--font-cormorant)', fontWeight: 700,
-                fontSize: 'clamp(1.5rem,3vw,2.5rem)',
-                color: '#FFFFFF', lineHeight: 1,
-              }}>{s.n}</span>
-              <span style={{
-                fontFamily: 'var(--font-jetbrains-mono)',
-                fontSize: '0.52rem',
-                color: 'rgba(255,255,255,0.3)',
-                letterSpacing: '0.15em', textTransform: 'uppercase',
-              }}>{s.l}</span>
-            </div>
-          ))}
+          <div
+            data-load
+            className="mt-10 flex flex-wrap gap-4"
+            style={
+              isMobile
+                ? {
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                    marginTop: "2rem",
+                    width: "100%",
+                  }
+                : undefined
+            }
+          >
+            <Button
+              asChild
+              className="h-auto rounded-none bg-[var(--sage)] px-8 py-[0.85rem] text-white hover:bg-[var(--sage)]"
+              style={
+                isMobile
+                  ? {
+                      width: "100%",
+                      textAlign: "center",
+                      padding: "1rem",
+                    }
+                  : undefined
+              }
+            >
+              <Link href="/initiatives">EXPLORE INITIATIVES →</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-auto rounded-none border border-white/60 bg-transparent px-8 py-[0.85rem] text-white hover:bg-transparent"
+              style={
+                isMobile
+                  ? {
+                      width: "100%",
+                      textAlign: "center",
+                      padding: "1rem",
+                    }
+                  : undefined
+              }
+            >
+              <Link href="/apply">JOIN THE COMMUNITY →</Link>
+            </Button>
+          </div>
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div style={{
-        position: 'absolute', bottom: '2.5rem', left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
-        zIndex: 2,
-      }}>
-        <span style={{
-          fontFamily: 'var(--font-jetbrains-mono)',
-          fontSize: '0.52rem',
-          color: 'rgba(255,255,255,0.2)',
-          letterSpacing: '0.2em', textTransform: 'uppercase',
-        }}>SCROLL</span>
-        <div ref={scrollRef} style={{
-          width: '1px', height: '32px',
-          background: 'rgba(255,255,255,0.18)',
-        }} />
+        {/* Right Column - 4/12 */}
+        <div
+          className="col-span-12 hidden flex-col items-end justify-end pb-10 md:col-span-4 md:flex"
+          style={isMobile ? { display: "none" } : undefined}
+        >
+          {/* Headline — 3 lines each in own ref for stagger */}
+          <div className="origin-top-right -rotate-90 whitespace-nowrap font-mono text-[0.65rem] uppercase tracking-[0.12em] text-white/50 mt-30">
+            PROGRAMS → COHORTS → COMMUNITIES → SYSTEMS
+          </div>
+
+          {/* Stats row */}
+          <div className="mt-auto">
+            <Link
+              href="/initiatives"
+              className="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-white border border-[var(--sage)] px-2 py-1"
+            >
+              [ SEE WHAT&apos;S ACTIVE ]
+            </Link>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="col-span-12 mt-auto border-t border-white/20 py-6">
+          <div
+            data-load
+            className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-white/65"
+            style={
+              isMobile
+                ? {
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.08em",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                  }
+                : undefined
+            }
+          >
+            SMALL BY CHOICE&nbsp;&nbsp;/&nbsp;&nbsp;SERIOUS BY DEFAULT&nbsp;&nbsp;/&nbsp;&nbsp;BUILDING IN PUBLIC&nbsp;&nbsp;/&nbsp;&nbsp;ONE PROOF AT A TIME
+          </div>
+        </div>
       </div>
     </section>
-  )
+  );
 }

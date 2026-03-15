@@ -139,10 +139,8 @@ export default function Navbar() {
           <nav className="col-span-6 hidden items-center justify-center gap-8 text-sm md:flex">
             {[
               { href: "/about", label: "About" },
-              { href: "/programs", label: "Programs" },
               { href: "/initiatives", label: "Initiatives" },
               { href: "/community", label: "Community" },
-              { href: "/events", label: "Events" },
               { href: "/blog", label: "Blog" },
             ].map(({ href, label }) => (
               <Link
