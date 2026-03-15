@@ -2,7 +2,6 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -188,6 +187,11 @@ body {
     opacity: 1;
   }
 }
+
+ /* Show VIEW PROFILE hint on card hover */
+ .member-card:hover > .card-view-hint {
+   opacity: 0.5;
+ }
 
 /* ── Article body typography ── */
 .article-body {

@@ -14,8 +14,18 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideOnFooter, setHideOnFooter] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
-  const navColor = mobileOpen ? "#FFFFFF" : (isAtTop ? "#FFFFFF" : "var(--ink)");
-  const ctaBorder = mobileOpen ? "1px solid rgba(255,255,255,0.7)" : (isAtTop ? "1px solid rgba(255,255,255,0.7)" : "1px solid var(--ink)");
+  const DARK_HERO_PAGES = ["/", "/about", "/blog", "/careers", "/initiatives"];
+  const isDarkHeroPage = DARK_HERO_PAGES.includes(pathname);
+  const navColor = mobileOpen
+    ? "#FFFFFF"
+    : isDarkHeroPage
+      ? (isAtTop ? "#FFFFFF" : "var(--ink)")
+      : "var(--ink)";
+  const ctaBorder = mobileOpen
+    ? "1px solid rgba(255,255,255,0.7)"
+    : isDarkHeroPage
+      ? (isAtTop ? "1px solid rgba(255,255,255,0.7)" : "1px solid var(--ink)")
+      : "1px solid var(--ink)";
 
   // ── Mobile menu open animation ────────────────────────────────────────────
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
