@@ -278,12 +278,10 @@ export default function ApplyPage() {
                           <label htmlFor="terms" className="font-mono text-[0.65rem] tracking-[0.05em] uppercase text-[var(--muted)] leading-none cursor-pointer flex items-center gap-1 mt-[2px]">
                             Accept
                             <Dialog>
-                              <DialogTrigger asChild>
-                                <button type="button" className="text-[var(--ink)] underline decoration-[var(--border)] hover:decoration-[var(--ink)] underline-offset-4 transition-colors">
-                                  Policy & Rules
-                                </button>
+                              <DialogTrigger className="text-[var(--ink)] underline decoration-[var(--border)] hover:decoration-[var(--ink)] underline-offset-4 transition-colors">
+                                Policy & Rules
                               </DialogTrigger>
-                              <DialogContent className="border border-[var(--border)] text-[var(--ink)] sm:max-w-[425px] overflow-hidden rounded-none shadow-2xl" style={{ backgroundColor: "var(--bg)", backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`, backgroundBlendMode: "overlay" }}>
+                              <DialogContent className="border border-[var(--border)] text-[var(--ink)] sm:max-w-[425px] overflow-hidden rounded-none shadow-2xl" data-bg="var(--bg)" data-noise="url('data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')" data-blend="overlay">
                                 <DialogHeader>
                                   <DialogTitle className="font-display tracking-[0.05em] text-xl">NETWORK POLICIES</DialogTitle>
                                   <DialogDescription className="font-mono text-[0.7rem] uppercase tracking-[0.05em] text-[var(--muted)] mt-2">
