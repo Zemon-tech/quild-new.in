@@ -40,10 +40,6 @@ function useColumns() {
 const groupOrder: MemberRole[] = [
   'TEAM',
   'COHORT PARTICIPANT',
-  'MENTOR',
-  'PARTNER',
-  'RESEARCHER',
-  'CREATOR',
 ]
 
 function groupLabel(role: MemberRole, cohort: '01' | '02' | null) {
@@ -53,10 +49,7 @@ function groupLabel(role: MemberRole, cohort: '01' | '02' | null) {
     return 'COHORT'
   }
   if (role === 'TEAM') return 'TEAM'
-  if (role === 'MENTOR') return 'MENTORS'
-  if (role === 'PARTNER') return 'PARTNERS'
-  if (role === 'RESEARCHER') return 'RESEARCH'
-  return 'CREATORS'
+  return 'TEAM'
 }
 
 function groupMembers(members: Member[]) {
@@ -80,13 +73,6 @@ function groupMembers(members: Member[]) {
     result.push({ key: 'COHORT-01', label: 'COHORT 01', members: cohort01 })
   if (cohort02.length)
     result.push({ key: 'COHORT-02', label: 'COHORT 02', members: cohort02 })
-
-  ;(['MENTOR', 'PARTNER', 'RESEARCHER', 'CREATOR'] as const).forEach((role) => {
-    const arr = byRole.get(role) ?? []
-    if (arr.length) {
-      result.push({ key: role, label: groupLabel(role, null), members: arr })
-    }
-  })
 
   return result
 }

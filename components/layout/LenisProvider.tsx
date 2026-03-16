@@ -18,6 +18,12 @@ export default function LenisProvider({children}: LenisProviderProps) {
       wheelMultiplier: 1,
       touchMultiplier: 1,
       infinite: false,
+      allowNestedScroll: true,
+      prevent: (node) =>
+        Boolean(
+          node instanceof HTMLElement &&
+            node.closest('[data-lenis-prevent], [data-lenis-prevent-wheel], [data-lenis-prevent-touch]')
+        ),
     });
 
     let killed = false;

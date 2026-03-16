@@ -12,6 +12,8 @@ export default function MemberCard({
 }) {
   const isMobile = useIsMobile()
 
+  const hasAvatar = Boolean(member.avatarUrl)
+
   return (
     <div
       className="member-card"
@@ -47,19 +49,37 @@ export default function MemberCard({
           maxHeight: !isMobile ? (member.featured ? '260px' : '180px') : undefined,
         }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-cormorant)',
-            fontStyle: 'italic',
-            fontWeight: 600,
-            fontSize: !isMobile ? (member.featured ? '3.5rem' : '2rem') : '2rem',
-            color: 'var(--ink)',
-            opacity: 0.4,
-            userSelect: 'none',
-          }}
-        >
-          {member.initials}
-        </span>
+        {hasAvatar ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={member.avatarUrl}
+            alt={member.name}
+            loading="lazy"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+            }}
+          />
+        ) : (
+          <span
+            style={{
+              fontFamily: 'var(--font-cormorant)',
+              fontStyle: 'italic',
+              fontWeight: 600,
+              fontSize: !isMobile ? (member.featured ? '3.5rem' : '2rem') : '2rem',
+              color: 'var(--ink)',
+              opacity: 0.4,
+              userSelect: 'none',
+            }}
+          >
+            {member.initials}
+          </span>
+        )}
 
         <div
           style={{

@@ -14,7 +14,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideOnFooter, setHideOnFooter] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
-  const DARK_HERO_PAGES = ["/", "/about", "/blog", "/careers", "/initiatives"];
+  const DARK_HERO_PAGES = ["/", "/about", "/blog", "/careers", "/initiatives", "/community"];
   const isDarkHeroPage = DARK_HERO_PAGES.includes(pathname);
   const navColor = mobileOpen
     ? "#FFFFFF"

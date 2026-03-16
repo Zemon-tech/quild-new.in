@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -118,10 +119,8 @@ export default function Footer() {
             </div>
             <div className="mt-5 flex flex-col gap-3 text-sm text-white/75">
               <Link href="/about">About</Link>
-              <Link href="/programs">Programs</Link>
               <Link href="/initiatives">Initiatives</Link>
               <Link href="/community">Community</Link>
-              <Link href="/events">Events</Link>
               <Link href="/blog">Blog</Link>
               <Link href="/careers">Careers</Link>
             </div>
@@ -134,7 +133,6 @@ export default function Footer() {
             <div className="mt-5 flex flex-col gap-3 text-sm text-white/75">
               <Link href="/programs">Cohorts</Link>
               <Link href="/programs">Workshops</Link>
-              <span className="text-white/45">Mentorship (coming soon)</span>
             </div>
           </div>
 
@@ -153,10 +151,7 @@ export default function Footer() {
                 <Image src="https://cdn.brandfetch.io/idZAyF9rlg/theme/light/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826" alt="GitHub" width={20} height={20} className="h-5 w-5" />
               </a>
               <a href="mailto:hello@quild.community" aria-label="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="M4 4h16v16H4z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
+                <Mail className="h-5 w-5" />
               </a>
             </div>
           </div>

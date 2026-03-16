@@ -79,10 +79,18 @@ function Dialog({
     const dialog = dialogRef.current;
     if (!dialog) return;
 
+    const html = document.documentElement;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+
     if (isOpen) {
       document.body.classList.add('overflow-hidden');
+      html.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
     } else {
       document.body.classList.remove('overflow-hidden');
+      html.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
     }
 
     const handleCancel = (e: Event) => {
@@ -96,6 +104,8 @@ function Dialog({
     return () => {
       dialog.removeEventListener('cancel', handleCancel);
       document.body.classList.remove('overflow-hidden');
+      html.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
     };
   }, [dialogRef, isOpen, setIsOpen]);
 
@@ -237,7 +247,7 @@ function DialogContent({ children, className, container }: DialogContentProps) {
             className
           )}
         >
-          <div className='w-full'>{children}</div>
+          <div className='w-full h-full flex flex-col'>{children}</div>
         </motion.dialog>
       )}
     </AnimatePresence>

@@ -1,12 +1,34 @@
 export type MemberRole =
   | 'COHORT PARTICIPANT'
-  | 'MENTOR'
-  | 'PARTNER'
-  | 'RESEARCHER'
-  | 'CREATOR'
   | 'TEAM'
 
 export type MemberCohort = '01' | '02' | null
+
+export interface MemberProject {
+  name: string
+  description: string
+  role?: string
+  links?: {
+    demo?: string
+    github?: string
+    notion?: string
+  }
+}
+
+export interface CohortParticipantDetails {
+  cohortLabel: string
+  projectsBuilt: MemberProject[]
+  contributions: string[]
+  testimonial?: string
+  highlights?: string[]
+}
+
+export interface TeamMemberDetails {
+  title: string
+  responsibilities: string[]
+  focusAreas?: string[]
+  notes?: string
+}
 
 export interface Member {
   id: string
@@ -18,6 +40,8 @@ export interface Member {
   location: string
   bio: string
   tags: string[]
+  participant?: CohortParticipantDetails
+  team?: TeamMemberDetails
   socials: {
     x?: string
     linkedin?: string
@@ -25,6 +49,7 @@ export interface Member {
     portfolio?: string
   }
   initials: string
+  avatarUrl?: string
   avatarBg?: string
   featured?: boolean
 }
@@ -35,161 +60,237 @@ export const MEMBERS: Member[] = [
     name: 'Shivang Kandoi',
     role: 'TEAM',
     cohort: null,
-    discipline: 'Product & Community',
+    discipline: 'Team',
     college: 'USICT, GGSIPU',
     location: 'Delhi, India',
-    bio: 'CEO and co-founder of Quild. Building the room for serious builders. Computer Science student at USICT, GGSIPU.',
-    tags: ['Product', 'Community', 'AI'],
-    socials: { x: 'shivangkandoi', linkedin: 'shivangkandoi', github: 'shivangkandoi' },
+    bio: 'Team member at Quild. Student at USICT, GGSIPU.',
+    tags: ['USICT'],
+    team: {
+      title: 'Core Team',
+      responsibilities: [
+        'Cohort operations and participant success',
+        'Product and community systems',
+        'Mentorship and reviews',
+      ],
+      focusAreas: ['Cohorts', 'Community', 'Product'],
+    },
+    socials: {},
     initials: 'SK',
-    featured: true,
-    avatarBg: 'var(--sage-light)',
+    avatarUrl: 'https://zemonhouseofbuilders.in/shivang.png',
   },
   {
     id: 'satyajit-jena',
     name: 'Satyajit Jena',
     role: 'TEAM',
     cohort: null,
-    discipline: 'Software Engineering',
+    discipline: 'Team',
     college: 'USICT, GGSIPU',
     location: 'Delhi, India',
-    bio: 'CTO and co-founder of Quild. Believes the best engineering happens when surrounded by people who care as much as you do.',
-    tags: ['Engineering', 'Systems', 'AI'],
-    socials: { x: 'satyajitjena', linkedin: 'satyajitjena', github: 'satyajitjena' },
+    bio: 'Team member at Quild. Student at USICT, GGSIPU.',
+    tags: ['USICT'],
+    team: {
+      title: 'Core Team',
+      responsibilities: [
+        'Engineering and build systems',
+        'Program execution support',
+        'Cohort tooling and workflows',
+      ],
+      focusAreas: ['Engineering', 'Systems'],
+    },
+    socials: {},
     initials: 'SJ',
-    featured: true,
-    avatarBg: 'var(--surface)',
+    avatarUrl: 'https://zemonhouseofbuilders.in/satyajit.png',
   },
   {
-    id: 'ananya-gupta',
-    name: 'Ananya Gupta',
+    id: 'harshit-kundra-team',
+    name: 'Harshit Kundra',
+    role: 'TEAM',
+    cohort: null,
+    discipline: 'Team',
+    college: 'USICT, GGSIPU',
+    location: 'Delhi, India',
+    bio: 'Team member at Quild. Student at USICT, GGSIPU.',
+    tags: ['USICT'],
+    team: {
+      title: 'Core Team',
+      responsibilities: [
+        'Community growth and engagement',
+        'Cohort support and facilitation',
+        'Partner and ecosystem coordination',
+      ],
+      focusAreas: ['Community', 'Ops'],
+    },
+    socials: {},
+    initials: 'HK',
+    avatarUrl: 'https://zemonhouseofbuilders.in/harshit.png',
+  },
+  {
+    id: 'ritik-paliya-team',
+    name: 'Ritik Paliya',
+    role: 'TEAM',
+    cohort: null,
+    discipline: 'Team',
+    college: 'USICT, GGSIPU',
+    location: 'Delhi, India',
+    bio: 'Team member at Quild. Student at USICT, GGSIPU.',
+    tags: ['USICT'],
+    team: {
+      title: 'Core Team',
+      responsibilities: [
+        'Curriculum and cohort delivery',
+        'Project reviews and feedback',
+        'Community support',
+      ],
+      focusAreas: ['Cohorts', 'Mentorship'],
+    },
+    socials: {},
+    initials: 'RP',
+    avatarUrl: 'https://zemonhouseofbuilders.in/ritik.png',
+  },
+  {
+    id: 'harshit-kundra',
+    name: 'Harshit Kundra',
     role: 'COHORT PARTICIPANT',
     cohort: '01',
-    discipline: 'Product Design',
-    college: 'DTU',
+    discipline: 'Student',
+    college: 'USICT, GGSIPU',
     location: 'Delhi, India',
-    bio: 'Designing systems that feel inevitable. Currently exploring human-AI collaboration for creative tools.',
-    tags: ['Design Systems', 'UX', 'Prototyping'],
-    socials: { linkedin: 'ananya-gupta', portfolio: 'https://example.com' },
-    initials: 'AG',
-    avatarBg: 'var(--sage-light)',
+    bio: 'Cohort 01 participant. Student at USICT, GGSIPU.',
+    tags: ['USICT', 'Cohort 01'],
+    participant: {
+      cohortLabel: 'Cohort 01',
+      projectsBuilt: [
+        {
+          name: 'Cohort Project',
+          description: 'Built during Quild cohort with teammates; focused on shipping an MVP.',
+          role: 'Builder',
+        },
+      ],
+      contributions: [
+        'Shipped weekly iterations and feature demos',
+        'Helped teammates unblock implementation details',
+      ],
+      testimonial: 'The cohort helped me move from ideas to shipping consistently with feedback.',
+      highlights: ['Fast iterations', 'Strong collaboration'],
+    },
+    socials: {},
+    initials: 'HK',
+    avatarUrl: 'https://zemonhouseofbuilders.in/harshit.png',
   },
   {
-    id: 'arjun-mehra',
-    name: 'Arjun Mehra',
+    id: 'ritik-paliya',
+    name: 'Ritik Paliya',
     role: 'COHORT PARTICIPANT',
     cohort: '01',
-    discipline: 'Software Engineering',
-    college: 'NSUT',
-    location: 'Gurugram, India',
-    bio: 'Full-stack builder focused on reliability and speed. Likes shipping small things that compound.',
-    tags: ['React', 'TypeScript', 'Shipping'],
-    socials: { github: 'arjunmehra', x: 'arjunmehra' },
-    initials: 'AM',
+    discipline: 'Student',
+    college: 'USICT, GGSIPU',
+    location: 'Delhi, India',
+    bio: 'Cohort 01 participant. Student at USICT, GGSIPU.',
+    tags: ['USICT', 'Cohort 01'],
+    participant: {
+      cohortLabel: 'Cohort 01',
+      projectsBuilt: [
+        {
+          name: 'Cohort Build',
+          description: 'A product built with cohort peers; validated problem + shipped MVP.',
+          role: 'Builder',
+        },
+      ],
+      contributions: [
+        'Owned core UI implementation and polish',
+        'Contributed to product narrative and pitch',
+      ],
+      testimonial: 'The cohort gave structure, accountability, and real feedback loops.',
+      highlights: ['UI polish', 'Ownership'],
+    },
+    socials: {},
+    initials: 'RP',
+    avatarUrl: 'https://zemonhouseofbuilders.in/ritik.png',
   },
   {
-    id: 'divya-nair',
-    name: 'Divya Nair',
+    id: 'prachi-yadav',
+    name: 'Prachi Yadav',
     role: 'COHORT PARTICIPANT',
     cohort: '01',
-    discipline: 'AI/ML',
-    college: 'IIIT Delhi',
+    discipline: 'Student',
+    college: 'USICT, GGSIPU',
     location: 'Delhi, India',
-    bio: 'Working on applied ML with an obsession for evals. Interested in building human-scale AI products.',
-    tags: ['ML', 'Evals', 'Applied AI'],
-    socials: { github: 'divyanair', linkedin: 'divya-nair' },
-    initials: 'DN',
+    bio: 'Cohort 01 participant. Student at USICT, GGSIPU.',
+    tags: ['USICT', 'Cohort 01'],
+    participant: {
+      cohortLabel: 'Cohort 01',
+      projectsBuilt: [
+        {
+          name: 'Cohort MVP',
+          description: 'End-to-end project built in cohort with scope control and execution.',
+          role: 'Builder',
+        },
+      ],
+      contributions: [
+        'Led research + user interviews for the problem',
+        'Documented learnings and helped with roadmap',
+      ],
+      testimonial: 'I learned how to build with clarity and communicate progress weekly.',
+      highlights: ['Research', 'Documentation'],
+    },
+    socials: {},
+    initials: 'PY',
+    avatarUrl: 'https://media.licdn.com/dms/image/v2/D5603AQHZJnrbJdkDjg/profile-displayphoto-scale_400_400/B56Zyu3hKMKUAo-/0/1772460317027?e=1775088000&v=beta&t=qq8dxNr0wlRNfBfD7cBJz5ctDVt2S9-gcVdVTy8eFnU',
   },
   {
-    id: 'karthik-iyer',
-    name: 'Karthik Iyer',
+    id: 'sanjay',
+    name: 'Sanjay',
     role: 'COHORT PARTICIPANT',
-    cohort: '02',
-    discipline: 'Software Engineering',
-    college: 'BITS Pilani',
-    location: 'Bengaluru, India',
-    bio: 'Enjoys building developer tooling and internal platforms. Believes good DX is leverage.',
-    tags: ['Systems', 'Tooling', 'Next.js'],
-    socials: { github: 'karthikiyer' },
-    initials: 'KI',
-    avatarBg: 'var(--surface)',
-  },
-  {
-    id: 'meera-joshi',
-    name: 'Meera Joshi',
-    role: 'COHORT PARTICIPANT',
-    cohort: '02',
-    discipline: 'Product',
-    college: 'IIM Indore',
-    location: 'Mumbai, India',
-    bio: 'Product thinker who likes clear bets and crisp narratives. Building with builders, not for them.',
-    tags: ['Product', 'Go-to-market', 'Research'],
-    socials: { x: 'meerajoshi', linkedin: 'meera-joshi' },
-    initials: 'MJ',
-    avatarBg: 'var(--sage-light)',
-  },
-  {
-    id: 'rohan-saxena',
-    name: 'Rohan Saxena',
-    role: 'COHORT PARTICIPANT',
-    cohort: '02',
-    discipline: 'AI/ML',
-    college: 'IIT Roorkee',
-    location: 'Hyderabad, India',
-    bio: 'Building agents that are boringly reliable. Interested in workflows, not demos.',
-    tags: ['Agents', 'Python', 'Evals'],
-    socials: { github: 'rohansaxena' },
-    initials: 'RS',
-  },
-  {
-    id: 'priya-sharma',
-    name: 'Priya Sharma',
-    role: 'MENTOR',
-    cohort: null,
-    discipline: 'Product & Growth',
-    location: 'Remote',
-    bio: 'Mentors early-stage teams on positioning and loops. Previously built consumer + B2B products.',
-    tags: ['Positioning', 'Growth', 'Distribution'],
-    socials: { linkedin: 'priya-sharma' },
-    initials: 'PS',
-  },
-  {
-    id: 'aditya-verma',
-    name: 'Aditya Verma',
-    role: 'PARTNER',
-    cohort: null,
-    discipline: 'Community Partnerships',
+    cohort: '01',
+    discipline: 'Student',
+    college: 'USICT, GGSIPU',
     location: 'Delhi, India',
-    bio: 'Helps communities collaborate without losing their identity. Focused on long-term compounding partnerships.',
-    tags: ['Partnerships', 'Community', 'Operations'],
-    socials: { x: 'adityaverma' },
-    initials: 'AV',
-    avatarBg: 'var(--surface)',
+    bio: 'Cohort 01 participant. Student at USICT, GGSIPU.',
+    tags: ['USICT', 'Cohort 01'],
+    participant: {
+      cohortLabel: 'Cohort 01',
+      projectsBuilt: [
+        {
+          name: 'Cohort Project',
+          description: 'Contributed to product features and shipping milestones in cohort.',
+          role: 'Builder',
+        },
+      ],
+      contributions: [
+        'Implemented key features and fixes',
+        'Helped with testing and release readiness',
+      ],
+      highlights: ['Execution', 'Testing'],
+    },
+    socials: {},
+    initials: 'S',
+    avatarUrl: 'https://zemonhouseofbuilders.in/sanjay.png',
   },
   {
-    id: 'neha-kapoor',
-    name: 'Neha Kapoor',
-    role: 'RESEARCHER',
-    cohort: null,
-    discipline: 'Research',
-    location: 'Pune, India',
-    bio: 'Researching how builders learn in public and stay consistent. Interested in craft, habit, and teams.',
-    tags: ['Research', 'Writing', 'Learning'],
-    socials: { portfolio: 'https://example.com' },
-    initials: 'NK',
-    avatarBg: 'var(--sage-light)',
-  },
-  {
-    id: 'ishaan-singh',
-    name: 'Ishaan Singh',
-    role: 'CREATOR',
-    cohort: null,
-    discipline: 'Writing & Media',
+    id: 'shashi-ranjan',
+    name: 'Shashi Ranjan',
+    role: 'COHORT PARTICIPANT',
+    cohort: '01',
+    discipline: 'Student',
+    college: 'USICT, GGSIPU',
     location: 'Delhi, India',
-    bio: 'Writes about builders, constraints, and taste. Helps translate technical work into narratives people care about.',
-    tags: ['Writing', 'Media', 'Taste'],
-    socials: { x: 'ishaansingh' },
-    initials: 'IS',
+    bio: 'Cohort 01 participant. Student at USICT, GGSIPU.',
+    tags: ['USICT', 'Cohort 01'],
+    participant: {
+      cohortLabel: 'Cohort 01',
+      projectsBuilt: [
+        {
+          name: 'Cohort MVP',
+          description: 'Collaborated on MVP delivery with iteration + feedback cycles.',
+          role: 'Builder',
+        },
+      ],
+      contributions: ['Collaborated across the build team', 'Presented weekly progress demos'],
+      highlights: ['Collaboration', 'Communication'],
+    },
+    socials: {},
+    initials: 'SR',
+    avatarUrl: 'https://media.licdn.com/dms/image/v2/D5603AQFT0bxG6QCadQ/profile-displayphoto-scale_400_400/B56Zx1lr.rJAAg-/0/1771499341907?e=1775088000&v=beta&t=QFp0e9gJmQcDan63TmIcDwWHr-kFdfRFd92_2uBDNTM',
   },
 ]
 
@@ -197,10 +298,6 @@ export const ROLE_FILTERS = [
   'ALL',
   'COHORT PARTICIPANT',
   'TEAM',
-  'MENTOR',
-  'PARTNER',
-  'RESEARCHER',
-  'CREATOR',
 ] as const
 
 export type RoleFilter = typeof ROLE_FILTERS[number]
@@ -209,8 +306,4 @@ export const ROLE_LABELS: Record<RoleFilter, string> = {
   ALL: 'All',
   'COHORT PARTICIPANT': 'Cohort',
   TEAM: 'Team',
-  MENTOR: 'Mentors',
-  PARTNER: 'Partners',
-  RESEARCHER: 'Research',
-  CREATOR: 'Creators',
 }
