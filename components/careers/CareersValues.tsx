@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Separator } from "@/components/ui/separator";
 
 const VALUES = [
     'Human-First Innovation',
@@ -48,7 +49,6 @@ export default function CareersValues() {
                     display: 'flex',
                     alignItems: 'flex-end',
                     justifyContent: 'space-between',
-                    borderBottom: '1px solid var(--border)',
                 }}>
                     <div>
                         <div style={{
@@ -76,58 +76,61 @@ export default function CareersValues() {
                     </div>
                 </div>
 
+                <div style={{ padding: isMobile ? '0 1.5rem' : '0 6rem' }}>
+                    <Separator />
+                </div>
+
                 {/* 2x3 Grid */}
                 <div
                     ref={gridRef}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-                        gridTemplateRows: isMobile ? 'auto' : 'repeat(2, auto)',
-                    }}
+                    className={isMobile ? "px-6" : "px-24"}
                 >
-                    {VALUES.map((value, i) => (
-                        <div
-                            key={i}
-                            style={{
-                                padding: '3rem',
-                                borderRight: !isMobile && (i % 3) < 2 ? '1px solid var(--border)' : 'none',
-                                borderBottom: isMobile || i < 3 ? '1px solid var(--border)' : 'none',
-                            }}
-                        >
-                            <div style={{
-                                fontFamily: 'var(--font-jetbrains-mono)',
-                                fontSize: '0.6rem',
-                                color: 'var(--sage)',
-                                letterSpacing: '0.15em',
-                                marginBottom: '1.5rem',
-                            }}>
-                                {String(i + 1).padStart(2, '0')}
-                            </div>
+                    <div
+                        className={
+                            isMobile
+                                ? "grid grid-cols-1 border border-[var(--border)]"
+                                : "grid grid-cols-3 border border-[var(--border)]"
+                        }
+                        style={{ marginTop: isMobile ? '1.5rem' : '3rem' }}
+                    >
+                        {VALUES.map((value, i) => (
+                            <div
+                                key={i}
+                                className={
+                                    "group relative border-b border-r border-[var(--border)] p-10 md:p-12 " +
+                                    "hover:bg-[color-mix(in_oklab,var(--ink)_3%,transparent)] transition-colors"
+                                }
+                                style={{
+                                    borderRight: isMobile ? 'none' : ((i + 1) % 3 === 0 ? 'none' : '1px solid var(--border)'),
+                                    borderBottom: isMobile || i < 3 ? '1px solid var(--border)' : 'none',
+                                }}
+                            >
+                                <div style={{
+                                    fontFamily: 'var(--font-jetbrains-mono)',
+                                    fontSize: '0.6rem',
+                                    color: 'var(--sage)',
+                                    letterSpacing: '0.15em',
+                                    marginBottom: '1.5rem',
+                                }}>
+                                    {String(i + 1).padStart(2, '0')}
+                                </div>
 
-                            <h3 style={{
-                                fontFamily: 'var(--font-cormorant)',
-                                fontStyle: 'italic',
-                                fontWeight: 600,
-                                fontSize: 'clamp(1.4rem, 2vw, 2rem)',
-                                lineHeight: 1.05,
-                                color: 'var(--ink)',
-                                letterSpacing: '-0.01em',
-                                marginBottom: '0.875rem',
-                                margin: '0 0 0.875rem',
-                            }}>
-                                {value}
-                            </h3>
-
-                            <div style={{
-                                fontFamily: 'var(--font-jetbrains-mono)',
-                                fontSize: '1.2rem',
-                                color: 'var(--sage)',
-                                lineHeight: 1,
-                            }}>
-                                +
+                                <h3 style={{
+                                    fontFamily: 'var(--font-cormorant)',
+                                    fontStyle: 'italic',
+                                    fontWeight: 600,
+                                    fontSize: 'clamp(1.4rem, 2vw, 2rem)',
+                                    lineHeight: 1.05,
+                                    color: 'var(--ink)',
+                                    letterSpacing: '-0.01em',
+                                    marginBottom: '0.875rem',
+                                    margin: '0 0 0.875rem',
+                                }}>
+                                    {value}
+                                </h3>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

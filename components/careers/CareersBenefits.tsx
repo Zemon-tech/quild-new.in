@@ -56,7 +56,7 @@ export default function CareersBenefits() {
     }, []);
 
     return (
-        <section style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
+        <section style={{ background: 'var(--bg)' }}>
             {/* Header */}
             <div style={{
                 padding: isMobile ? '3rem 1.5rem 2rem' : 'clamp(80px, 10vw, 140px) 6rem 3rem',

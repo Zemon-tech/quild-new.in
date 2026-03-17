@@ -70,8 +70,22 @@ export default function Navbar() {
 
   useEffect(() => {
     const footer = document.getElementById("footer");
-    if (!footer) return;
+    if (!footer) {
+      // No footer present (e.g., /apply, /careers/apply/*): hide navbar when scrolled near bottom
+      const onScroll = () => {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const distanceFromBottom = documentHeight - (scrollY + windowHeight);
+        // Hide when within 150px of bottom
+        setHideOnFooter(distanceFromBottom <= 150);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => window.removeEventListener("scroll", onScroll);
+    }
 
+    // Footer present: use IntersectionObserver
     const observer = new IntersectionObserver(
       ([entry]) => {
         setHideOnFooter(Boolean(entry?.isIntersecting));
@@ -87,7 +101,7 @@ export default function Navbar() {
     if (hideOnFooter) setMobileOpen(false);
   }, [hideOnFooter]);
 
-  if (pathname === "/apply") return null;
+  if (pathname === "/apply" || pathname.startsWith("/careers/apply")) return null;
 
   return (
     <>

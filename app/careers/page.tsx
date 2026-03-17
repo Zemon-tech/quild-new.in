@@ -3,7 +3,6 @@ import CareersValues from '@/components/careers/CareersValues'
 import CareersBenefits from '@/components/careers/CareersBenefits'
 import CareersOpenPositions from '@/components/careers/CareersOpenPositions'
 import CareersProgram from '@/components/careers/CareersProgram'
-import CareersCTA from '@/components/careers/CareersCTA'
 
 export const metadata = {
   title: 'Careers — Quild',

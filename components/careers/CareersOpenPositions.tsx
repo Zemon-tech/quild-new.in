@@ -1,11 +1,14 @@
 "use client";
 
 import { useMemo, useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useGSAP } from "@/hooks/useGSAP";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const POSITIONS = [
     {
+        slug: 'ai-engineer-l1',
         title: 'AI Engineer – Level 1',
         department: 'Engineering',
         type: 'Internship',
@@ -13,6 +16,7 @@ const POSITIONS = [
         body: 'Entry-level AI engineer role for fast learners who love building with modern AI tools and shipping real products.',
     },
     {
+        slug: 'ai-engineer-l2',
         title: 'AI Engineer – Level 2',
         department: 'Engineering',
         type: 'Internship',
@@ -20,6 +24,7 @@ const POSITIONS = [
         body: 'Mid-level AI engineer who can own features end-to-end, work across the stack, and build production-ready AI experiences.',
     },
     {
+        slug: 'ai-engineer-l3',
         title: 'AI Engineer – Level 3',
         department: 'Engineering',
         type: 'Internship',
@@ -27,6 +32,7 @@ const POSITIONS = [
         body: 'Senior AI engineer who leads architecture, scaling, and reliability of AI systems powering builders on our platform.',
     },
     {
+        slug: 'brand-creator-l1',
         title: 'Brand Creator – Level 1',
         department: 'Brand & Community',
         type: 'Internship',
@@ -34,6 +40,7 @@ const POSITIONS = [
         body: 'Early-career brand storyteller who loves experimenting with content across X, Reddit, LinkedIn, Instagram, and Bluesky.',
     },
     {
+        slug: 'brand-creator-l2',
         title: 'Brand Creator – Level 2',
         department: 'Brand & Community',
         type: 'Internship',
@@ -41,6 +48,7 @@ const POSITIONS = [
         body: 'Experienced brand builder who can own strategy and execution across X, Reddit, LinkedIn, Instagram, and Bluesky.',
     },
     {
+        slug: 'researcher-systems-ai-l1',
         title: 'Researcher – Systems & AI (Level 1)',
         department: 'Research & Infrastructure',
         type: 'Internship',
@@ -48,6 +56,7 @@ const POSITIONS = [
         body: 'Hands-on researcher focused on servers, latency, and AI integrations through real experiments.',
     },
     {
+        slug: 'researcher-systems-ai-l2',
         title: 'Researcher – Systems & AI (Level 2)',
         department: 'Research & Infrastructure',
         type: 'Internship',
@@ -296,8 +305,10 @@ export default function CareersOpenPositions() {
                             </div>
 
                             <div style={{ flexShrink: 0, width: isMobile ? '100%' : 'auto', paddingTop: isMobile ? '0' : '0.5rem' }}>
-                                <a
-                                    href="/apply"
+                                <Link
+                                    href={`/careers/apply/${position.slug}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     style={{
                                         fontFamily: 'var(--font-jetbrains-mono)',
                                         fontSize: '0.65rem',
@@ -307,7 +318,9 @@ export default function CareersOpenPositions() {
                                         border: '1px solid var(--ink)',
                                         padding: '0.7rem 1.5rem',
                                         textDecoration: 'none',
-                                        display: 'inline-block',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
                                         width: isMobile ? '100%' : 'auto',
                                         textAlign: 'center',
                                         whiteSpace: 'nowrap',
@@ -326,8 +339,9 @@ export default function CareersOpenPositions() {
                                         }
                                     }}
                                 >
-                                    APPLY NOW &rarr;
-                                </a>
+                                    <ArrowRight className="h-3.5 w-3.5" />
+                                    APPLY NOW
+                                </Link>
                             </div>
                         </div>
                     ))}
