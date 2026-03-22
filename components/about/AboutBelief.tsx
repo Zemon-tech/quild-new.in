@@ -18,120 +18,73 @@ export default function AboutBelief() {
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const closingRef = useRef<HTMLDivElement | null>(null);
 
-  useGSAP(({ gsap }) => {
-    const section = sectionRef.current;
-    const bg = bgRef.current;
-    const label = labelRef.current;
-    const line1 = line1Ref.current;
-    const line2 = line2Ref.current;
-    const body = bodyRef.current;
-    const closing = closingRef.current;
+  useGSAP(
+    ({ gsap }) => {
+      const section = sectionRef.current;
+      if (!section) return;
 
-    const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
-
-    if (bg) {
-      created.push(
+      // 1. Background Animation - handling scale and opacity
+      if (bgRef.current) {
         gsap.fromTo(
-          bg,
-          { scale: 1.05 },
+          bgRef.current,
+          { scale: 1.15, opacity: 0.7 },
           {
             scale: 1,
-            duration: 2,
-            ease: "power1.out",
-            scrollTrigger: {
-              trigger: section ?? bg,
-              start: "top bottom",
-            },
-          }
-        )
-      );
-    }
-
-    if (label) {
-      created.push(
-        gsap.fromTo(
-          label,
-          { opacity: 0, y: 8 },
-          {
             opacity: 1,
-            y: 0,
-            duration: 0.6,
-            scrollTrigger: {
-              trigger: section ?? label,
-              start: "top 72%",
-            },
-          }
-        )
-      );
-    }
-
-    if (line1) {
-      created.push(
-        gsap.fromTo(
-          line1,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section ?? line1,
-              start: "top 68%",
-            },
-          }
-        )
-      );
-    }
-
-    if (line2) {
-      created.push(
-        gsap.fromTo(
-          line2,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.1,
-            delay: 0.18,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section ?? line2,
-              start: "top 68%",
-            },
-          }
-        )
-      );
-    }
-
-    const bodyPieces = [body, closing].filter(Boolean);
-    if (bodyPieces.length > 0) {
-      created.push(
-        gsap.fromTo(
-          bodyPieces,
-          { y: 24, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.12,
-            duration: 0.9,
+            duration: 2.5,
             ease: "power2.out",
             scrollTrigger: {
-              trigger: section ?? bodyPieces[0]!,
-              start: "top 62%",
+              trigger: section,
+              start: "top bottom",
+              toggleActions: "play none none reverse",
             },
           }
-        )
-      );
-    }
+        );
+      }
 
-    return () => {
-      created.forEach((t) => {
-        t.scrollTrigger?.kill();
-        t.kill();
-      });
-    };
-  }, []);
+      // 2. Headline & Label Stagger
+      const titleElements = [labelRef.current, line1Ref.current, line2Ref.current].filter(Boolean);
+      if (titleElements.length > 0) {
+        gsap.fromTo(
+          titleElements,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 70%",
+            },
+          }
+        );
+      }
+
+      // 3. Body & Footer Stagger
+      const footerItems = [bodyRef.current, closingRef.current].filter(Boolean);
+      if (footerItems.length > 0) {
+        gsap.fromTo(
+          footerItems,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.15,
+            delay: 0.4, // Small delay to let the headlines lead
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 65%",
+            },
+          }
+        );
+      }
+    },
+    [isMobile] // Dependency array
+  );
 
   return (
     <section
@@ -141,10 +94,9 @@ export default function AboutBelief() {
         height: "100svh",
         width: "100%",
         overflow: "hidden",
-        marginTop: 0,
+        backgroundColor: "#1a1a1a",
       }}
     >
-      {/* ── Background image ── */}
       <img
         ref={bgRef}
         src="/about-belief.png"
@@ -159,16 +111,12 @@ export default function AboutBelief() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          objectPosition: "center",
           zIndex: 0,
-          transform: "scale(1.05)",
+          willChange: "transform, opacity", // Prevents drifting/jitter
           pointerEvents: "none",
-          userSelect: "none",
-          WebkitUserDrag: "none",
         } as React.CSSProperties}
       />
 
-      {/* Fallback background */}
       <div
         style={{
           position: "absolute",
@@ -178,7 +126,7 @@ export default function AboutBelief() {
         }}
       />
 
-      {/* ── Label — top left ── */}
+      {/* Label */}
       <div
         ref={labelRef}
         style={{
@@ -196,7 +144,7 @@ export default function AboutBelief() {
         THE BELIEF&nbsp;&nbsp;·&nbsp;&nbsp;02 / 07
       </div>
 
-      {/* ── Headline block — vertically centered, left-anchored ── */}
+      {/* Headline Block */}
       <div
         style={{
           position: "absolute",
@@ -207,20 +155,16 @@ export default function AboutBelief() {
           zIndex: 4,
         }}
       >
-        {/* Line 1 — the statement */}
         <div
           ref={line1Ref}
           style={{
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
             fontWeight: 800,
-            fontSize: isMobile
-              ? "clamp(1.7rem, 5.5vw, 2.2rem)"
-              : "clamp(2.8rem, 4.5vw, 5.5rem)",
-            lineHeight: 1.0,
+            fontSize: isMobile ? "1.8rem" : "clamp(2.8rem, 4.5vw, 5.5rem)",
+            lineHeight: 1.1,
             color: "#FFFFFF",
             letterSpacing: "-0.02em",
-            whiteSpace: isMobile ? "normal" : undefined,
             textShadow: "0 2px 40px rgba(0,0,0,0.25)",
             marginBottom: "0.6rem",
           }}
@@ -231,23 +175,18 @@ export default function AboutBelief() {
           {`ever handed to a builder.`}
         </div>
 
-        {/* Divider between the two thoughts */}
         <Separator className={`${isMobile ? "my-3" : "my-4"} w-[40px] bg-white/25`} />
 
-        {/* Line 2 — the turn */}
         <div
           ref={line2Ref}
           style={{
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
             fontWeight: 600,
-            fontSize: isMobile
-              ? "clamp(1.4rem, 4.5vw, 1.8rem)"
-              : "clamp(2rem, 3.2vw, 3.8rem)",
-            lineHeight: 1.05,
+            fontSize: isMobile ? "1.5rem" : "clamp(2rem, 3.2vw, 3.8rem)",
+            lineHeight: 1.1,
             color: "rgba(255,255,255,0.65)",
             letterSpacing: "-0.02em",
-            whiteSpace: isMobile ? "normal" : undefined,
           }}
         >
           {`Most people are scared of it.`}
@@ -257,7 +196,7 @@ export default function AboutBelief() {
         </div>
       </div>
 
-      {/* ── Body text — bottom left ── */}
+      {/* Body Text */}
       <div
         ref={bodyRef}
         style={{
@@ -269,28 +208,21 @@ export default function AboutBelief() {
           zIndex: 4,
         }}
       >
-        {/* Sage accent */}
-        <div style={{
-          width: "28px",
-          height: "2px",
-          background: "var(--sage)",
-          marginBottom: "1rem",
-        }} />
+        <div style={{ width: "28px", height: "2px", background: "var(--sage)", marginBottom: "1rem" }} />
         <p style={{
           fontFamily: "var(--font-dm-sans)",
           fontSize: isMobile ? "0.88rem" : "0.95rem",
           color: "rgba(255,255,255,0.65)",
-          lineHeight: isMobile ? 1.7 : 1.8,
+          lineHeight: 1.8,
           margin: 0,
         }}>
-          We don't fight the machine. We learn to use it
-          better than anyone else. Because the builders
-          who combine human creativity with AI speed are
+          We don't fight the machine. We learn to use it better than anyone else. 
+          Because the builders who combine human creativity with AI speed are 
           about to do things that have never been done before.
         </p>
       </div>
 
-      {/* ── Closing line — bottom right (desktop only) ── */}
+      {/* Closing line */}
       {!isMobile && (
         <div
           ref={closingRef}
@@ -307,7 +239,6 @@ export default function AboutBelief() {
             fontStyle: "italic",
             fontSize: "1.15rem",
             color: "rgba(255,255,255,0.4)",
-            lineHeight: 1.6,
             margin: 0,
           }}>
             That's who Quild is for.
