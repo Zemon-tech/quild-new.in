@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 
 import BlogPostCard, { type BlogPostCardProps } from "@/components/blog/BlogPostCard";
 import BlogCompactItem from "@/components/blog/BlogCompactItem";
@@ -33,10 +35,7 @@ function mapPost(p: ReturnType<typeof getFeaturedPosts>[number]): BlogPostCardPr
 
 export default function BlogFeatured() {
   const featuredPosts = useMemo(() => getFeaturedPosts().map(mapPost), []);
-  const extraPosts = useMemo(
-    () => allBlogPosts.slice(5, 10).map(mapPost),
-    []
-  );
+  const extraPosts = useMemo(() => allBlogPosts.slice(5, 10).map(mapPost), []);
 
   const leftPosts = featuredPosts.slice(0, 2);
   const centerPost = featuredPosts[2];
@@ -47,23 +46,23 @@ export default function BlogFeatured() {
       style={{
         background: "var(--bg)",
         borderBottom: "1px solid var(--border)",
-        padding: "5rem 0",
       }}
     >
+      {/* ── Header ── */}
       <div
         style={{
-          padding: "0 6rem 3rem",
+          padding: "4rem 6rem 2.5rem",
           display: "flex",
           alignItems: "flex-end",
           justifyContent: "space-between",
-          borderBottom: "1px solid var(--border)",
+          gap: "2rem",
         }}
       >
         <div>
           <div
             style={{
               fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-              fontSize: "0.65rem",
+              fontSize: "0.62rem",
               color: "var(--muted)",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
@@ -80,7 +79,7 @@ export default function BlogFeatured() {
               fontSize: "clamp(1.8rem, 3vw, 3rem)",
               color: "var(--ink)",
               lineHeight: 0.95,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.022em",
               margin: 0,
             }}
           >
@@ -89,10 +88,10 @@ export default function BlogFeatured() {
         </div>
 
         <Link
-          href="#latest"
+          href="/blog"
           style={{
             fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-            fontSize: "0.65rem",
+            fontSize: "0.62rem",
             color: "var(--sage)",
             letterSpacing: "0.15em",
             textDecoration: "none",
@@ -100,20 +99,23 @@ export default function BlogFeatured() {
             borderBottom: "1px solid var(--sage)",
             paddingBottom: "0.1rem",
             whiteSpace: "nowrap",
+            flexShrink: 0,
           }}
         >
           ALL POSTS →
         </Link>
       </div>
 
+      <Separator />
+
+      {/* ── Three-column grid ── */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "minmax(0, 1.05fr) minmax(0, 2fr) minmax(0, 1.05fr)",
-          minHeight: "620px",
-          borderTop: "1px solid var(--border)",
+          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.9fr) minmax(0, 1fr)",
         }}
       >
+        {/* LEFT — two stacked cards */}
         <div
           style={{
             borderRight: "1px solid var(--border)",
@@ -121,70 +123,82 @@ export default function BlogFeatured() {
             flexDirection: "column",
           }}
         >
-          <div
-            style={{
-              flex: 1,
-              padding: "0rem 2rem",
-              borderBottom: "1px solid var(--border)",
-            }}
-          >
-            {leftPosts[0] ? <BlogPostCard {...leftPosts[0]} size="normal" /> : null}
-          </div>
-          <div style={{ flex: 1, padding: "0rem 2rem" }}>
-            {leftPosts[1] ? <BlogPostCard {...leftPosts[1]} size="normal" /> : null}
-          </div>
+          {leftPosts[0] && (
+            <div style={{ padding: "2rem 2rem 0", flex: "0 0 auto" }}>
+              <BlogPostCard {...leftPosts[0]} size="normal" />
+            </div>
+          )}
+
+          <Separator style={{ margin: "0 2rem", width: "auto" }} />
+
+          {leftPosts[1] && (
+            <div style={{ padding: "2rem 2rem 0", flex: "0 0 auto" }}>
+              <BlogPostCard {...leftPosts[1]} size="normal" />
+            </div>
+          )}
         </div>
 
-        <div style={{ borderRight: "1px solid var(--border)", padding: "1.75rem 2rem" }}>
-          {centerPost ? <BlogPostCard {...centerPost} size="large" /> : null}
+        {/* CENTER — large featured post */}
+        <div
+          style={{
+            borderRight: "1px solid var(--border)",
+            padding: "2rem",
+          }}
+        >
+          {centerPost && <BlogPostCard {...centerPost} size="large" />}
         </div>
 
+        {/* RIGHT — compact essay list */}
         <div style={{ display: "flex", flexDirection: "column" }}>
+          {/* Rail header */}
           <div
             style={{
               padding: "1.25rem 1.75rem",
-              borderBottom: "1px solid var(--border)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
               gap: "1rem",
             }}
           >
-            <div
+            <Badge
+              variant="outline"
               style={{
                 fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-                fontSize: "0.65rem",
-                color: "var(--muted)",
-                letterSpacing: "0.18em",
+                fontSize: "0.56rem",
+                letterSpacing: "0.16em",
                 textTransform: "uppercase",
+                color: "var(--muted)",
+                borderColor: "var(--border)",
+                borderRadius: "2px",
+                padding: "0.2rem 0.55rem",
+                background: "transparent",
               }}
             >
-              Recent essays
-            </div>
+              Recent Essays
+            </Badge>
+
             <Link
-              href="#latest"
+              href="/blog"
               style={{
                 fontFamily: "var(--font-jetbrains-mono), ui-monospace, monospace",
-                fontSize: "0.65rem",
+                fontSize: "0.56rem",
                 color: "var(--sage)",
                 letterSpacing: "0.15em",
                 textDecoration: "none",
                 textTransform: "uppercase",
                 whiteSpace: "nowrap",
+                borderBottom: "1px solid var(--sage)",
+                paddingBottom: "0.1rem",
               }}
             >
               VIEW ALL →
             </Link>
           </div>
 
-          <div
-            style={{
-              padding: "1.25rem 1.75rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0rem",
-            }}
-          >
+          <Separator />
+
+          {/* Compact items */}
+          <div style={{ padding: "0 1.75rem" }}>
             {rightPosts.map((p) => (
               <BlogCompactItem
                 key={p.slug}
@@ -199,41 +213,47 @@ export default function BlogFeatured() {
         </div>
       </div>
 
+      {/* ── Mobile styles ── */}
       <style jsx>{`
         @media (max-width: 768px) {
-          section {
-            padding: 3.5rem 0 !important;
-          }
           section > div:first-child {
-            padding: 0 1.5rem 2rem !important;
+            padding: 3rem 1.5rem 2rem !important;
             flex-direction: column;
             align-items: flex-start;
-            gap: 1rem;
-          }
-          section > div:nth-child(2) {
-            grid-template-columns: 1fr !important;
-          }
-          section > div:nth-child(2) > div {
-            border-right: none !important;
-            border-bottom: 1px solid var(--border);
-            padding: 1.5rem !important;
-          }
-          section > div:nth-child(2) > div:last-child {
-            border-bottom: none;
-          }
-          section > div:nth-child(2) > div > div {
-            padding: 1.5rem !important;
+            gap: 1.25rem;
           }
 
-          /* Reorder: big center post first, then left stack, then right rail */
-          section > div:nth-child(2) > div:nth-child(2) {
+          /* Stack the 3-col grid vertically, center post first */
+          section > div:nth-child(3) {
+            grid-template-columns: 1fr !important;
+          }
+
+          /* Center col first on mobile */
+          section > div:nth-child(3) > div:nth-child(2) {
             order: 1;
+            border-right: none !important;
+            border-bottom: 1px solid var(--border);
+            padding: 1.75rem 1.5rem !important;
           }
-          section > div:nth-child(2) > div:first-child {
+
+          /* Left col second */
+          section > div:nth-child(3) > div:first-child {
             order: 2;
+            border-right: none !important;
+            border-bottom: 1px solid var(--border);
           }
-          section > div:nth-child(2) > div:nth-child(3) {
+
+          section > div:nth-child(3) > div:first-child > div {
+            padding: 1.75rem 1.5rem 0 !important;
+          }
+
+          /* Right rail last */
+          section > div:nth-child(3) > div:nth-child(3) {
             order: 3;
+          }
+
+          section > div:nth-child(3) > div:nth-child(3) > div:last-child {
+            padding: 0 1.5rem !important;
           }
         }
       `}</style>

@@ -159,8 +159,8 @@ export default function ApplyPage() {
 
           {/* Added a subtle branding on mobile */}
           <div className="w-full mb-12 flex lg:hidden items-center justify-start border-b border-[var(--border)] pb-6">
-            <Image src="/logo.svg" alt="Quild" width={24} height={24} className="opacity-80" />
-            <span className="ml-3 font-display text-[1.1rem] font-semibold tracking-[0.12em] text-[var(--ink)] opacity-80">QUILD</span>
+            <Image src="/logo.svg" alt="Quild" width={24} height={24} className="brightness-0" />
+            <span className="ml-3 font-display text-[1.1rem] font-semibold tracking-[0.12em] text-black">quild</span>
           </div>
 
           <div className="w-full max-w-[420px] mx-auto space-y-10">

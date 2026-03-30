@@ -99,7 +99,7 @@ function InitiativeRow({ item, isMobile }: { item: Initiative; isMobile: boolean
               textTransform: 'uppercase',
               display: 'flex', alignItems: 'center', gap: '4px'
             }}>
-              {item.ctaLabel} <span style={{ fontSize: '0.8em' }}>↗</span>
+              {item.ctaLabel}
             </a>
           ) : (
             <span style={{

@@ -2,6 +2,8 @@
 
 import type { BlogPost } from "@/lib/data/blog-posts";
 import { useEffect, useState } from "react";
+import { Link, Copy } from "lucide-react";
+import Image from "next/image";
 
 export default function ArticleHeader({ post }: { post: BlogPost }) {
   const readTimeMinutes = post.readTimeMinutes ?? Number.parseInt(post.readTime, 10);
@@ -119,10 +121,7 @@ export default function ArticleHeader({ post }: { post: BlogPost }) {
           }}
         >
           <button type="button" onClick={onCopy} aria-label="Copy link" style={iconButtonStyle}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" style={iconStyle}>
-              <path d="M10 13a5 5 0 0 1 0-7l1.5-1.5a5 5 0 1 1 7 7L17 13" />
-              <path d="M14 11a5 5 0 0 1 0 7L12.5 19.5a5 5 0 1 1-7-7L7 11" />
-            </svg>
+            <Copy style={iconStyle} />
           </button>
 
           <a
@@ -132,9 +131,13 @@ export default function ArticleHeader({ post }: { post: BlogPost }) {
             aria-label="Share on X"
             style={iconButtonStyle}
           >
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontWeight: 700, fontSize: "0.85rem" }}>
-              X
-            </span>
+            <Image 
+              src="https://cdn.brandfetch.io/idS5WhqBbM/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1692089092800" 
+              alt="X" 
+              width={16} 
+              height={16} 
+              style={iconStyle} 
+            />
           </a>
 
           <a
@@ -144,9 +147,13 @@ export default function ArticleHeader({ post }: { post: BlogPost }) {
             aria-label="Share on LinkedIn"
             style={iconButtonStyle}
           >
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontWeight: 700, fontSize: "0.85rem" }}>
-              in
-            </span>
+            <Image 
+              src="https://cdn.brandfetch.io/idJFz6sAsl/theme/dark/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1740371012665" 
+              alt="LinkedIn" 
+              width={16} 
+              height={16} 
+              style={iconStyle} 
+            />
           </a>
 
           <a
@@ -156,9 +163,7 @@ export default function ArticleHeader({ post }: { post: BlogPost }) {
             aria-label="Open link"
             style={iconButtonStyle}
           >
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontWeight: 700, fontSize: "0.85rem" }}>
-              ↗
-            </span>
+            <Link style={iconStyle} />
           </a>
         </div>
       </div>

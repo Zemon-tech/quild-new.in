@@ -16,7 +16,6 @@ export default function AboutPage() {
       <AboutProblem />
       <AboutBelief />
       <AboutWhereWeAre />
-      <AboutFounders />
       <AboutTheCode />
       <AboutPhilosophy />
       <AboutVision />

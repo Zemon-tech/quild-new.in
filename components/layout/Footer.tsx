@@ -141,7 +141,7 @@ export default function Footer() {
               SOCIAL
             </div>
             <div className="mt-5 flex items-center gap-4 text-sm text-white/75">
-              <a href="#" aria-label="X (Twitter)">
+              <a href="https://x.com/QuildGlobal" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
                 <Image src="https://cdn.brandfetch.io/idS5WhqBbM/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1768324498338" alt="X" width={20} height={20} className="h-5 w-5" />
               </a>
               <a href="#" aria-label="LinkedIn">

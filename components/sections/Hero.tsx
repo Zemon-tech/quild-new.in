@@ -232,7 +232,7 @@ export default function Hero() {
                   : undefined
               }
             >
-              <Link href="/programs">SEE PROGRAMS →</Link>
+              <Link href="/initiatives">SEE PROGRAMS →</Link>
             </Button>
           </div>
         </div>

@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useGSAP } from "@/hooks/useGSAP";
-
-const fallbackBg = "linear-gradient(135deg, #2C3A30 0%, #4A5C4E 40%, #3D4A35 100%)";
 
 export default function AboutBelief() {
   const isMobile = useIsMobile();
@@ -15,6 +14,7 @@ export default function AboutBelief() {
   const labelRef = useRef<HTMLDivElement | null>(null);
   const line1Ref = useRef<HTMLDivElement | null>(null);
   const line2Ref = useRef<HTMLDivElement | null>(null);
+  const accentRef = useRef<HTMLDivElement | null>(null);
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const closingRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,67 +23,107 @@ export default function AboutBelief() {
       const section = sectionRef.current;
       if (!section) return;
 
-      // 1. Background Animation - handling scale and opacity
+      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
+
+      // Background — gentle scale only, no opacity
       if (bgRef.current) {
-        gsap.fromTo(
-          bgRef.current,
-          { scale: 1.15, opacity: 0.7 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 2.5,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top bottom",
-              toggleActions: "play none none reverse",
-            },
-          }
+        created.push(
+          gsap.fromTo(
+            bgRef.current,
+            { scale: 1.08 },
+            {
+              scale: 1,
+              duration: 2,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top bottom",
+                toggleActions: "play none none reverse",
+              },
+            }
+          )
         );
       }
 
-      // 2. Headline & Label Stagger
-      const titleElements = [labelRef.current, line1Ref.current, line2Ref.current].filter(Boolean);
-      if (titleElements.length > 0) {
-        gsap.fromTo(
-          titleElements,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 70%",
-            },
-          }
+      // Label — slide in from left (matches Philosophy left column)
+      if (labelRef.current) {
+        created.push(
+          gsap.fromTo(
+            labelRef.current,
+            { x: -24, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: "power3.out",
+              scrollTrigger: { trigger: section, start: "top 70%" },
+            }
+          )
         );
       }
 
-      // 3. Body & Footer Stagger
-      const footerItems = [bodyRef.current, closingRef.current].filter(Boolean);
-      if (footerItems.length > 0) {
-        gsap.fromTo(
-          footerItems,
-          { y: 20, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            stagger: 0.15,
-            delay: 0.4, // Small delay to let the headlines lead
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 65%",
-            },
-          }
+      // Headline lines — staggered y fade (matches Philosophy right items)
+      const headlineEls = [line1Ref.current, line2Ref.current].filter(Boolean);
+      if (headlineEls.length > 0) {
+        created.push(
+          gsap.fromTo(
+            headlineEls,
+            { y: 28, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              stagger: 0.12,
+              delay: 0.1,
+              ease: "power3.out",
+              scrollTrigger: { trigger: section, start: "top 70%" },
+            }
+          )
         );
       }
+
+      // Accent line — scale from left (matches Philosophy accent)
+      if (accentRef.current) {
+        gsap.set(accentRef.current, { scaleX: 0, transformOrigin: "left" });
+        created.push(
+          gsap.to(accentRef.current, {
+            scaleX: 1,
+            duration: 0.6,
+            delay: 0.38,
+            ease: "power2.out",
+            scrollTrigger: { trigger: section, start: "top 70%" },
+          })
+        );
+      }
+
+      // Body + closing — y fade, staggered
+      const footerEls = [bodyRef.current, closingRef.current].filter(Boolean);
+      if (footerEls.length > 0) {
+        created.push(
+          gsap.fromTo(
+            footerEls,
+            { y: 20, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              stagger: 0.14,
+              delay: 0.46,
+              ease: "power2.out",
+              scrollTrigger: { trigger: section, start: "top 65%" },
+            }
+          )
+        );
+      }
+
+      return () => {
+        created.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
+      };
     },
-    [isMobile] // Dependency array
+    [isMobile]
   );
 
   return (
@@ -94,9 +134,10 @@ export default function AboutBelief() {
         height: "100svh",
         width: "100%",
         overflow: "hidden",
-        backgroundColor: "#1a1a1a",
+        backgroundColor: "#1e231e",
       }}
     >
+      {/* Background image — no overlay */}
       <img
         ref={bgRef}
         src="/about-belief.png"
@@ -112,46 +153,61 @@ export default function AboutBelief() {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
-          willChange: "transform, opacity", // Prevents drifting/jitter
+          willChange: "transform",
           pointerEvents: "none",
         } as React.CSSProperties}
       />
 
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: -1,
-          background: fallbackBg,
-        }}
-      />
-
-      {/* Label */}
+      {/* ── Section label ── */}
       <div
         ref={labelRef}
         style={{
           position: "absolute",
-          top: isMobile ? "5rem" : "6.5rem",
+          top: isMobile ? "4.5rem" : "6rem",
           left: isMobile ? "1.5rem" : "5rem",
           zIndex: 4,
-          fontFamily: "var(--font-jetbrains-mono)",
-          fontSize: "0.62rem",
-          color: "rgba(255,255,255,0.4)",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
         }}
       >
-        THE BELIEF&nbsp;&nbsp;·&nbsp;&nbsp;02 / 07
+        <Badge
+          variant="outline"
+          style={{
+            fontFamily: "var(--font-jetbrains-mono)",
+            fontSize: "0.58rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.45)",
+            borderColor: "rgba(255,255,255,0.2)",
+            borderRadius: "2px",
+            padding: "0.25rem 0.65rem",
+            background: "transparent",
+          }}
+        >
+          The Belief
+        </Badge>
+        <span
+          style={{
+            fontFamily: "var(--font-jetbrains-mono)",
+            fontSize: "0.58rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.28)",
+          }}
+        >
+          02 / 07
+        </span>
       </div>
 
-      {/* Headline Block */}
+      {/* ── Headline block ── */}
       <div
         style={{
           position: "absolute",
-          top: isMobile ? "50%" : "40%",
+          top: isMobile ? "50%" : "42%",
           left: isMobile ? "1.5rem" : "5rem",
-          right: isMobile ? "1.5rem" : "40%",
-          transform: isMobile ? "translateY(-55%)" : "translateY(-50%)",
+          right: isMobile ? "1.5rem" : "34%",
+          transform: isMobile ? "translateY(-52%)" : "translateY(-50%)",
           zIndex: 4,
         }}
       >
@@ -160,91 +216,111 @@ export default function AboutBelief() {
           style={{
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
-            fontWeight: 800,
-            fontSize: isMobile ? "1.8rem" : "clamp(2.8rem, 4.5vw, 5.5rem)",
-            lineHeight: 1.1,
+            fontWeight: 700,
+            fontSize: isMobile
+              ? "clamp(1.9rem, 7vw, 2.8rem)"
+              : "clamp(2.8rem, 4vw, 5rem)",
+            lineHeight: 1.06,
             color: "#FFFFFF",
-            letterSpacing: "-0.02em",
-            textShadow: "0 2px 40px rgba(0,0,0,0.25)",
-            marginBottom: "0.6rem",
+            letterSpacing: "-0.022em",
+            marginBottom: "0.5rem",
           }}
         >
-          {`"AI is the most powerful tool`}
+          &ldquo;AI is the most powerful tool
           {!isMobile && <br />}
           {isMobile && " "}
-          {`ever handed to a builder.`}
+          ever handed to a builder.
         </div>
 
-        <Separator className={`${isMobile ? "my-3" : "my-4"} w-[40px] bg-white/25`} />
+        <Separator
+          style={{
+            width: "40px",
+            background: "rgba(255,255,255,0.22)",
+            margin: isMobile ? "1rem 0" : "1.25rem 0",
+          }}
+        />
 
         <div
           ref={line2Ref}
           style={{
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
-            fontWeight: 600,
-            fontSize: isMobile ? "1.5rem" : "clamp(2rem, 3.2vw, 3.8rem)",
+            fontWeight: 500,
+            fontSize: isMobile
+              ? "clamp(1.4rem, 5.5vw, 2.2rem)"
+              : "clamp(2rem, 2.9vw, 3.6rem)",
             lineHeight: 1.1,
-            color: "rgba(255,255,255,0.65)",
-            letterSpacing: "-0.02em",
+            color: "rgba(255,255,255,0.56)",
+            letterSpacing: "-0.018em",
           }}
         >
-          {`Most people are scared of it.`}
+          Most people are scared of it.
           {!isMobile && <br />}
           {isMobile && " "}
-          {`We think that's the opportunity."`}
+          We think that&rsquo;s the opportunity.&rdquo;
         </div>
       </div>
 
-      {/* Body Text */}
+      {/* ── Bottom row ── */}
       <div
-        ref={bodyRef}
         style={{
           position: "absolute",
-          bottom: isMobile ? "3rem" : "4.5rem",
+          bottom: isMobile ? "2.5rem" : "4.5rem",
           left: isMobile ? "1.5rem" : "5rem",
-          right: isMobile ? "1.5rem" : undefined,
-          maxWidth: isMobile ? "100%" : "360px",
+          right: isMobile ? "1.5rem" : "5rem",
           zIndex: 4,
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          flexDirection: isMobile ? "column" : "row",
+          gap: "2rem",
         }}
       >
-        <div style={{ width: "28px", height: "2px", background: "var(--sage)", marginBottom: "1rem" }} />
-        <p style={{
-          fontFamily: "var(--font-dm-sans)",
-          fontSize: isMobile ? "0.88rem" : "0.95rem",
-          color: "rgba(255,255,255,0.65)",
-          lineHeight: 1.8,
-          margin: 0,
-        }}>
-          We don't fight the machine. We learn to use it better than anyone else. 
-          Because the builders who combine human creativity with AI speed are 
-          about to do things that have never been done before.
-        </p>
-      </div>
-
-      {/* Closing line */}
-      {!isMobile && (
-        <div
-          ref={closingRef}
-          style={{
-            position: "absolute",
-            bottom: "4.5rem",
-            right: "5rem",
-            zIndex: 4,
-            textAlign: "right",
-          }}
-        >
-          <p style={{
-            fontFamily: "var(--font-cormorant)",
-            fontStyle: "italic",
-            fontSize: "1.15rem",
-            color: "rgba(255,255,255,0.4)",
-            margin: 0,
-          }}>
-            That's who Quild is for.
+        {/* Body copy */}
+        <div ref={bodyRef} style={{ maxWidth: isMobile ? "100%" : "340px" }}>
+          <div
+            ref={accentRef}
+            style={{
+              width: "44px",
+              height: "2px",
+              background: "var(--sage)",
+              borderRadius: "1px",
+              marginBottom: "1.1rem",
+            }}
+          />
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: isMobile ? "0.875rem" : "0.92rem",
+              color: "rgba(255,255,255,0.55)",
+              lineHeight: 1.82,
+              margin: 0,
+            }}
+          >
+            We don&apos;t fight the machine. We learn to use it better than
+            anyone else. Because the builders who combine human creativity with
+            AI speed are about to do things that have never been done before.
           </p>
         </div>
-      )}
+
+        {/* Closing — desktop only */}
+        {!isMobile && (
+          <div ref={closingRef} style={{ textAlign: "right", flexShrink: 0 }}>
+            <p
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontStyle: "italic",
+                fontSize: "1.1rem",
+                color: "rgba(255,255,255,0.32)",
+                margin: 0,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              That&apos;s who Quild is for.
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
