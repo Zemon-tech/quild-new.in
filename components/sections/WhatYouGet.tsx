@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@/hooks/useGSAP";
@@ -8,27 +8,27 @@ const items = [
   {
     num: "01",
     title: "Cohort Programs",
-    body: "Learn together, ship together. Each cohort runs for 6–8 weeks with a focused curriculum and real project outcomes. Not courses. Cohorts.",
+    body: "A structured 6-week online cohort built for serious builders. Learn by building, sharpen your system thinking, and leave with a shipped project, better engineering decisions, and a stronger way to work with AI.",
   },
   {
     num: "02",
-    title: "Peer Network",
-    body: "A small, curated group of builders who are actually building. No noise. No lurkers. Just people who show up.",
+    title: "Builder Community",
+    body: "An active network of builders you can learn with over time. Find serious collaborators, get access to discussion and feedback, and stay connected to a long-term builder network.",
   },
   {
     num: "03",
-    title: "Workshops & Events",
-    body: "Regular sessions — online and in-person — on AI tools, engineering skills, product thinking, and building in public.",
+    title: "Research & Innovation",
+    body: "Early-stage experiments around AI-native building, backed by research-driven thinking and real problem exploration. A space to question, test, and understand what better building should look like.",
   },
   {
     num: "04",
-    title: "Build-in-Public Accountability",
-    body: "Weekly check-ins, public progress threads, and a culture where shipping is celebrated more than planning.",
+    title: "Events & Meetups",
+    body: "A growing layer of discussions and meetups built to bring serious builders into the same room. Starting with focused panel conversations, then expanding with the community.",
   },
   {
     num: "05",
-    title: "AI Tools & Resources",
-    body: "Curated guides, tool stacks, and frameworks for using AI in your actual work — not theoretical, not generic.",
+    title: "Initiatives & Opportunities",
+    body: "Explore focused Quild initiatives beyond the cohort, discover what Quild is building next, and find ways to contribute, collaborate, and grow with the ecosystem.",
   },
 ];
 
@@ -42,83 +42,80 @@ export default function WhatYouGet() {
     smallRefs.current = smallRefs.current.slice(0, 4);
   }, []);
 
-  useGSAP(
-    ({ gsap }) => {
-      const header = headerRef.current;
-      const featured = featuredRef.current;
-      const small = smallRefs.current.filter(Boolean);
+  useGSAP(({ gsap }) => {
+    const header = headerRef.current;
+    const featured = featuredRef.current;
+    const small = smallRefs.current.filter(Boolean);
 
-      const triggerEl = header ?? featured ?? null;
-      if (!triggerEl) return;
+    const triggerEl = header ?? featured ?? null;
+    if (!triggerEl) return;
 
-      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
+    const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
-      if (header) {
-        const headerChildren = Array.from(header.children);
-        created.push(
-          gsap.fromTo(
-            headerChildren,
-            { y: 18, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              stagger: 0.08,
-              duration: 0.6,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: triggerEl,
-                start: "top 75%",
-              },
-            }
-          )
-        );
-      }
+    if (header) {
+      const headerChildren = Array.from(header.children);
+      created.push(
+        gsap.fromTo(
+          headerChildren,
+          { y: 18, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.08,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: triggerEl,
+              start: "top 75%",
+            },
+          },
+        ),
+      );
+    }
 
-      if (featured) {
-        created.push(
-          gsap.fromTo(
-            featured,
-            { x: -40, opacity: 0 },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.7,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: triggerEl,
-                start: "top 75%",
-              },
-            }
-          )
-        );
-      }
+    if (featured) {
+      created.push(
+        gsap.fromTo(
+          featured,
+          { x: -40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: triggerEl,
+              start: "top 75%",
+            },
+          },
+        ),
+      );
+    }
 
-      if (small.length) {
-        created.push(
-          gsap.fromTo(
-            small,
-            { y: 30, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.6,
-              ease: "power2.out",
-              stagger: 0.08,
-              scrollTrigger: {
-                trigger: triggerEl,
-                start: "top 75%",
-              },
-            }
-          )
-        );
-      }
+    if (small.length) {
+      created.push(
+        gsap.fromTo(
+          small,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.08,
+            scrollTrigger: {
+              trigger: triggerEl,
+              start: "top 75%",
+            },
+          },
+        ),
+      );
+    }
 
-      return () => {
-        created.forEach((t) => t.kill());
-      };
-    },
-    []
-  );
+    return () => {
+      created.forEach((t) => t.kill());
+    };
+  }, []);
 
   return (
     <section className="bg-[var(--bg)] py-[7rem]">
@@ -129,18 +126,19 @@ export default function WhatYouGet() {
           style={
             isMobile
               ? {
-                flexDirection: "column",
-                gap: "1.25rem",
-                marginBottom: "2rem",
-                alignItems: "flex-start",
-              }
+                  flexDirection: "column",
+                  gap: "1.25rem",
+                  marginBottom: "2rem",
+                  alignItems: "flex-start",
+                }
               : undefined
           }
         >
           <div>
             <div
               style={{
-                fontFamily: "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                fontFamily:
+                  "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                 fontSize: "0.7rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.12em",
@@ -161,7 +159,7 @@ export default function WhatYouGet() {
                 color: "var(--ink)",
               }}
             >
-              Here's what that actually looks like.
+              What builders actually get inside Quild.
             </h2>
           </div>
 
@@ -174,20 +172,24 @@ export default function WhatYouGet() {
               lineHeight: 1.6,
               ...(isMobile
                 ? {
-                  textAlign: "left",
-                  alignSelf: "flex-start",
-                  fontSize: "0.9rem",
-                }
+                    textAlign: "left",
+                    alignSelf: "flex-start",
+                    fontSize: "0.9rem",
+                  }
                 : null),
             }}
           >
-            Five things we offer. All of them real. None of them padded to look more impressive than they are.
+            Five parts of the ecosystem. Each one exists to help serious
+            builders learn faster, build better, and stay in motion.
           </div>
         </div>
 
         <div
           className="mt-12 grid grid-cols-1 md:grid-cols-2"
-          style={{ border: "1px solid var(--border)", background: "transparent" }}
+          style={{
+            border: "1px solid var(--border)",
+            background: "transparent",
+          }}
           role="presentation"
           aria-hidden
         >
@@ -203,13 +205,13 @@ export default function WhatYouGet() {
               transition: "background-color 0.25s ease, border-left 0.25s ease",
               ...(isMobile
                 ? {
-                  gridRow: "auto",
-                  gridColumn: "1",
-                  minHeight: "340px",
-                  borderRight: "none",
-                  borderBottom: "1px solid var(--border)",
-                  padding: "2rem 1.5rem",
-                }
+                    gridRow: "auto",
+                    gridColumn: "1",
+                    minHeight: "340px",
+                    borderRight: "none",
+                    borderBottom: "1px solid var(--border)",
+                    padding: "2rem 1.5rem",
+                  }
                 : null),
             }}
             onMouseEnter={(e) => {
@@ -235,10 +237,10 @@ export default function WhatYouGet() {
                 userSelect: "none",
                 ...(isMobile
                   ? {
-                    fontSize: "8rem",
-                    bottom: "0",
-                    right: "1rem",
-                  }
+                      fontSize: "8rem",
+                      bottom: "0",
+                      right: "1rem",
+                    }
                   : null),
               }}
             >
@@ -247,7 +249,8 @@ export default function WhatYouGet() {
 
             <div
               style={{
-                fontFamily: "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                fontFamily:
+                  "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                 fontSize: "0.7rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.12em",
@@ -298,25 +301,27 @@ export default function WhatYouGet() {
             >
               <div
                 style={{
-                  fontFamily: "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                  fontFamily:
+                    "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   fontSize: "0.75rem",
                   letterSpacing: "0.08em",
                   color: "var(--muted)",
                   textTransform: "uppercase",
                 }}
               >
-                6–8 WEEKS · IN-PERSON + ONLINE
+                6 WEEKS · ONLINE
               </div>
               <div
                 style={{
-                  fontFamily: "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                  fontFamily:
+                    "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                   fontSize: "0.75rem",
                   letterSpacing: "0.08em",
                   color: "var(--sage)",
                   textTransform: "uppercase",
                 }}
               >
-                SEE COHORTS →
+                EXPLORE COHORT {"->"}
               </div>
             </div>
           </div>
@@ -329,10 +334,16 @@ export default function WhatYouGet() {
             }}
           >
             {items.slice(1).map((item, idx) => {
-              const borderRight =
-                isMobile ? "none" : idx % 2 === 0 ? "1px solid var(--border)" : "none";
-              const borderBottom =
-                isMobile ? "1px solid var(--border)" : idx < 2 ? "1px solid var(--border)" : "none";
+              const borderRight = isMobile
+                ? "none"
+                : idx % 2 === 0
+                  ? "1px solid var(--border)"
+                  : "none";
+              const borderBottom = isMobile
+                ? "1px solid var(--border)"
+                : idx < 2
+                  ? "1px solid var(--border)"
+                  : "none";
 
               return (
                 <div
@@ -346,7 +357,8 @@ export default function WhatYouGet() {
                     borderRight,
                     borderBottom,
                     background: "transparent",
-                    transition: "background-color 0.25s ease, border-left 0.25s ease",
+                    transition:
+                      "background-color 0.25s ease, border-left 0.25s ease",
                     display: "flex",
                     flexDirection: "column",
                   }}
@@ -361,7 +373,8 @@ export default function WhatYouGet() {
                 >
                   <div
                     style={{
-                      fontFamily: "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                      fontFamily:
+                        "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                       fontSize: "0.7rem",
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
@@ -386,7 +399,8 @@ export default function WhatYouGet() {
                     <div
                       style={{
                         marginTop: "0.75rem",
-                        fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+                        fontFamily:
+                          "var(--font-dm-sans), system-ui, sans-serif",
                         fontSize: "0.95rem",
                         lineHeight: 1.7,
                         color: "var(--muted)",
@@ -399,18 +413,34 @@ export default function WhatYouGet() {
                   <div style={{ marginTop: "auto" }}>
                     <div
                       style={{
-                        fontFamily: "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                        fontFamily:
+                          "var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                         fontSize: "0.9rem",
                         color: "var(--sage)",
                       }}
                     >
-                      →
+                      {"->"}
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: "1.25rem",
+            maxWidth: "860px",
+            fontFamily: "var(--font-dm-sans), system-ui, sans-serif",
+            fontSize: isMobile ? "0.9rem" : "0.95rem",
+            lineHeight: 1.7,
+            color: "var(--muted)",
+          }}
+        >
+          Across the ecosystem, Quild also supports builders with AI tools and
+          resources, build-in-public momentum, accountability, and a culture
+          that values real output over passive participation.
         </div>
       </div>
     </section>

@@ -1,15 +1,59 @@
+﻿export type TimelineStatus = "upcoming" | "active" | "completed";
+export type TimelineType = "cohort" | "event";
+
 export type Cohort = {
   id: string;
-  city: string;
+  label: string;
+  type: TimelineType;
   dates: string;
   deadline: string;
-  status: "upcoming" | "active" | "past";
+  status: TimelineStatus;
+  order: number;
+  ctaHref?: string;
+  ctaLabel?: string;
 };
 
 export const cohorts: Cohort[] = [
-  { id: "05", city: "Delhi", dates: "Aug 2026 — Sep 2026", deadline: "Jul 12, 2026", status: "upcoming" },
-  { id: "04", city: "Bengaluru", dates: "May 2026 — Jun 2026", deadline: "Apr 10, 2026", status: "active" },
-  { id: "03", city: "Mumbai", dates: "Nov 2025 — Dec 2025", deadline: "Oct 18, 2025", status: "past" },
-  { id: "02", city: "Pune", dates: "Aug 2025 — Sep 2025", deadline: "Jul 10, 2025", status: "past" },
-  { id: "01", city: "Online", dates: "Apr 2025 — May 2025", deadline: "Mar 20, 2025", status: "past" },
+  {
+    id: "3.0",
+    label: "Cohort 3.0",
+    type: "cohort",
+    dates: "From Apr 2026 (TBA)",
+    deadline: "TBA",
+    status: "upcoming",
+    order: 4,
+    ctaHref: "/apply",
+    ctaLabel: "APPLY",
+  },
+  {
+    id: "PD-01",
+    label: "Quild Summit",
+    type: "event",
+    dates: "Apr 11, 2026",
+    deadline: "TBA",
+    status: "upcoming",
+    order: 3,
+    ctaHref: "/apply",
+    ctaLabel: "APPLY",
+  },
+  {
+    id: "2.0",
+    label: "Cohort 2.0",
+    type: "cohort",
+    dates: "Feb 25, 2026 - Apr 5, 2026",
+    deadline: "Closed",
+    status: "active",
+    order: 2,
+    ctaHref: "/apply",
+    ctaLabel: "APPLY",
+  },
+  {
+    id: "1.0",
+    label: "Cohort 1.0",
+    type: "cohort",
+    dates: "Jan 1, 2026 - Feb 15, 2026",
+    deadline: "Closed",
+    status: "completed",
+    order: 1,
+  },
 ];

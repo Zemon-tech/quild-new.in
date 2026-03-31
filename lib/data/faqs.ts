@@ -10,7 +10,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Is Quild remote or in-person?",
-    a: "Both. Our cohort programs are city-based and in-person. Workshops, accountability sessions, and community access are online. You don't need to be in one of our cities to be part of Quild — but if you are, expect to meet in real life.",
+    a: "Our cohort programs are online. Workshops, events and community access are offline in-person. You don't need to be in one of our cities to be part of Quild — but if you are, expect to meet in real life.",
   },
   {
     q: "Do I need to be building with AI already?",
