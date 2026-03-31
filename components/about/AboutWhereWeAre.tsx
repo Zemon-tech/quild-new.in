@@ -11,84 +11,84 @@ export default function AboutWhereWeAre() {
   const whereStatsRefs = useRef<(HTMLDivElement | null)[]>([]);
   const whereNumberRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  useGSAP(
-    ({ gsap }) => {
-      const cols = whereStatsRefs.current.filter(Boolean);
+  useGSAP(({ gsap }) => {
+    const cols = whereStatsRefs.current.filter(Boolean);
 
-      const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
+    const created: Array<gsap.core.Tween | gsap.core.Timeline> = [];
 
-      if (cols.length > 0) {
-        created.push(
-          gsap.fromTo(
-            cols,
-            { y: 40, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              stagger: 0.12,
-              duration: 0.9,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: cols[0],
-                start: "top 75%",
-              },
-            }
-          )
-        );
-      }
-
-      // Count up numbers
-      const num0 = whereNumberRefs.current[0];
-      const num1 = whereNumberRefs.current[1];
-
-      if (num0) {
-        const obj = { v: 0 };
-        created.push(
-          gsap.to(obj, {
-            v: 2,
-            duration: 1.2,
+    if (cols.length > 0) {
+      created.push(
+        gsap.fromTo(
+          cols,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.12,
+            duration: 0.9,
             ease: "power2.out",
-            onUpdate: () => {
-              num0.textContent = `${Math.round(obj.v)}+`;
-            },
             scrollTrigger: {
-              trigger: num0,
+              trigger: cols[0],
               start: "top 75%",
             },
-          })
-        );
-      }
+          },
+        ),
+      );
+    }
 
-      if (num1) {
-        const obj = { v: 0 };
-        created.push(
-          gsap.to(obj, {
-            v: 1,
-            duration: 1.1,
-            ease: "power2.out",
-            onUpdate: () => {
-              num1.textContent = String(Math.round(obj.v)).padStart(2, "0");
-            },
-            scrollTrigger: {
-              trigger: num1,
-              start: "top 75%",
-            },
-          })
-        );
-      }
+    // Count up numbers
+    const num0 = whereNumberRefs.current[0];
+    const num1 = whereNumberRefs.current[1];
 
-      return () => {
-        created.forEach((t) => {
-          t.scrollTrigger?.kill();
-          t.kill();
-        });
-      };
-    },
-    []
-  );
+    if (num0) {
+      const obj = { v: 0 };
+      created.push(
+        gsap.to(obj, {
+          v: 4,
+          duration: 1.2,
+          ease: "power2.out",
+          onUpdate: () => {
+            num0.textContent = `${Math.round(obj.v)}+`;
+          },
+          scrollTrigger: {
+            trigger: num0,
+            start: "top 75%",
+          },
+        }),
+      );
+    }
+
+    if (num1) {
+      const obj = { v: 0 };
+      created.push(
+        gsap.to(obj, {
+          v: 2,
+          duration: 1.1,
+          ease: "power2.out",
+          onUpdate: () => {
+            num1.textContent = String(Math.round(obj.v)).padStart(2, "0");
+          },
+          scrollTrigger: {
+            trigger: num1,
+            start: "top 75%",
+          },
+        }),
+      );
+    }
+
+    return () => {
+      created.forEach((t) => {
+        t.scrollTrigger?.kill();
+        t.kill();
+      });
+    };
+  }, []);
 
   return (
-    <section className="bg-[var(--bg)]" style={{ padding: isMobile ? "3rem 0" : "8rem 0" }}>
+    <section
+      className="bg-[var(--bg)]"
+      style={{ padding: isMobile ? "3rem 0" : "8rem 0" }}
+    >
       <div className="mx-auto w-full max-w-[1280px] px-6 md:px-8">
         <div
           style={{
@@ -108,7 +108,9 @@ export default function AboutWhereWeAre() {
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
             fontWeight: 600,
-            fontSize: isMobile ? "clamp(2rem, 7vw, 2.8rem)" : "clamp(2.5rem, 5vw, 5.5rem)",
+            fontSize: isMobile
+              ? "clamp(2rem, 7vw, 2.8rem)"
+              : "clamp(2.5rem, 5vw, 5.5rem)",
             lineHeight: 0.92,
             color: "var(--ink)",
             letterSpacing: "-0.02em",
@@ -122,7 +124,9 @@ export default function AboutWhereWeAre() {
         <Separator className="mt-14" />
         <div
           className={isMobile ? "flex flex-col" : "grid grid-cols-12"}
-          style={{ borderBottom: isMobile ? undefined : "1px solid var(--border)" }}
+          style={{
+            borderBottom: isMobile ? undefined : "1px solid var(--border)",
+          }}
         >
           {[0, 1, 2].map((i) => (
             <div
@@ -132,12 +136,16 @@ export default function AboutWhereWeAre() {
               }}
               className="col-span-12 md:py-10 md:col-span-4"
               style={{
-                borderLeft: isMobile ? "none" : (i === 0 ? undefined : "1px solid var(--border)"),
+                borderLeft: isMobile
+                  ? "none"
+                  : i === 0
+                    ? undefined
+                    : "1px solid var(--border)",
                 borderBottom: isMobile ? "1px solid var(--border)" : undefined,
                 paddingTop: isMobile ? "1.5rem" : undefined,
                 paddingBottom: isMobile ? "1.5rem" : undefined,
-                paddingLeft: isMobile ? "0" : (i === 0 ? undefined : "2rem"),
-                paddingRight: isMobile ? "0" : (i === 2 ? undefined : "2rem"),
+                paddingLeft: isMobile ? "0" : i === 0 ? undefined : "2rem",
+                paddingRight: isMobile ? "0" : i === 2 ? undefined : "2rem",
               }}
             >
               <div
@@ -176,7 +184,11 @@ export default function AboutWhereWeAre() {
                   color: "var(--muted)",
                 }}
               >
-                {i === 0 ? "FOUNDING TEAM" : i === 1 ? "FIRST COHORT" : "THE GOAL"}
+                {i === 0
+                  ? "FOUNDING TEAM"
+                  : i === 1
+                    ? "ONLINE COHORT"
+                    : "THE GOAL"}
               </div>
 
               <p
@@ -192,24 +204,25 @@ export default function AboutWhereWeAre() {
                   hyphens: isMobile ? "none" : undefined,
                 }}
               >
-                {isMobile ? (
-                  i === 0
-                    ? "Led by Shivang and Satyajit. But never just two people — a whole team is working toward this."
+                {isMobile
+                  ? i === 0
+                    ? "Led by Shivang and Satyajit. Backed by 4+ people building this seriously."
                     : i === 1
-                      ? "We started small on purpose. Quality of builders over quantity of signups. Always."
+                      ? "Cohort 2 is live. Cohort 3 is next. Built as a focused online cohort for serious builders."
                       : "No ceiling. Every serious builder in the world, eventually."
-                ) : (
-                  i === 0
-                    ? "Led by Shivang and Satyajit. But never\njust two people — a whole team is\nworking toward this."
+                  : i === 0
+                    ? "Led by Shivang and Satyajit. Backed by 4+\npeople building this seriously."
                     : i === 1
-                      ? "We started small on purpose. Quality\nof builders over quantity of signups. Always."
-                      : "No ceiling. Every serious builder\nin the world, eventually."
-                )}
+                      ? "Cohort 2 is live. Cohort 3 is next.\nBuilt as a focused online cohort for\nserious builders."
+                      : "No ceiling. Every serious builder\nin the world, eventually."}
               </p>
             </div>
           ))}
         </div>
-        <div className={`grid grid-cols-12 ${isMobile ? "gap-6" : "gap-8"}`} style={{ paddingTop: "3rem" }}>
+        <div
+          className={`grid grid-cols-12 ${isMobile ? "gap-6" : "gap-8"}`}
+          style={{ paddingTop: "3rem" }}
+        >
           <div className="col-span-12 md:col-span-5">
             <p
               style={{
@@ -243,9 +256,13 @@ export default function AboutWhereWeAre() {
             >
               {isMobile ? (
                 <>
-                  What we have is a clear philosophy, a whole team working quietly and seriously, and the kind of impatience that makes people start things before they're ready.
-                  <br /><br />
-                  Zemon — the organisation behind Quild — exists to build things that matter. Quild is one of them. We think that's enough.
+                  What we have is a clear philosophy, a whole team working
+                  quietly and seriously, and the kind of impatience that makes
+                  people start things before they're ready.
+                  <br />
+                  <br />
+                  Zemon — the organisation behind Quild — exists to build things
+                  that matter. Quild is one of them. We think that's enough.
                 </>
               ) : (
                 `What we have is a clear philosophy, a whole team working quietly and seriously,\nand the kind of impatience that makes people start things before they're ready.\n\nZemon — the organisation behind Quild — exists to build things that matter.\nQuild is one of them. We think that's enough.`

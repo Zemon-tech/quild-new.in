@@ -35,13 +35,15 @@ export default function AboutProblem() {
                 trigger: section ?? left,
                 start: "top 70%",
               },
-            })
+            }),
           );
         }
       }
 
       if (right) {
-        const paragraphs = Array.from(right.querySelectorAll("[data-problem-paragraph]"));
+        const paragraphs = Array.from(
+          right.querySelectorAll("[data-problem-paragraph]"),
+        );
         if (paragraphs.length > 0) {
           created.push(
             gsap.fromTo(
@@ -57,8 +59,8 @@ export default function AboutProblem() {
                   trigger: section ?? right,
                   start: "top 65%",
                 },
-              }
-            )
+              },
+            ),
           );
         }
       }
@@ -74,7 +76,7 @@ export default function AboutProblem() {
               trigger: stat,
               start: "top 90%",
             },
-          })
+          }),
         );
       }
 
@@ -85,7 +87,7 @@ export default function AboutProblem() {
         });
       };
     },
-    [isMobile]
+    [isMobile],
   );
 
   return (
@@ -159,7 +161,9 @@ export default function AboutProblem() {
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontWeight: 600,
-              fontSize: isMobile ? "clamp(1.6rem, 5.5vw, 2.2rem)" : "clamp(2.2rem, 3.5vw, 3.8rem)",
+              fontSize: isMobile
+                ? "clamp(1.6rem, 5.5vw, 2.2rem)"
+                : "clamp(2.2rem, 3.5vw, 3.8rem)",
               lineHeight: 1.05,
               color: "var(--ink)",
               letterSpacing: "-0.02em",
@@ -203,11 +207,7 @@ export default function AboutProblem() {
                 hyphens: isMobile ? "none" : undefined,
               }}
             >
-              {`We watched it happen around us. Smart people — engineers,
-students, founders — who knew they were capable of building
-something real. But they were surrounded by noise,
-distraction, and a growing fear that AI was coming for
-everything they'd worked toward.`}
+              {`We watched it happen around us. Smart people — engineers, students, founders — who knew they were capable of building something real. But they were surrounded by noise, distraction, and growing fear that AI was coming for everything they'd worked toward.`}
             </p>
             <p
               data-problem-paragraph
@@ -224,8 +224,7 @@ everything they'd worked toward.`}
                 hyphens: isMobile ? "none" : undefined,
               }}
             >
-              {`Nobody was telling them the truth: AI doesn't replace
-the people who build. It replaces the people who refuse to.`}
+              {`Nobody was telling them the truth: AI doesn't replace the people who build. It replaces the people who refuse to.`}
             </p>
             <p
               data-problem-paragraph
@@ -241,10 +240,7 @@ the people who build. It replaces the people who refuse to.`}
                 hyphens: isMobile ? "none" : undefined,
               }}
             >
-              {`We saw talented people stay stuck — not because they
-couldn't do the work, but because nobody had built the
-room where serious builders could come together, push
-each other, and ship things that actually matter.`}
+              {`We saw talented people stay stuck — not because they couldn't do the work, but because nobody had built the room where serious builders could come together, push each other, and ship things that actually matter.`}
             </p>
             <p
               data-problem-paragraph
@@ -299,7 +295,9 @@ each other, and ship things that actually matter.`}
           >
             {item}
             {i < 4 && !isMobile && (
-              <span style={{ color: "var(--border)", marginLeft: "3rem" }}>·</span>
+              <span style={{ color: "var(--border)", marginLeft: "3rem" }}>
+                ·
+              </span>
             )}
           </span>
         ))}
