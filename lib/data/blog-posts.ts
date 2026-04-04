@@ -23,6 +23,45 @@ export type BlogPost = {
 };
 
 export const blogPosts: BlogPost[] = [
+  // FEATURED POST - SUMMIT (index 0 → BlogHero, pinned to center in BlogFeatured)
+  {
+    slug: "quild-summit-2026",
+    title: "Announcing Quild Summit 2026: Career Opportunities in the AI Era",
+    excerpt: "Join us for an invite-only high-signal panel discussion on navigating careers and building in the age of AI. Curated for serious builders only.",
+    category: "Events",
+    tag: "SUMMIT",
+    coverImage: "/blog.png",
+    imageCaption: "Quild Summit 2026 in collaboration with AIC",
+    date: "Apr 04, 2026",
+    author: "Quild Team",
+    authorInitials: "QT",
+    authorBio: "Quild is a builder-first community focusing on the real-world application of AI and engineering systems.",
+    readTime: "2 min",
+    readTimeMinutes: 2,
+    featured: true,
+    seoTitle: "Quild Summit 2026 - Career Opportunities in the AI Era",
+    metaDescription: "Quild Summit is an invite-only panel discussion for serious builders. 10th April 2026, New Delhi. Learn about career opportunities in the AI era.",
+    keywords: ["Quild Summit", "AI careers", "builder community Delhi", "invite-only tech event", "AIC collaboration"],
+    content: `<p>We are excited to announce the first edition of <strong>Quild Summit</strong>, an invite-only, high-signal panel discussion designed for serious builders navigating the AI shift.</p>
+
+<h2>What is Quild Summit?</h2>
+<p>Quild Summit is a curated conversation between founders, researchers, and engineers. It’s not a lecture or a generic networking meet—it's a room where people already building discuss what actually matters in the AI era.</p>
+
+<h2>Event Details</h2>
+<ul>
+  <li><strong>Theme:</strong> Career Opportunities in the AI Era</li>
+  <li><strong>Date:</strong> 10th April 2026</li>
+  <li><strong>Location:</strong> GGSIPU, New Delhi</li>
+  <li><strong>Time:</strong> 11:00 AM – 3:00 PM</li>
+</ul>
+
+<h2>Speakers & Curation</h2>
+<p>The panel will feature 4–5 expert speakers, including founders and researchers who have built real systems and products. To keep the signal high, entry is <strong>invite-only</strong>. We are specifically looking for student and indie builders who are actively shipping projects.</p>
+
+<p>Entry is limited to 30-50 curated participants to ensure focused discussion and high-value networking.</p>
+
+<p><a href="https://summit.quild.in" target="_blank">Register Here to Request an Invite →</a></p>`,
+  },
   // POST 01 - BUILDERS
   {
     slug: "the-standard-we-hold",

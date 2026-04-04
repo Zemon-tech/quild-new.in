@@ -9,6 +9,8 @@ import BlogPostCard, { type BlogPostCardProps } from "@/components/blog/BlogPost
 import BlogCompactItem from "@/components/blog/BlogCompactItem";
 import { allBlogPosts, getFeaturedPosts } from "@/lib/blog-data";
 
+const PINNED_CENTER_SLUG = "quild-summit-2026";
+
 function initialsFromName(name: string) {
   return name
     .split(" ")
@@ -34,12 +36,21 @@ function mapPost(p: ReturnType<typeof getFeaturedPosts>[number]): BlogPostCardPr
 }
 
 export default function BlogFeatured() {
-  const featuredPosts = useMemo(() => getFeaturedPosts().map(mapPost), []);
+  const allFeatured = useMemo(() => getFeaturedPosts().map(mapPost), []);
   const extraPosts = useMemo(() => allBlogPosts.slice(5, 10).map(mapPost), []);
 
-  const leftPosts = featuredPosts.slice(0, 2);
-  const centerPost = featuredPosts[2];
-  const rightPosts = [...featuredPosts.slice(3, 5), ...extraPosts].slice(0, 5);
+  // Pin the summit post to the center; fill left with the remaining featured posts
+  const centerPost = useMemo(
+    () => allFeatured.find((p) => p.slug === PINNED_CENTER_SLUG) ?? allFeatured[2],
+    [allFeatured]
+  );
+  const sidebarPosts = useMemo(
+    () => allFeatured.filter((p) => p.slug !== PINNED_CENTER_SLUG),
+    [allFeatured]
+  );
+
+  const leftPosts = sidebarPosts.slice(0, 2);
+  const rightPosts = [...sidebarPosts.slice(2, 4), ...extraPosts].slice(0, 5);
 
   return (
     <section

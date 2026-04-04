@@ -1,233 +1,171 @@
-# Quild — Context for AI Agents
+# Quild Summit — Context Document
 
-## 1. Overview
+## Overview
+Quild Summit is an **invite-only, high-signal panel discussion** designed for serious builders navigating the AI shift.  
+It is a **curated conversation** between founders, researchers, engineers, indie builders, and a carefully selected audience of serious builders.
 
-Quild is an **AI-native, builder-first community**.
-
-It is designed for individuals who want to:
-- Solve real technical and engineering problems
-- Build meaningful systems and products
-- Go beyond surface-level coding into real-world engineering
-
-Quild is not a course platform.
-It is a **high-agency environment for serious builders**.
+This edition of Quild Summit is being organized by **Quild in collaboration with AIC**.
 
 ---
 
-## 2. Core Philosophy
-
-AI is replacing repetitive work.
-
-This shifts the role of engineers from:
-- Writing code → Designing systems
-- Following tutorials → Making decisions
-- Consuming content → Building real things
-
-> There is no longer an excuse not to build.
-
-Quild exists to help people build:
-**things only they can build.**
-
-Core beliefs:
-- Building > consuming
-- Depth > surface knowledge
-- Ownership > dependency
-- Thinking > syntax
+## Current Edition Details
+- **Theme:** Career Opportunities in the AI Era
+- **Date:** 10 Apr 2026
+- **Venue:** AIC Conference Room
+- **Time Slot:** 11:00 AM to 3:00 PM
+- **Actual Event Duration:** Approximately 3 hours
+- **Buffer:** Additional time kept for setup, delays, and operational contingencies
 
 ---
 
-## 3. Problem Being Solved
-
-Modern engineers (especially in the AI era) often lack:
-- System design thinking
-- Architectural decision-making ability
-- Real-world problem solving
-- Deployment and production understanding
-- Ability to guide AI effectively
-
-This creates the **"vibe coder" problem**:
-People can generate code, but cannot engineer systems.
-
-Additionally:
-- Learning platforms optimize for content, not outcomes
-- No strong accountability or commitment systems
-- No reliable proof of actual skill
-
-Quild focuses on:
-- **Commitment**
-- **Deliberate practice**
-- **Skill verification through building**
+## Core Objective
+- Build **brand authority** for Quild  
+- Create a **high-value network** of builders
 
 ---
 
-## 4. What Quild Is
+## Positioning
+- Not a lecture-based event  
+- Not motivational or beginner-focused  
+- Focused on **real insights, real opportunities, and real building**
 
-Quild is primarily:
-- A **community and network of builders**
-
-Secondarily:
-- Cohorts
-- Events
-- Learning systems
-
-These are **tools**, not the core identity.
-
-Quild enables:
-- Finding like-minded builders
-- Forming teams and co-founder relationships
-- Collaborating on meaningful problems
-- Building in public and learning through action
+**Core Idea:**  
+A room where people who are *already building* discuss what actually matters in AI and the opportunities emerging in this era.
 
 ---
 
-## 5. Target Audience
+## Audience
 
-- College students
-- Working professionals
-- Aspiring builders
+### Target Participants
+- Student builders
+- Indie builders
+- Early-stage startups
 
-Common traits:
-- Want to build, not just learn
-- Interested in solving real problems
-- Curious about engineering, systems, and innovation
+### Minimum Criteria
+- Must have **built or be actively building** a real project  
+- OR have a **clear idea they are working on**
 
----
+### Filtering
+- Form-based entry
+- Manual selection by Quild
+- Curated attendees only
+- Limited to **30–50 participants**
 
-## 6. Learning Model (AI-Native)
-
-Quild does NOT teach:
-- Syntax
-- Basic coding tutorials
-- Passive video consumption
-
-Quild focuses on:
-- AI orchestration
-- System design
-- Architecture thinking
-- Real-world constraints and tradeoffs
-- Shipping and scaling systems
-
-Learning happens through:
-- Building real problems
-- Iteration and feedback
-- Guided AI + peer support
+### Not Allowed
+- Passive learners  
+- Beginners without projects  
+- People only “exploring” AI
 
 ---
 
-## 7. Cohort Model
+## Speakers
 
-Quild currently runs **6-week cohorts**.
+### Profile
+- Founders
+- Researchers
+- Indie developers/builders active in AI
 
-Characteristics:
-- Small, focused groups
-- High intent participants
-- Commitment-driven environment
+### Selection Criteria
+- Must have **built real systems/products/research**
+- Must be able to share **practical, non-generic insights**
 
-Structure:
-- Fixed duration (6 weeks)
-- Build-first approach
-- Learning through execution
-
-Entry:
-- Open to all
-- Retention based on **commitment and consistency**, not selection
+### Panel Composition
+- **4–5 speakers**
+- Speakers to be invited jointly by **Quild and AIC**
+- 1 host/moderator if required
 
 ---
 
-## 8. Community Experience
+## Event Format
 
-Members get:
-- Access to a network of serious builders
-- Collaboration opportunities
-- Potential co-founders
-- Peer learning and accountability
+### Structure
+1. **Opening**
+   - Brief introduction to the event and theme
+   - Set expectations for a focused, high-signal discussion
 
-The community is:
-- Builder-first
-- Signal > noise
-- Focused on output, not discussion alone
+2. **Panel Discussion**
+   - Conversation around:
+     - Career opportunities in the AI era
+     - Skills that matter
+     - What serious builders should focus on
+     - Real experiences from people already building in the space
 
-
----
-
-## 9. Commitment System
-
-Quild optimizes for **commitment, not content**.
-
-Mechanisms:
-- Fixed-duration cohorts (6 weeks)
-- Peer presence and accountability
-- Visible progress
-- Real outputs (not just completion)
-
-Core idea:
-> People don’t fail because of lack of content — they fail due to lack of commitment.
+3. **Audience Q&A**
+   - Curated discussion with selected audience questions
+   - Focus on practical and relevant queries
 
 ---
 
-## 10. Proof of Work & Outcomes
-
-Quild focuses on:
-- Demonstrated ability, not claimed knowledge
-
-Outputs include:
-- Projects
-- Architecture decisions
-- Deployments
-- Problem-solving approaches
-
-Long-term direction:
-- Skill verification
-- Strong builder profiles
-- Hiring signals based on real work
+## Room Setup
+- Suitable setup for panel discussion
+- Display support for event use
+- Microphone/audio support
+- Audience seated to enable focused discussion
 
 ---
 
-## 11. Expansion Vision
-
-Started with:
-- Software development
-
-Expanding into:
-- Robotics
-- Electronics
-- Broader engineering domains
-
-Goal:
-A **multi-disciplinary AI-native builder ecosystem**
+## Collaboration Requirements from AIC
+- AIC Conference Room
+- Display setup
+- Microphone/audio setup
+- Lunch for speakers
+- Wi-Fi access
+- On-ground support
+- Recording permission
 
 ---
 
-## 12. Geography
-
-- Currently based in **Delhi NCR (India)**
-- Operates **online cohorts**
-- Hosts **offline events**
-- Expanding globally
-
----
-
-## 13. What Quild Is NOT
-
-- Not a traditional course platform
-- Not a content-first learning system
-- Not a bootcamp
-- Not a passive community
-- Not "learn to code"
+## Responsibilities from Quild
+- Registration management
+- Marketing and outreach
+- Branding
+- Attendee curation
+- Bringing 1–2 speakers
 
 ---
 
-## 14. Key Identity
-
-Quild is:
-- AI-native
-- Builder-first
-- Engineering-focused
-- Community-driven
-- Outcome-oriented
+## Recording & Content
+- Event is recorded  
+- Content used for:
+  - Short clips (social media)
+  - Selected long-form content  
 
 ---
 
-## 15. One-Line Positioning
+## Post-Event Strategy
 
-**Quild is where serious builders come to upgrade themselves in an AI-native world by building real systems — not consuming content.**
+### Immediate
+- WhatsApp group with attendees + speakers
+
+### Engagement
+- Prompt:
+  - “What are you building?”
+  - “What are you stuck on?”
+
+### Follow-up
+- Share insights and key takeaways
+- Build ongoing community
+
+---
+
+## Long-Term Vision
+- This is the **start of a recurring series**
+- Same format, evolving themes:
+  - AI opportunities
+  - Skills and careers
+  - Industry-specific discussions
+
+---
+
+## Key Principles
+- **Curation > Scale**
+- **Signal > Noise**
+- **Builders > Audience**
+- **Conversation > Presentation**
+
+---
+
+## Emotional Outcome
+Participants should leave with:
+- **Clarity** on what to build and learn  
+- **Urgency** to act in the AI shift
