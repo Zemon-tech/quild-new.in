@@ -1,4 +1,4 @@
-﻿export type TimelineStatus = "upcoming" | "active" | "completed";
+export type TimelineStatus = "upcoming" | "active" | "completed";
 export type TimelineType = "cohort" | "event";
 
 export type Cohort = {
@@ -33,8 +33,8 @@ export const cohorts: Cohort[] = [
     deadline: "TBA",
     status: "upcoming",
     order: 3,
-    ctaHref: "/apply",
-    ctaLabel: "APPLY",
+    ctaHref: "https://summit.quild.in",
+    ctaLabel: "REGISTER",
   },
   {
     id: "2.0",
@@ -44,8 +44,6 @@ export const cohorts: Cohort[] = [
     deadline: "Closed",
     status: "active",
     order: 2,
-    ctaHref: "/apply",
-    ctaLabel: "APPLY",
   },
   {
     id: "1.0",

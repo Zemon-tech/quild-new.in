@@ -14,6 +14,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideOnFooter, setHideOnFooter] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
+  const BANNER_HEIGHT = 40;
   const DARK_HERO_PAGES = ["/", "/about", "/blog", "/careers", "/initiatives", "/community"];
   const isDarkHeroPage = DARK_HERO_PAGES.includes(pathname);
   const navColor = mobileOpen
@@ -105,10 +107,61 @@ export default function Navbar() {
 
   return (
     <>
+      {isBannerVisible && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            width: "100%",
+            height: `${BANNER_HEIGHT}px`,
+            backgroundColor: "var(--void)",
+            color: "#FFFFFF",
+            zIndex: 101,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "0.85rem",
+            fontWeight: 500,
+            padding: "0 1rem",
+            borderBottom: "1px solid var(--void-border)",
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <span>Upcoming Quild Summit on 10th April.</span>
+            <a
+              href="https://summit.quild.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold underline hover:opacity-80 transition-opacity"
+            >
+              Register Here →
+            </a>
+          </div>
+          <button
+            onClick={() => setIsBannerVisible(false)}
+            className="absolute right-4 p-1 hover:bg-white/10 rounded-full transition-colors"
+            aria-label="Close notification"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      )}
       <header
         style={{
           position: "fixed",
-          top: 0,
+          top: isBannerVisible ? `${BANNER_HEIGHT}px` : 0,
           width: "100%",
           zIndex: 100,
           backdropFilter: "none",
@@ -121,7 +174,7 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          transition: "background-color 0.2s ease, opacity 0.25s ease, transform 0.25s ease",
+          transition: "top 0.3s ease, background-color 0.2s ease, opacity 0.25s ease, transform 0.25s ease",
           opacity: hideOnFooter ? 0 : 1,
           transform: hideOnFooter ? "translateY(-12px)" : "translateY(0px)",
           pointerEvents: hideOnFooter ? "none" : "auto",
