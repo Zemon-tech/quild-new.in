@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRef } from "react";
@@ -150,6 +150,8 @@ export default function CohortTimeline() {
                       {c.status !== "completed" && c.ctaHref && c.ctaLabel ? (
                         <Link
                           href={c.ctaHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           style={{
                             fontSize: "0.62rem",
                             fontFamily:
@@ -183,6 +185,8 @@ export default function CohortTimeline() {
                       {c.status !== "completed" && c.ctaHref && c.ctaLabel ? (
                         <Link
                           href={c.ctaHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--sage)]"
                         >
                           -&gt; {c.ctaLabel}
