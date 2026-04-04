@@ -15,9 +15,38 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Quild",
+  metadataBase: new URL("https://quild.in"),
+  title: {
+    default: "Quild | The Builder Community",
+    template: "%s | Quild",
+  },
   description:
     "Quild is a selective community for students, founders, and engineers building with AI.",
+  openGraph: {
+    title: "Quild | The Builder Community",
+    description:
+      "Quild is a selective community for students, founders, and engineers building with AI.",
+    url: "https://quild.in",
+    siteName: "Quild",
+    images: [
+      {
+        url: "/hero.png",
+        width: 1200,
+        height: 630,
+        alt: "Quild Community",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Quild | The Builder Community",
+    description:
+      "Quild is a selective community for students, founders, and engineers building with AI.",
+    images: ["/hero.png"],
+    creator: "@QuildGlobal",
+  },
 };
 
 export default function RootLayout({
