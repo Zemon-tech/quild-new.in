@@ -110,8 +110,7 @@ export default function Navbar() {
       {isBannerVisible && (
         <div
           style={{
-            position: "fixed",
-            top: 0,
+            position: "relative",
             width: "100%",
             height: `${BANNER_HEIGHT}px`,
             backgroundColor: "var(--void)",
@@ -160,8 +159,8 @@ export default function Navbar() {
       )}
       <header
         style={{
-          position: "fixed",
-          top: isBannerVisible ? `${BANNER_HEIGHT}px` : 0,
+          position: "sticky",
+          top: 0,
           width: "100%",
           zIndex: 100,
           backdropFilter: "none",
@@ -171,6 +170,7 @@ export default function Navbar() {
           boxShadow: "none",
           padding: "0 1rem",
           height: "60px",
+          marginBottom: "-60px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
