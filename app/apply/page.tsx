@@ -3,7 +3,9 @@
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+
+import { createClient } from "@/lib/supabase/client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +50,64 @@ export default function ApplyPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const isMobile = useIsMobile();
+  
+  const supabase = createClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    targetBuild: "",
+    dataLinks: "",
+    motive: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMsg("");
+    const { error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    });
+    setIsLoading(false);
+    if (error) {
+      setErrorMsg(error.message);
+    } else {
+      setSubmitted(true);
+    }
+  };
+
+  const handleSignup = async () => {
+    setIsLoading(true);
+    setErrorMsg("");
+    const { error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          target_build: formData.targetBuild,
+          data_links: formData.dataLinks,
+          motive: formData.motive,
+        },
+      },
+    });
+    setIsLoading(false);
+    if (error) {
+      setErrorMsg(error.message);
+    } else {
+      setSubmitted(true);
+    }
+  };
 
   const [activeScreenIndex, setActiveScreenIndex] = useState(0);
 
@@ -206,18 +266,25 @@ export default function ApplyPage() {
                   </p>
                 </div>
 
+                {errorMsg && (
+                  <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-600 font-sans text-sm rounded-none">
+                    {errorMsg}
+                  </div>
+                )}
+
                 {step === 1 && (
                   <>
                     {isLogin ? (
-                      <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-5">
+                      <form onSubmit={handleLogin} className="space-y-5">
                         <div className="space-y-1.5">
                           <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Identity (Email)</label>
-                          <Input required type="email" placeholder="void@quild.community" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
+                          <Input name="email" value={formData.email} onChange={handleChange} required type="email" placeholder="void@quild.community" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
                         </div>
 
                         <div className="space-y-1.5 relative w-full">
                           <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Passkey</label>
                           <Input
+                            name="password" value={formData.password} onChange={handleChange}
                             required
                             type={showPassword ? "text" : "password"}
                             placeholder="********"
@@ -233,32 +300,33 @@ export default function ApplyPage() {
                         </div>
 
                         <div className="pt-4">
-                          <Button type="submit" className="w-full rounded-none bg-[var(--sage)] hover:bg-[var(--sage)] border border-[var(--sage)] hover:opacity-90 text-white h-[48px] font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-all">
-                            AUTHENTICATE →
+                          <Button disabled={isLoading} type="submit" className="w-full rounded-none bg-[var(--sage)] hover:bg-[var(--sage)] border border-[var(--sage)] hover:opacity-90 text-white h-[48px] font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-all">
+                            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "AUTHENTICATE →"}
                           </Button>
                         </div>
                       </form>
                     ) : (
-                      <form onSubmit={(e) => { e.preventDefault(); setStep(2); }} className="space-y-5">
+                      <form onSubmit={(e) => { e.preventDefault(); setStep(2); setErrorMsg(""); }} className="space-y-5">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                           <div className="space-y-1.5">
                             <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">First Name</label>
-                            <Input required placeholder="Jane" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
+                            <Input name="firstName" value={formData.firstName} onChange={handleChange} required placeholder="Jane" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
                           </div>
                           <div className="space-y-1.5">
                             <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Last Name</label>
-                            <Input required placeholder="Doe" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
+                            <Input name="lastName" value={formData.lastName} onChange={handleChange} required placeholder="Doe" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
                           </div>
                         </div>
 
                         <div className="space-y-1.5">
                           <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Identity (Email)</label>
-                          <Input required type="email" placeholder="void@quild.community" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
+                          <Input name="email" value={formData.email} onChange={handleChange} required type="email" placeholder="void@quild.community" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
                         </div>
 
                         <div className="space-y-1.5 relative w-full">
                           <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Passkey</label>
                           <Input
+                            name="password" value={formData.password} onChange={handleChange}
                             required
                             type={showPassword ? "text" : "password"}
                             placeholder="********"
@@ -340,20 +408,20 @@ export default function ApplyPage() {
                 )}
 
                 {step === 2 && (
-                  <form onSubmit={(e) => { e.preventDefault(); setStep(3); }} className="space-y-6">
+                  <form onSubmit={(e) => { e.preventDefault(); setStep(3); setErrorMsg(""); }} className="space-y-6">
                     <div className="space-y-1.5">
                       <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Target Build</label>
-                      <Textarea required placeholder="Describe what you are building briefly..." className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 min-h-[110px] p-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all resize-none text-[0.9rem] font-sans" />
+                      <Textarea name="targetBuild" value={formData.targetBuild} onChange={handleChange} required placeholder="Describe what you are building briefly..." className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 min-h-[110px] p-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all resize-none text-[0.9rem] font-sans" />
                     </div>
 
                     <div className="space-y-1.5">
                       <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Data Links (Optional)</label>
-                      <Input placeholder="GitHub / Portfolio" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
+                      <Input name="dataLinks" value={formData.dataLinks} onChange={handleChange} placeholder="GitHub / Portfolio" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 h-[48px] px-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all text-[0.9rem] font-sans" />
                     </div>
 
                     <div className="space-y-1.5">
                       <label className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] block">Motive (Why Quild?)</label>
-                      <Textarea required placeholder="Tell us why." className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 min-h-[90px] p-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all resize-none text-[0.9rem] font-sans" />
+                      <Textarea name="motive" value={formData.motive} onChange={handleChange} required placeholder="Tell us why." className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] placeholder:text-[var(--muted)]/30 min-h-[90px] p-4 focus-visible:ring-1 focus-visible:ring-[var(--ink)] focus-visible:border-[var(--ink)] transition-all resize-none text-[0.9rem] font-sans" />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4 mt-8 pt-4">
@@ -379,8 +447,8 @@ export default function ApplyPage() {
                       <Button type="button" variant="outline" className="rounded-none bg-transparent border-[var(--border)] text-[var(--ink)] hover:bg-[var(--ink)]/5 h-[48px] transition-all font-mono text-[0.7rem] uppercase tracking-[0.1em] px-0" onClick={() => setStep(2)}>
                         &larr; REVERT
                       </Button>
-                      <Button type="button" className="rounded-none bg-[var(--sage)] border border-[var(--sage)] text-white hover:bg-[var(--sage)] hover:opacity-90 h-[48px] font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-all px-0" onClick={() => setSubmitted(true)}>
-                        EXECUTE ROOT ACCESS
+                      <Button type="button" disabled={isLoading} className="rounded-none bg-[var(--sage)] border border-[var(--sage)] text-white hover:bg-[var(--sage)] hover:opacity-90 h-[48px] font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-all px-0" onClick={handleSignup}>
+                        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "EXECUTE ROOT ACCESS"}
                       </Button>
                     </div>
                   </div>
