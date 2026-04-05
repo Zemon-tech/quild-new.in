@@ -21,13 +21,12 @@ function getInitials(name: string): string {
 
 export default function ProfileCard({ fullName, email }: ProfileCardProps) {
   const router = useRouter();
-  const supabase = createClient();
   const [isLoading, setIsLoading] = useState(false);
-
   const initials = getInitials(fullName);
 
   const handleLogout = async () => {
     setIsLoading(true);
+    const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/");
     router.refresh();

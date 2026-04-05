@@ -51,7 +51,6 @@ export default function ApplyPage() {
   const [isLogin, setIsLogin] = useState(false);
   const isMobile = useIsMobile();
   
-  const supabase = createClient();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -73,6 +72,7 @@ export default function ApplyPage() {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg("");
+    const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
@@ -88,6 +88,7 @@ export default function ApplyPage() {
   const handleSignup = async () => {
     setIsLoading(true);
     setErrorMsg("");
+    const supabase = createClient();
     const { error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
