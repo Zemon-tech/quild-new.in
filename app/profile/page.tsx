@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ProfileCard from "@/components/profile/ProfileCard";
+import SessionRefresher from "@/components/auth/SessionRefresher";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,7 +27,8 @@ export default async function ProfilePage() {
     [firstName, lastName].filter(Boolean).join(" ") || email.split("@")[0];
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] flex items-center justify-center p-4 lg:p-8">
+    <main className="min-h-screen bg-(--bg) flex items-center justify-center p-4 lg:p-8">
+      <SessionRefresher />
       <ProfileCard fullName={fullName} email={email} />
     </main>
   );
