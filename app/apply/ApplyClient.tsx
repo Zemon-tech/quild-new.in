@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
+import type { AuthChangeEvent, Session, User } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/client";
 
@@ -19,7 +21,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cohorts } from "@/lib/data/cohorts";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 type Step = 1 | 2 | 3;
@@ -31,15 +32,13 @@ const CAROUSEL_SCREENS = [
 ];
 
 export default function ApplyClient() {
-  const current = useMemo(
-    () => cohorts?.find((c) => c.status === "upcoming") ?? { id: 1, city: "SF", dates: "TBD" },
-    []
-  );
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [step, setStep] = useState<Step>(1);
   const [submitted, setSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(() => searchParams.get("mode") === "login");
   const isMobile = useIsMobile();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -52,6 +51,12 @@ export default function ApplyClient() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const redirectToProfile = async () => {
+    await fetch("/api/auth/refresh", { cache: "no-store" }).catch(() => {});
+    router.replace("/profile");
+    router.refresh();
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -62,14 +67,19 @@ export default function ApplyClient() {
       password: formData.password,
     });
     setIsLoading(false);
-    if (error) { setErrorMsg(error.message); } else { setSubmitted(true); }
+    if (error) {
+      setErrorMsg(error.message);
+      return;
+    }
+
+    await redirectToProfile();
   };
 
   const handleSignup = async () => {
     setIsLoading(true);
     setErrorMsg("");
     const supabase = createClient();
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
       options: {
@@ -83,7 +93,17 @@ export default function ApplyClient() {
       },
     });
     setIsLoading(false);
-    if (error) { setErrorMsg(error.message); } else { setSubmitted(true); }
+    if (error) {
+      setErrorMsg(error.message);
+      return;
+    }
+
+    if (data.session) {
+      await redirectToProfile();
+      return;
+    }
+
+    setSubmitted(true);
   };
 
   const [activeScreenIndex, setActiveScreenIndex] = useState(0);
@@ -93,6 +113,31 @@ export default function ApplyClient() {
     }, 4500);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth.getUser().then(({ data }: { data: { user: User | null } }) => {
+      const user = data.user;
+      if (user) {
+        router.replace("/profile");
+        router.refresh();
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, session: Session | null) => {
+      if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && session?.user) {
+        router.replace("/profile");
+        router.refresh();
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-[var(--bg)] font-sans flex items-center justify-center p-0 lg:p-4 shrink-0 grow block">

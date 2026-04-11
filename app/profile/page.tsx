@@ -16,7 +16,7 @@ export default async function ProfilePage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/apply");
+    redirect("/apply?mode=login");
   }
 
   const meta = user.user_metadata ?? {};
