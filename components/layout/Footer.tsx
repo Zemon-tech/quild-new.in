@@ -14,7 +14,7 @@ export default function Footer() {
   const isMobile = useIsMobile();
   const pathname = usePathname();
 
-  if (pathname === "/apply" || pathname.startsWith("/careers/apply")) return null;
+  if (pathname === "/apply" || pathname.startsWith("/careers/apply") || pathname.startsWith("/profile")) return null;
 
   return (
     <footer id="footer" className="relative bg-[var(--void)] text-white overflow-hidden min-h-screen flex">
