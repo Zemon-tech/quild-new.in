@@ -57,10 +57,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link id="favicon" rel="icon" href="/logo.svg" type="image/svg+xml" />
+        <link id="favicon" rel="icon" href="/quild.svg" type="image/svg+xml" />
         <Script id="dynamic-favicon" strategy="afterInteractive">{`
 (() => {
-  const ICON_URL = '/logo.svg';
+  const ICON_URL = '/quild.svg';
   const LINK_ID = 'favicon';
   let lastObjectUrl = null;
 

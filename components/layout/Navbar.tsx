@@ -145,7 +145,7 @@ export default function Navbar() {
               }}
             >
               <Image
-                src="/logo.svg"
+                src="/quild.svg"
                 alt="Quild logo"
                 width={28}
                 height={28}

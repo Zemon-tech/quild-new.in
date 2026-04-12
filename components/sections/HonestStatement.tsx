@@ -17,68 +17,68 @@ const marqueeItems = [
   "Join the builders",
 ];
 
- const COLLAGE_CARDS = [
-   {
-     bg: "var(--sage)",
-     width: "220px",
-     height: "260px",
-     top: "20px",
-     left: "30px",
-     rotate: "-8deg",
-     icon: "grid",
-     zIndex: 2,
-   },
-   {
-     bg: "var(--surface)",
-     width: "160px",
-     height: "200px",
-     top: "60px",
-     left: "210px",
-     rotate: "12deg",
-     icon: "lines",
-     zIndex: 3,
-   },
-   {
-     bg: "var(--void)",
-     width: "200px",
-     height: "240px",
-     top: "10px",
-     left: "360px",
-     rotate: "-14deg",
-     icon: "person",
-     zIndex: 1,
-   },
-   {
-     bg: "var(--sage)",
-     width: "130px",
-     height: "130px",
-     top: "330px",
-     left: "60px",
-     rotate: "16deg",
-     icon: null,
-     zIndex: 4,
-   },
-   {
-     bg: "var(--surface)",
-     width: "180px",
-     height: "200px",
-     top: "280px",
-     left: "220px",
-     rotate: "-6deg",
-     icon: "lines",
-     zIndex: 2,
-   },
-   {
-     bg: "#3D4A35",
-     width: "150px",
-     height: "170px",
-     top: "300px",
-     left: "420px",
-     rotate: "18deg",
-     icon: null,
-     zIndex: 3,
-   },
- ] as const;
+const COLLAGE_CARDS = [
+  {
+    bg: "var(--sage)",
+    width: "220px",
+    height: "260px",
+    top: "20px",
+    left: "30px",
+    rotate: "-8deg",
+    icon: "grid",
+    zIndex: 2,
+  },
+  {
+    bg: "var(--surface)",
+    width: "160px",
+    height: "200px",
+    top: "60px",
+    left: "210px",
+    rotate: "12deg",
+    icon: "lines",
+    zIndex: 3,
+  },
+  {
+    bg: "var(--void)",
+    width: "200px",
+    height: "240px",
+    top: "10px",
+    left: "360px",
+    rotate: "-14deg",
+    icon: "person",
+    zIndex: 1,
+  },
+  {
+    bg: "var(--sage)",
+    width: "130px",
+    height: "130px",
+    top: "330px",
+    left: "60px",
+    rotate: "16deg",
+    icon: null,
+    zIndex: 4,
+  },
+  {
+    bg: "var(--surface)",
+    width: "180px",
+    height: "200px",
+    top: "280px",
+    left: "220px",
+    rotate: "-6deg",
+    icon: "lines",
+    zIndex: 2,
+  },
+  {
+    bg: "#3D4A35",
+    width: "150px",
+    height: "170px",
+    top: "300px",
+    left: "420px",
+    rotate: "18deg",
+    icon: null,
+    zIndex: 3,
+  },
+] as const;
 
 export default function HonestStatement() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -139,16 +139,16 @@ export default function HonestStatement() {
 
       const captionTween = caption
         ? gsap.from(caption, {
-            opacity: 0,
-            y: 10,
-            duration: 0.5,
-            delay: 0.6,
-            scrollTrigger: {
-              trigger: section,
-              start: scrollStart,
-              once: true,
-            },
-          })
+          opacity: 0,
+          y: 10,
+          duration: 0.5,
+          delay: 0.6,
+          scrollTrigger: {
+            trigger: section,
+            start: scrollStart,
+            once: true,
+          },
+        })
         : null;
 
       return () => {
@@ -191,10 +191,10 @@ export default function HonestStatement() {
           style={
             isMobile
               ? {
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "3rem",
-                }
+                display: "flex",
+                flexDirection: "column",
+                gap: "3rem",
+              }
               : undefined
           }
         >
@@ -205,9 +205,9 @@ export default function HonestStatement() {
             style={
               isMobile
                 ? {
-                    width: "100%",
-                    paddingRight: 0,
-                  }
+                  width: "100%",
+                  paddingRight: 0,
+                }
                 : undefined
             }
           >
@@ -234,10 +234,10 @@ export default function HonestStatement() {
               style={
                 isMobile
                   ? {
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "1rem",
-                    }
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                  }
                   : undefined
               }
             >
@@ -565,9 +565,9 @@ export default function HonestStatement() {
               style={
                 isMobile
                   ? {
-                      fontSize: "0.62rem",
-                      letterSpacing: "0.08em",
-                    }
+                    fontSize: "0.62rem",
+                    letterSpacing: "0.08em",
+                  }
                   : undefined
               }
             >

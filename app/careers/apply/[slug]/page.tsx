@@ -204,7 +204,7 @@ export default async function CareersApplyPositionPage({
         <div className="flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-3 no-underline">
             <Image
-              src="/logo.svg"
+              src="/quild.svg"
               alt="Quild logo"
               width={28}
               height={28}

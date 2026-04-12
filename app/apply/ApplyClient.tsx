@@ -156,7 +156,7 @@ export default function ApplyClient() {
           </div>
           <div className="relative z-20 flex justify-between items-start w-full">
             <Link href="/" className="flex items-center gap-3 decoration-transparent">
-              <Image src="/logo.svg" alt="Quild" width={32} height={32} className="brightness-0 invert h-6 w-6 relative top-[2px]" />
+              <Image src="/quild.svg" alt="Quild" width={32} height={32} className="brightness-0 invert h-6 w-6 relative top-[2px]" />
               <span className="font-display text-[1.2rem] font-semibold tracking-[0.05em] text-white">Quild</span>
             </Link>
             <Link href="/">
@@ -195,7 +195,7 @@ export default function ApplyClient() {
             <Link href="/"><Button variant="outline" size="sm" className="rounded-none border-white/20 text-white bg-transparent hover:bg-white/10 h-10 w-10 p-0 flex items-center justify-center">✕</Button></Link>
           </div>
           <div className="w-full mb-12 flex lg:hidden items-center justify-start border-b border-[var(--border)] pb-6">
-            <Image src="/logo.svg" alt="Quild" width={24} height={24} className="brightness-0" />
+            <Image src="/quild.svg" alt="Quild" width={24} height={24} className="brightness-0" />
             <span className="ml-3 font-display text-[1.1rem] font-semibold tracking-[0.12em] text-black">quild</span>
           </div>
 

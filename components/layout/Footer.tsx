@@ -61,7 +61,7 @@ export default function Footer() {
           <div className="col-span-12 border-b border-white/10 pb-12 md:col-span-3 md:border-b-0 md:pb-0">
             <div className="flex items-center gap-2">
               <Image
-                src="/logo.svg"
+                src="/quild.svg"
                 alt="Quild logo"
                 width={24}
                 height={24}
@@ -144,16 +144,13 @@ export default function Footer() {
               <a href="https://x.com/QuildGlobal" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
                 <Image src="https://cdn.brandfetch.io/idS5WhqBbM/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1768324498338" alt="X" width={20} height={20} className="h-5 w-5" />
               </a>
-              <a href="#" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/quild-global/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Image src="https://cdn.brandfetch.io/idJFz6sAsl/theme/dark/id745SkyD0.svg?c=1bxid64Mup7aczewSAYMX&t=1740371004756" alt="LinkedIn" width={20} height={20} className="h-5 w-5" />
               </a>
               <a href="https://bsky.app/profile/quildglobal.bsky.social" target="_blank" rel="noopener noreferrer" aria-label="Bluesky">
                 <Image src="/Bluesky_Logo_0.svg" alt="Bluesky" width={20} height={20} className="h-5 w-5" />
               </a>
-              <a href="#" aria-label="GitHub">
-                <Image src="https://cdn.brandfetch.io/idZAyF9rlg/theme/light/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826" alt="GitHub" width={20} height={20} className="h-5 w-5" />
-              </a>
-              <a href="mailto:hello@quild.community" aria-label="Email">
+              <a href="mailto:hello@quild.com" aria-label="Email">
                 <Mail className="h-5 w-5" />
               </a>
             </div>
