@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Mail } from "lucide-react";
+import { Mail, Instagram } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -150,7 +150,10 @@ export default function Footer() {
               <a href="https://bsky.app/profile/quildglobal.bsky.social" target="_blank" rel="noopener noreferrer" aria-label="Bluesky">
                 <Image src="/Bluesky_Logo_0.svg" alt="Bluesky" width={20} height={20} className="h-5 w-5" />
               </a>
-              <a href="mailto:hello@quild.com" aria-label="Email">
+              <a href="https://www.instagram.com/quild.global/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="mailto:quild.global@gmail.com" aria-label="Email">
                 <Mail className="h-5 w-5" />
               </a>
             </div>
