@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import LenisProvider from "@/components/layout/LenisProvider";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-dm-sans",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://quild.in"),
@@ -131,7 +123,7 @@ export default function RootLayout({
 })();
         `}</Script>
       </head>
-      <body className={`${dmSans.variable} antialiased`}>
+      <body className="antialiased">
         <LenisProvider>
           <Navbar />
           <main>{children}</main>

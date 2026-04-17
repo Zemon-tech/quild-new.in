@@ -8,78 +8,107 @@ import { Separator } from "@/components/ui/separator";
 const POSITIONS = [
   {
     slug: "ai-engineer-l1",
-    title: "AI Engineer – Level 1",
+    title: "AI Engineer (Level 1) – Internship",
     department: "Engineering",
     type: "Internship",
     location: "Remote",
     summary:
-      "Entry-level AI engineer role for fast learners who love building with modern AI tools and shipping real products.",
+      "This is an entry-level AI engineering internship for people who are starting their journey but are deeply curious and willing to learn fast.",
     responsibilities: [
-      "Build and ship features that use modern LLM tooling (agents, RAG, evals, prompt systems).",
-      "Work with product + design to turn ideas into production-ready UX.",
-      "Write clean, testable code and learn the Quild engineering playbook.",
+      "Assist in building and maintaining AI-powered applications.",
+      "Work on frontend/backend tasks in MERN + Next.js projects.",
+      "Learn and contribute to API integrations and workflows.",
+      "Debug small to medium issues in codebases.",
+      "Explore modern AI tools and developer environments.",
+      "Support deployment and testing processes.",
     ],
     requirements: [
-      "Comfort with JavaScript/TypeScript (or strong fundamentals in any language).",
-      "Curiosity for AI systems and a bias to ship.",
-      "Good communication and a growth mindset.",
+      "Basic understanding of JavaScript, React, Node.js.",
+      "Familiarity with Next.js and Bootstrap (or willingness to learn).",
+      "Basic understanding of APIs and how they work.",
+      "Exposure to Git, debugging, and development workflows.",
+      "Curiosity about AI tools like OpenRouter, Groq, etc.",
     ],
     perks: [
-      "Paid internship (currently paid).",
-      "Real projects with real users — not random throwaway software.",
-      "Mentorship, fast feedback, and a strong learning environment.",
-      "Connections to founders, builders, and teams at great startups/companies.",
+      "Duration: 3 months.",
+      "Type: Unpaid.",
+      "Outcome: promotion to Level 2 (paid internship) based on performance.",
+      "Strong foundation in full-stack + AI development.",
+      "Real-world exposure to systems and workflows.",
+      "Hands-on learning with mentorship.",
     ],
+    tags: ["Unpaid", "High-Learning", "Mentorship"],
   },
   {
     slug: "ai-engineer-l2",
-    title: "AI Engineer – Level 2",
+    title: "AI Engineer (Level 2) – Internship (Unpaid → Paid Pathway)",
     department: "Engineering",
     type: "Internship",
     location: "Remote",
     summary:
-      "Mid-level AI engineer who can own features end-to-end, work across the stack, and build production-ready AI experiences.",
+      "We are looking for a highly curious and driven AI Engineer (Level 2) who thrives on building, breaking, and rebuilding systems.",
     responsibilities: [
-      "Own features from idea → implementation → release.",
-      "Design reliable AI flows (guardrails, evals, observability).",
-      "Collaborate cross-functionally and unblock others.",
+      "Design and build end-to-end AI-powered applications and systems.",
+      "Work across the stack using MERN + Next.js ecosystems.",
+      "Architect scalable systems, APIs, and deployments.",
+      "Integrate modern AI tools, APIs, and inference providers.",
+      "Experiment with agentic IDEs and developer tooling.",
+      "Handle deployment pipelines using Docker & Kubernetes.",
+      "Debug, optimize, and improve existing codebases.",
+      "Contribute to system design, routing, and architecture decisions.",
+      "Implement authentication, security, and performance best practices.",
     ],
     requirements: [
-      "Strong TypeScript/JavaScript fundamentals.",
-      "Experience building and shipping products (personal or professional).",
-      "Comfort with ambiguity and ownership.",
+      "Comfort exploring across frontend & backend (MERN stack, Next.js, Bootstrap).",
+      "Exposure to DevOps & infra (Docker, Kubernetes).",
+      "Familiarity with AI & APIs (OpenRouter, Groq, Fal AI, or similar tools).",
+      "Comfort with modern developer tooling (Cursor, Claude Code, Zed, Windsurf, or similar).",
+      "Understanding of core concepts: API fundamentals, system design thinking, deployment workflows, authentication & security, routing and application architecture.",
+      "Hardware awareness: basic understanding of GPUs, compute, and performance tradeoffs.",
     ],
     perks: [
-      "Paid internship (currently paid).",
-      "Work on real products with recognition and real impact.",
-      "Learn systems thinking: performance, reliability, and AI architecture.",
-      "Build a network with ambitious builders + startup teams.",
+      "Duration: 3 months.",
+      "Type: Unpaid (high-learning, high-ownership role).",
+      "Outcome: opportunity to transition into a paid internship with competitive compensation.",
+      "Long-term role potential based on performance.",
+      "Hands-on experience building real production-grade systems.",
+      "Exposure to cutting-edge AI tooling and infrastructure.",
     ],
+    tags: ["Unpaid → Paid Pathway", "High-Ownership", "Real Systems"],
   },
   {
     slug: "ai-engineer-l3",
-    title: "AI Engineer – Level 3",
+    title: "AI Engineer (Level 3) – Advanced Internship / Fast-track to Full-Time",
     department: "Engineering",
     type: "Internship",
     location: "Remote",
     summary:
-      "Senior AI engineer who leads architecture, scaling, and reliability of AI systems powering builders on our platform.",
+      "This role is for highly capable builders who can take ownership of systems and drive execution independently.",
     responsibilities: [
-      "Lead architecture decisions for AI systems and platform reliability.",
-      "Mentor other engineers and set engineering standards.",
-      "Design scalable pipelines for inference, tooling, and evaluation.",
+      "Design and architect scalable AI systems and applications.",
+      "Lead development across frontend, backend, and AI layers.",
+      "Build and optimize APIs, pipelines, and deployment systems.",
+      "Work with GPU workloads and performance optimization.",
+      "Integrate advanced AI models and inference providers.",
+      "Review code, mentor junior engineers, and guide best practices.",
+      "Make decisions around system design, scalability, and security.",
     ],
     requirements: [
-      "Strong full-stack engineering background.",
-      "Experience with production systems and performance/reliability.",
-      "Ability to lead with clarity and pragmatism.",
+      "Strong experience with MERN stack, Next.js, and modern frontend systems.",
+      "Hands-on expertise with Docker, Kubernetes, and deployment pipelines.",
+      "Deep understanding of APIs, system design, and architecture patterns.",
+      "Experience with AI tooling ecosystems (OpenRouter, Groq, Fal AI, etc.).",
+      "Familiarity with agentic IDEs and modern dev workflows.",
+      "Solid grasp of authentication, security, and scaling systems.",
+      "Understanding of GPU workloads, latency, and optimization tradeoffs.",
     ],
     perks: [
-      "Paid internship (currently paid).",
-      "High-leverage, real-world work with real constraints.",
-      "Work with experienced builders; learn and teach.",
-      "Deep connections across ambitious startups and teams.",
+      "Type: Advanced Internship / Fast-track to Full-Time.",
+      "Compensation: Paid (based on experience and impact).",
+      "Growth: leadership and architecture ownership opportunities.",
+      "Ownership of core systems and architecture decisions.",
     ],
+    tags: ["Paid", "Leadership", "Architecture"],
   },
   {
     slug: "brand-creator-l1",
@@ -262,7 +291,7 @@ export default async function CareersApplyPositionPage({
             </p>
 
             <div className="mt-8 flex flex-wrap gap-2">
-              {[position.type, "Paid", "Real Projects", "High-Learning"].map((tag) => (
+              {[position.type, ...(position.tags ?? [])].map((tag) => (
                 <span
                   key={tag}
                   className="font-mono text-[0.55rem] uppercase tracking-[0.15em] px-2 py-1 border border-[var(--border)] text-[var(--muted)]"
@@ -307,9 +336,8 @@ export default async function CareersApplyPositionPage({
                 actually use.
               </p>
               <p className="mt-4 font-sans text-[1rem] leading-[1.9] text-[var(--muted)]">
-                These positions are <span className="text-[var(--ink)]">paid</span> currently.
-                You’ll learn by shipping, you’ll get real feedback, and you’ll build connections with
-                teams at startups and companies doing great work.
+                These positions are internships with high learning and real ownership.
+                Compensation and outcomes vary by level, and strong performance can unlock faster growth.
               </p>
             </section>
 
