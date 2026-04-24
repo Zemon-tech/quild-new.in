@@ -13,7 +13,7 @@ const POSITIONS = [
         department: 'Engineering',
         type: 'Internship',
         location: 'Remote',
-        body: 'Entry-level AI engineer role for fast learners who love building with modern AI tools and shipping real products.',
+        body: 'Work on building real-world software systems using AI tools and frameworks, going beyond simple prompt-based applications. You will design, integrate, and scale intelligent systems.',
     },
     {
         slug: 'ai-engineer-l2',
@@ -21,7 +21,7 @@ const POSITIONS = [
         department: 'Engineering',
         type: 'Internship',
         location: 'Remote',
-        body: 'Mid-level AI engineer who can own features end-to-end, work across the stack, and build production-ready AI experiences.',
+        body: 'Work on building real-world software systems using AI tools and frameworks, going beyond simple prompt-based applications. You will design, integrate, and scale intelligent systems.',
     },
     {
         slug: 'ai-engineer-l3',
@@ -29,7 +29,7 @@ const POSITIONS = [
         department: 'Engineering',
         type: 'Internship',
         location: 'Remote',
-        body: 'Senior AI engineer who leads architecture, scaling, and reliability of AI systems powering builders on our platform.',
+        body: 'Work on building real-world software systems using AI tools and frameworks, going beyond simple prompt-based applications. You will design, integrate, and scale intelligent systems.',
     },
     {
         slug: 'brand-creator-l1',
@@ -37,7 +37,7 @@ const POSITIONS = [
         department: 'Brand & Community',
         type: 'Internship',
         location: 'Remote',
-        body: 'Early-career brand storyteller who loves experimenting with content across X, Reddit, LinkedIn, Instagram, and Bluesky.',
+        body: 'Own and build the visual and narrative identity of the company across platforms using AI-powered creative workflows.',
     },
     {
         slug: 'brand-creator-l2',
@@ -45,7 +45,7 @@ const POSITIONS = [
         department: 'Brand & Community',
         type: 'Internship',
         location: 'Remote',
-        body: 'Experienced brand builder who can own strategy and execution across X, Reddit, LinkedIn, Instagram, and Bluesky.',
+        body: 'Own and build the visual and narrative identity of the company across platforms using AI-powered creative workflows.',
     },
     {
         slug: 'researcher-systems-ai-l1',
@@ -53,7 +53,7 @@ const POSITIONS = [
         department: 'Research & Infrastructure',
         type: 'Internship',
         location: 'Remote',
-        body: 'Hands-on researcher focused on servers, latency, and AI integrations through real experiments.',
+        body: 'Focus on deep research and foundational work. This is not surface-level AI usage — this role is about understanding how systems work at a fundamental level.',
     },
     {
         slug: 'researcher-systems-ai-l2',
@@ -61,7 +61,7 @@ const POSITIONS = [
         department: 'Research & Infrastructure',
         type: 'Internship',
         location: 'Remote',
-        body: 'Experienced researcher working on server performance, latency, AI/ML model integration, and compute efficiency at scale.',
+        body: 'Focus on deep research and foundational work. This is not surface-level AI usage — this role is about understanding how systems work at a fundamental level.',
     },
 ];
 

@@ -12,22 +12,35 @@ const POSITIONS = [
     department: "Engineering",
     type: "Internship",
     location: "Remote",
-    summary:
-      "This is an entry-level AI engineering internship for people who are starting their journey but are deeply curious and willing to learn fast.",
+    summary: "Work on building real-world software systems using AI tools and frameworks, going beyond simple prompt-based applications. You will design, integrate, and scale intelligent systems.",
     responsibilities: [
-      "Assist in building and maintaining AI-powered applications.",
-      "Work on frontend/backend tasks in MERN + Next.js projects.",
-      "Learn and contribute to API integrations and workflows.",
-      "Debug small to medium issues in codebases.",
-      "Explore modern AI tools and developer environments.",
-      "Support deployment and testing processes.",
+      "Build AI-powered applications using tools like: Cursor, Windsurf, Lovable (and similar emerging tools)",
+      "Design and implement APIs, plugins, and internal libraries",
+      "Design and implement Multi-agent systems and workflows",
+      "Design and implement Retrieval-Augmented Generation (RAG) pipelines",
+      "Translate product ideas into scalable system architectures",
+      "Handle edge cases, reliability, and security concerns",
+      "Optimize performance, latency, and cost of AI systems",
+      "Deploy and maintain production-grade applications"
+    ],
+    technicalExposure: [
+      "System Design & Distributed Systems",
+      "AI application architecture (LLMs, embeddings, vector DBs)",
+      "Backend engineering (APIs, microservices)",
+      "UI/UX integration with AI systems",
+      "Observability, logging, and debugging",
+      "Scaling (load handling, infra decisions)"
     ],
     requirements: [
-      "Basic understanding of JavaScript, React, Node.js.",
-      "Familiarity with Next.js and Bootstrap (or willingness to learn).",
-      "Basic understanding of APIs and how they work.",
-      "Exposure to Git, debugging, and development workflows.",
-      "Curiosity about AI tools like OpenRouter, Groq, etc.",
+      "Strong problem-solving ability",
+      "Familiarity with at least one programming language (Python/JS preferred)",
+      "Understanding of APIs and basic system architecture",
+      "Ability to learn tools independently",
+      "High ownership and execution speed"
+    ],
+    bonus: [
+      "Experience with LangChain, vector databases, or agent frameworks",
+      "Built and deployed any real project"
     ],
     perks: [
       "Duration: 3 months.",
@@ -45,26 +58,35 @@ const POSITIONS = [
     department: "Engineering",
     type: "Internship",
     location: "Remote",
-    summary:
-      "We are looking for a highly curious and driven AI Engineer (Level 2) who thrives on building, breaking, and rebuilding systems.",
+    summary: "Work on building real-world software systems using AI tools and frameworks, going beyond simple prompt-based applications. You will design, integrate, and scale intelligent systems.",
     responsibilities: [
-      "Design and build end-to-end AI-powered applications and systems.",
-      "Work across the stack using MERN + Next.js ecosystems.",
-      "Architect scalable systems, APIs, and deployments.",
-      "Integrate modern AI tools, APIs, and inference providers.",
-      "Experiment with agentic IDEs and developer tooling.",
-      "Handle deployment pipelines using Docker & Kubernetes.",
-      "Debug, optimize, and improve existing codebases.",
-      "Contribute to system design, routing, and architecture decisions.",
-      "Implement authentication, security, and performance best practices.",
+      "Build AI-powered applications using tools like: Cursor, Windsurf, Lovable (and similar emerging tools)",
+      "Design and implement APIs, plugins, and internal libraries",
+      "Design and implement Multi-agent systems and workflows",
+      "Design and implement Retrieval-Augmented Generation (RAG) pipelines",
+      "Translate product ideas into scalable system architectures",
+      "Handle edge cases, reliability, and security concerns",
+      "Optimize performance, latency, and cost of AI systems",
+      "Deploy and maintain production-grade applications"
+    ],
+    technicalExposure: [
+      "System Design & Distributed Systems",
+      "AI application architecture (LLMs, embeddings, vector DBs)",
+      "Backend engineering (APIs, microservices)",
+      "UI/UX integration with AI systems",
+      "Observability, logging, and debugging",
+      "Scaling (load handling, infra decisions)"
     ],
     requirements: [
-      "Comfort exploring across frontend & backend (MERN stack, Next.js, Bootstrap).",
-      "Exposure to DevOps & infra (Docker, Kubernetes).",
-      "Familiarity with AI & APIs (OpenRouter, Groq, Fal AI, or similar tools).",
-      "Comfort with modern developer tooling (Cursor, Claude Code, Zed, Windsurf, or similar).",
-      "Understanding of core concepts: API fundamentals, system design thinking, deployment workflows, authentication & security, routing and application architecture.",
-      "Hardware awareness: basic understanding of GPUs, compute, and performance tradeoffs.",
+      "Strong problem-solving ability",
+      "Familiarity with at least one programming language (Python/JS preferred)",
+      "Understanding of APIs and basic system architecture",
+      "Ability to learn tools independently",
+      "High ownership and execution speed"
+    ],
+    bonus: [
+      "Experience with LangChain, vector databases, or agent frameworks",
+      "Built and deployed any real project"
     ],
     perks: [
       "Duration: 3 months.",
@@ -82,25 +104,35 @@ const POSITIONS = [
     department: "Engineering",
     type: "Internship",
     location: "Remote",
-    summary:
-      "This role is for highly capable builders who can take ownership of systems and drive execution independently.",
+    summary: "Work on building real-world software systems using AI tools and frameworks, going beyond simple prompt-based applications. You will design, integrate, and scale intelligent systems.",
     responsibilities: [
-      "Design and architect scalable AI systems and applications.",
-      "Lead development across frontend, backend, and AI layers.",
-      "Build and optimize APIs, pipelines, and deployment systems.",
-      "Work with GPU workloads and performance optimization.",
-      "Integrate advanced AI models and inference providers.",
-      "Review code, mentor junior engineers, and guide best practices.",
-      "Make decisions around system design, scalability, and security.",
+      "Build AI-powered applications using tools like: Cursor, Windsurf, Lovable (and similar emerging tools)",
+      "Design and implement APIs, plugins, and internal libraries",
+      "Design and implement Multi-agent systems and workflows",
+      "Design and implement Retrieval-Augmented Generation (RAG) pipelines",
+      "Translate product ideas into scalable system architectures",
+      "Handle edge cases, reliability, and security concerns",
+      "Optimize performance, latency, and cost of AI systems",
+      "Deploy and maintain production-grade applications"
+    ],
+    technicalExposure: [
+      "System Design & Distributed Systems",
+      "AI application architecture (LLMs, embeddings, vector DBs)",
+      "Backend engineering (APIs, microservices)",
+      "UI/UX integration with AI systems",
+      "Observability, logging, and debugging",
+      "Scaling (load handling, infra decisions)"
     ],
     requirements: [
-      "Strong experience with MERN stack, Next.js, and modern frontend systems.",
-      "Hands-on expertise with Docker, Kubernetes, and deployment pipelines.",
-      "Deep understanding of APIs, system design, and architecture patterns.",
-      "Experience with AI tooling ecosystems (OpenRouter, Groq, Fal AI, etc.).",
-      "Familiarity with agentic IDEs and modern dev workflows.",
-      "Solid grasp of authentication, security, and scaling systems.",
-      "Understanding of GPU workloads, latency, and optimization tradeoffs.",
+      "Strong problem-solving ability",
+      "Familiarity with at least one programming language (Python/JS preferred)",
+      "Understanding of APIs and basic system architecture",
+      "Ability to learn tools independently",
+      "High ownership and execution speed"
+    ],
+    bonus: [
+      "Experience with LangChain, vector databases, or agent frameworks",
+      "Built and deployed any real project"
     ],
     perks: [
       "Type: Advanced Internship / Fast-track to Full-Time.",
@@ -116,17 +148,32 @@ const POSITIONS = [
     department: "Brand & Community",
     type: "Internship",
     location: "Remote",
-    summary:
-      "Early-career brand storyteller who loves experimenting with content across X, Reddit, LinkedIn, Instagram, and Bluesky.",
+    summary: "Own and build the visual and narrative identity of the company across platforms using AI-powered creative workflows.",
     responsibilities: [
-      "Create and ship content experiments weekly.",
-      "Capture stories from builders and turn them into posts, threads, and micro-campaigns.",
-      "Help maintain Quild’s voice: curious, honest, builder-first.",
+      "Create and manage brand presence across social platforms",
+      "Design and produce short-form videos, reels, and edits",
+      "Design and produce visual assets (posts, carousels, thumbnails)",
+      "Design and produce podcast/video content",
+      "Maintain consistent brand aesthetics and storytelling",
+      "Use AI tools for content generation, editing, and scaling output",
+      "Collaborate with product and engineering teams for storytelling"
+    ],
+    toolsAndStack: [
+      "Canva",
+      "Figma",
+      "Google AI Studio",
+      "Video editing tools (AI + manual workflows)",
+      "Internal content pipelines"
     ],
     requirements: [
-      "Good writing instincts and taste.",
-      "Consistency: you can ship on a schedule.",
-      "Curiosity about startups and builders.",
+      "Strong sense of design, storytelling, and aesthetics",
+      "Ability to execute content quickly and consistently",
+      "Understanding of social media dynamics and growth loops",
+      "Comfortable experimenting with AI tools"
+    ],
+    bonus: [
+      "Experience growing a page or personal brand",
+      "Video editing and motion design skills"
     ],
     perks: [
       "Paid internship (currently paid).",
@@ -141,17 +188,32 @@ const POSITIONS = [
     department: "Brand & Community",
     type: "Internship",
     location: "Remote",
-    summary:
-      "Experienced brand builder who can own strategy and execution across X, Reddit, LinkedIn, Instagram, and Bluesky.",
+    summary: "Own and build the visual and narrative identity of the company across platforms using AI-powered creative workflows.",
     responsibilities: [
-      "Own and evolve content strategy with measurable goals.",
-      "Run campaigns end-to-end and improve performance with iteration.",
-      "Work closely with product and community to tell the right stories.",
+      "Create and manage brand presence across social platforms",
+      "Design and produce short-form videos, reels, and edits",
+      "Design and produce visual assets (posts, carousels, thumbnails)",
+      "Design and produce podcast/video content",
+      "Maintain consistent brand aesthetics and storytelling",
+      "Use AI tools for content generation, editing, and scaling output",
+      "Collaborate with product and engineering teams for storytelling"
+    ],
+    toolsAndStack: [
+      "Canva",
+      "Figma",
+      "Google AI Studio",
+      "Video editing tools (AI + manual workflows)",
+      "Internal content pipelines"
     ],
     requirements: [
-      "Proven track record growing a brand or community (portfolio helps).",
-      "Strong taste and the ability to self-edit ruthlessly.",
-      "Comfort leading and executing.",
+      "Strong sense of design, storytelling, and aesthetics",
+      "Ability to execute content quickly and consistently",
+      "Understanding of social media dynamics and growth loops",
+      "Comfortable experimenting with AI tools"
+    ],
+    bonus: [
+      "Experience growing a page or personal brand",
+      "Video editing and motion design skills"
     ],
     perks: [
       "Paid internship (currently paid).",
@@ -166,17 +228,34 @@ const POSITIONS = [
     department: "Research & Infrastructure",
     type: "Internship",
     location: "Remote",
-    summary:
-      "Hands-on researcher focused on servers, latency, and AI integrations through real experiments.",
+    summary: "Focus on deep research and foundational work. This is not surface-level AI usage — this role is about understanding how systems work at a fundamental level.",
     responsibilities: [
-      "Run experiments on performance, latency, and reliability.",
-      "Prototype AI integrations and measure outcomes.",
-      "Document findings clearly for engineers and stakeholders.",
+      "Research and design AI model training workflows",
+      "Research and design Data pipelines and infrastructure",
+      "Research and design Model evaluation and benchmarking strategies",
+      "Explore LLM architectures and fine-tuning approaches",
+      "Explore Efficient training methods",
+      "Explore System-level optimizations",
+      "Translate research into actionable roadmaps",
+      "Work on long-term, high-complexity problems"
+    ],
+    technicalAreas: [
+      "Machine Learning fundamentals",
+      "Deep Learning pipelines",
+      "Data engineering",
+      "Algorithms & core Computer Science",
+      "Model training & evaluation"
     ],
     requirements: [
-      "Strong fundamentals in CS/Systems (or demonstrated curiosity).",
-      "Comfort reading docs/papers and turning them into experiments.",
-      "Clear communication and structured thinking.",
+      "Strong curiosity and ability to go deep into topics",
+      "Solid understanding of core CS concepts",
+      "Ability to read research papers and extract insights",
+      "Patience to work on hard problems over long periods"
+    ],
+    bonus: [
+      "Experience with PyTorch / TensorFlow",
+      "Experience training or fine-tuning models",
+      "Published projects or research work"
     ],
     perks: [
       "Paid internship (currently paid).",
@@ -191,17 +270,34 @@ const POSITIONS = [
     department: "Research & Infrastructure",
     type: "Internship",
     location: "Remote",
-    summary:
-      "Experienced researcher working on server performance, latency, AI/ML model integration, and compute efficiency at scale.",
+    summary: "Focus on deep research and foundational work. This is not surface-level AI usage — this role is about understanding how systems work at a fundamental level.",
     responsibilities: [
-      "Own research threads and turn them into system improvements.",
-      "Partner with engineering to improve reliability and cost/perf.",
-      "Build strong measurement frameworks and dashboards.",
+      "Research and design AI model training workflows",
+      "Research and design Data pipelines and infrastructure",
+      "Research and design Model evaluation and benchmarking strategies",
+      "Explore LLM architectures and fine-tuning approaches",
+      "Explore Efficient training methods",
+      "Explore System-level optimizations",
+      "Translate research into actionable roadmaps",
+      "Work on long-term, high-complexity problems"
+    ],
+    technicalAreas: [
+      "Machine Learning fundamentals",
+      "Deep Learning pipelines",
+      "Data engineering",
+      "Algorithms & core Computer Science",
+      "Model training & evaluation"
     ],
     requirements: [
-      "Experience with performance profiling/benchmarking.",
-      "Ability to drive projects independently.",
-      "Strong writing and collaboration.",
+      "Strong curiosity and ability to go deep into topics",
+      "Solid understanding of core CS concepts",
+      "Ability to read research papers and extract insights",
+      "Patience to work on hard problems over long periods"
+    ],
+    bonus: [
+      "Experience with PyTorch / TensorFlow",
+      "Experience training or fine-tuning models",
+      "Published projects or research work"
     ],
     perks: [
       "Paid internship (currently paid).",
@@ -307,7 +403,7 @@ export default async function CareersApplyPositionPage({
               asChild
               className="rounded-none font-mono text-[0.7rem] uppercase tracking-[0.14em] h-10 px-6"
             >
-              <Link href="/apply">Apply</Link>
+              <Link href="https://tally.so/r/Gxo9Rp" target="_blank" rel="noopener noreferrer">Apply</Link>
             </Button>
           </div>
         </div>
@@ -390,6 +486,234 @@ export default async function CareersApplyPositionPage({
                 </ul>
               </div>
             </section>
+
+            {/* Optional technical fields per role */}
+            {/* @ts-ignore - position may have these fields */}
+            {position.technicalExposure && (
+              <section>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontStyle: "italic",
+                    fontWeight: 600,
+                    fontSize: "1.55rem",
+                    lineHeight: 1.1,
+                    margin: 0,
+                  }}
+                >
+                  Technical Exposure
+                </h2>
+                <div className="mt-5">
+                  <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                    {/* @ts-ignore */}
+                    {position.technicalExposure.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
+
+            {/* @ts-ignore */}
+            {position.toolsAndStack && (
+              <section>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontStyle: "italic",
+                    fontWeight: 600,
+                    fontSize: "1.55rem",
+                    lineHeight: 1.1,
+                    margin: 0,
+                  }}
+                >
+                  Tools & Stack
+                </h2>
+                <div className="mt-5">
+                  <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                    {/* @ts-ignore */}
+                    {position.toolsAndStack.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
+
+            {/* @ts-ignore */}
+            {position.technicalAreas && (
+              <section>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontStyle: "italic",
+                    fontWeight: 600,
+                    fontSize: "1.55rem",
+                    lineHeight: 1.1,
+                    margin: 0,
+                  }}
+                >
+                  Technical Areas
+                </h2>
+                <div className="mt-5">
+                  <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                    {/* @ts-ignore */}
+                    {position.technicalAreas.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
+
+            {/* @ts-ignore */}
+            {position.bonus && (
+              <section>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontStyle: "italic",
+                    fontWeight: 600,
+                    fontSize: "1.55rem",
+                    lineHeight: 1.1,
+                    margin: 0,
+                  }}
+                >
+                  Bonus
+                </h2>
+                <div className="mt-5">
+                  <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                    {/* @ts-ignore */}
+                    {position.bonus.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--sage)] shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            )}
+
+            <Separator className="my-8" />
+
+            {/* Global Sections */}
+            <section>
+              <h2
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "1.55rem",
+                  lineHeight: 1.1,
+                  margin: 0,
+                }}
+              >
+                What We Value (Across All Roles)
+              </h2>
+              <div className="mt-5">
+                <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span><strong>Grit over talent</strong> — consistency and effort matter more than background</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span><strong>Speed of learning</strong> — ability to pick up unfamiliar tools quickly</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span><strong>Ownership</strong> — treating problems as your own</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span><strong>Execution {">"} ideas</strong> — shipping matters</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "1.55rem",
+                  lineHeight: 1.1,
+                  margin: 0,
+                }}
+              >
+                Work Environment
+              </h2>
+              <div className="mt-5">
+                <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span>Fast-paced, high-ownership culture</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span>Real production exposure (not dummy tasks)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span>Work on systems that scale</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--ink)]/50 shrink-0" />
+                    <span>Direct involvement in product building</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  fontSize: "1.55rem",
+                  lineHeight: 1.1,
+                  margin: 0,
+                }}
+              >
+                Growth Opportunity
+              </h2>
+              <p className="mt-4 font-sans text-[1rem] leading-[1.9] text-[var(--muted)]">
+                Interns will gain:
+              </p>
+              <div className="mt-3">
+                <ul className="space-y-3 font-sans text-[1rem] leading-[1.85] text-[var(--muted)]">
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--sage)] shrink-0" />
+                    <span>Real-world system design experience</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--sage)] shrink-0" />
+                    <span>Exposure to cutting-edge AI workflows</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--sage)] shrink-0" />
+                    <span>Hands-on production deployment experience</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-[11px] h-[3px] w-[3px] bg-[var(--sage)] shrink-0" />
+                    <span>Deep understanding of building scalable products</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
           </div>
 
           <aside className="lg:col-span-4">
@@ -415,7 +739,7 @@ export default async function CareersApplyPositionPage({
                   asChild
                   className="w-full rounded-none font-mono text-[0.7rem] uppercase tracking-[0.14em] h-11"
                 >
-                  <Link href="/apply">Apply now →</Link>
+                  <Link href="https://tally.so/r/Gxo9Rp" target="_blank" rel="noopener noreferrer">Apply now →</Link>
                 </Button>
                 <Button
                   asChild
