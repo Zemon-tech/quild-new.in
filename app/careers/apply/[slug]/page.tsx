@@ -54,7 +54,7 @@ const POSITIONS = [
   },
   {
     slug: "ai-engineer-l2",
-    title: "AI Engineer (Level 2) – Internship (Unpaid → Paid Pathway)",
+    title: "AI Engineer (Level 2) – Internship",
     department: "Engineering",
     type: "Internship",
     location: "Remote",
@@ -91,12 +91,12 @@ const POSITIONS = [
     perks: [
       "Duration: 3 months.",
       "Type: Unpaid (high-learning, high-ownership role).",
-      "Outcome: opportunity to transition into a paid internship with competitive compensation.",
+      "Outcome: opportunity for full-time role based on performance.",
       "Long-term role potential based on performance.",
       "Hands-on experience building real production-grade systems.",
       "Exposure to cutting-edge AI tooling and infrastructure.",
     ],
-    tags: ["Unpaid → Paid Pathway", "High-Ownership", "Real Systems"],
+    tags: ["Unpaid", "High-Ownership", "Real Systems"],
   },
   {
     slug: "ai-engineer-l3",
@@ -135,12 +135,11 @@ const POSITIONS = [
       "Built and deployed any real project"
     ],
     perks: [
-      "Type: Advanced Internship / Fast-track to Full-Time.",
-      "Compensation: Paid (based on experience and impact).",
+      "Type: Unpaid Advanced Internship / Fast-track to Full-Time.",
       "Growth: leadership and architecture ownership opportunities.",
       "Ownership of core systems and architecture decisions.",
     ],
-    tags: ["Paid", "Leadership", "Architecture"],
+    tags: ["Unpaid", "Leadership", "Architecture"],
   },
   {
     slug: "brand-creator-l1",
@@ -176,7 +175,7 @@ const POSITIONS = [
       "Video editing and motion design skills"
     ],
     perks: [
-      "Paid internship (currently paid).",
+      "Type: Unpaid internship.",
       "Work that gets seen — real distribution, real feedback.",
       "Learn brand systems: voice, narrative, and community loops.",
       "Meet and connect with builders at great startups/companies.",
@@ -216,7 +215,7 @@ const POSITIONS = [
       "Video editing and motion design skills"
     ],
     perks: [
-      "Paid internship (currently paid).",
+      "Type: Unpaid internship.",
       "Strategic work on a real brand, not generic client work.",
       "Learn startup-grade brand building and distribution.",
       "Direct access and connections to strong teams and founders.",
@@ -258,7 +257,7 @@ const POSITIONS = [
       "Published projects or research work"
     ],
     perks: [
-      "Paid internship (currently paid).",
+      "Type: Unpaid internship.",
       "Learn by doing: real experiments with real constraints.",
       "Work with engineers on projects that matter.",
       "Network with great teams across startups and companies.",
@@ -300,7 +299,7 @@ const POSITIONS = [
       "Published projects or research work"
     ],
     perks: [
-      "Paid internship (currently paid).",
+      "Type: Unpaid internship.",
       "Real projects, real impact, real recognition.",
       "Deep learning in systems + AI infra.",
       "Work alongside ambitious builders and teams.",
