@@ -124,6 +124,37 @@ export default function RootLayout({
         `}</Script>
       </head>
       <body className="antialiased">
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "name": "Quild",
+                  "url": "https://quild.in",
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://quild.in/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
+                },
+                {
+                  "@type": "Organization",
+                  "name": "Quild",
+                  "url": "https://quild.in",
+                  "logo": "https://quild.in/quild.svg",
+                  "sameAs": [
+                    "https://twitter.com/QuildGlobal",
+                    "https://www.linkedin.com/company/quild"
+                  ]
+                }
+              ]
+            })
+          }}
+        />
         <LenisProvider>
           <Navbar />
           <main>{children}</main>

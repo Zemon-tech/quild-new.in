@@ -8,6 +8,18 @@ import AboutPhilosophy from "@/components/about/AboutPhilosophy";
 import AboutVision from "@/components/about/AboutVision";
 import AboutClosingQuote from "@/components/about/AboutClosingQuote";
 import AboutCTA from "@/components/about/AboutCTA";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn about Quild, our mission, vision, and the founders building a community for serious builders, engineers, and students in AI.",
+  alternates: { canonical: "https://quild.in/about" },
+  openGraph: {
+    title: "About Us | Quild",
+    description: "Learn about Quild, our mission, vision, and the founders building a community for serious builders, engineers, and students in AI.",
+    url: "https://quild.in/about",
+  },
+};
 
 export default function AboutPage() {
   return (

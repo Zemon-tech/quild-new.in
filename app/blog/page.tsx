@@ -2,6 +2,18 @@ import BlogCategoryRow from "@/components/blog/BlogCategoryRow";
 import BlogFeatured from "@/components/blog/BlogFeatured";
 import BlogHero from "@/components/blog/BlogHero";
 import BlogNewsletter from "@/components/blog/BlogNewsletter";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blogs",
+  description: "Read the latest thoughts, engineering deep dives, and AI tool reviews from the Quild community.",
+  alternates: { canonical: "https://quild.in/blog" },
+  openGraph: {
+    title: "Blogs | Quild",
+    description: "Read the latest thoughts, engineering deep dives, and AI tool reviews from the Quild community.",
+    url: "https://quild.in/blog",
+  },
+};
 
 export default function BlogPage() {
   return (
